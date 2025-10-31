@@ -57,4 +57,153 @@ main { padding: 18px 0 32px; }
   .faq-list { grid-template-columns: 1fr 1fr; }
 }
 
+/* Add FAQ Form Styles */
+.btn-add {
+  background: var(--brand);
+  color: #0b1220;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.btn-add:hover { opacity: 0.9; }
+
+.add-form {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.add-form h2 {
+  margin: 0 0 16px;
+  font-size: 18px;
+}
+.form-group {
+  margin-bottom: 16px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 14px;
+}
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.checkbox-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.btn-submit,
+.btn-cancel {
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+}
+.btn-submit {
+  background: var(--brand);
+  color: #0b1220;
+}
+.btn-submit:hover { opacity: 0.9; }
+.btn-cancel {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.btn-cancel:hover {
+  color: var(--text);
+  border-color: #334155;
+}
+
+.json-output {
+  margin-top: 24px;
+  padding: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.json-output h3 {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.json-output code {
+  color: var(--brand);
+  font-size: 13px;
+}
+.json-output pre {
+  background: #0a0f1a;
+  color: #93c5fd;
+  padding: 14px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 12px 0;
+  border: 1px solid #1e293b;
+}
+.btn-copy {
+  background: var(--brand);
+  color: #0b1220;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+.btn-copy:hover { opacity: 0.9; }
+.btn-copy:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
 
