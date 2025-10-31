@@ -1,0 +1,60 @@
+:root {
+  --bg: #0b1220;
+  --panel: #0f172a;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --brand: #60a5fa;
+  --border: #1f2937;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", "Apple Color Emoji", "Segoe UI Emoji";
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container { width: 100%; max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+.site-header { border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 10; }
+.header-inner { display: flex; align-items: center; gap: 12px; padding: 14px 0; }
+.site-header h1 { font-size: 18px; margin: 0; letter-spacing: 0.3px; }
+.repo-link { margin-left: auto; color: var(--muted); text-decoration: none; border: 1px solid var(--border); padding: 6px 10px; border-radius: 8px; }
+.repo-link:hover { color: var(--text); border-color: #334155; }
+
+main { padding: 18px 0 32px; }
+
+.controls { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.search-box { flex: 1 1 320px; }
+.search-box input {
+  width: 100%;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+.filters { display: flex; gap: 10px; }
+.filters select { background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; }
+
+.results-info { color: var(--muted); margin: 8px 0 2px; font-size: 12px; }
+
+.faq-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.faq-item { border: 1px solid var(--border); background: var(--panel); border-radius: 12px; padding: 14px; }
+.faq-item h3 { margin: 0 0 8px; font-size: 16px; }
+.faq-item .meta { color: var(--muted); font-size: 12px; margin-bottom: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+.faq-item .answer { color: #cbd5e1; line-height: 1.6; }
+.faq-item .anchor { color: var(--brand); text-decoration: none; font-size: 12px; margin-left: 6px; }
+.badge { background: #1e293b; color: #93c5fd; border: 1px solid #334155; font-size: 11px; padding: 2px 6px; border-radius: 999px; }
+
+.site-footer { border-top: 1px solid var(--border); margin-top: 24px; padding: 16px 0; color: var(--muted); }
+
+@media (min-width: 720px) {
+  .faq-list { grid-template-columns: 1fr 1fr; }
+}
+
+
