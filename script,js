@@ -98,32 +98,49 @@ function populateFilters() {
 
 function renderCategoryChips() {
   const wrap = document.getElementById('categoryChips');
-  if (!wrap) return;
+  if (!wrap) {
+    console.warn('categoryChips element not found');
+    return;
+  }
+  
   wrap.innerHTML = '';
   const counts = new Map();
   state.allFaqs.forEach((it) => {
     const key = it.category || '一般问题';
     counts.set(key, (counts.get(key) || 0) + 1);
   });
+  
   // "All" chip
   const allChip = document.createElement('button');
   allChip.className = `chip${state.category ? '' : ' active'}`;
   allChip.type = 'button';
   allChip.textContent = `All (${state.allFaqs.length})`;
-  allChip.addEventListener('click', () => { state.category = ''; $('#categorySelect').value = ''; render(filterAndSearch()); renderCategoryChips(); });
+  allChip.addEventListener('click', () => { 
+    state.category = ''; 
+    const sel = $('#categorySelect');
+    if (sel) sel.value = ''; 
+    render(filterAndSearch()); 
+    renderCategoryChips(); 
+  });
   wrap.appendChild(allChip);
-  // Show predefined categories first, then others
+  
+  // Show predefined categories - always show all, even if count is 0
   PREDEFINED_CATEGORIES.forEach((c) => {
     const count = counts.get(c) || 0;
-    if (count > 0 || state.allFaqs.length === 0) { // Show even if 0 for visibility
-      const chip = document.createElement('button');
-      chip.className = `chip${state.category === c ? ' active' : ''}`;
-      chip.type = 'button';
-      chip.textContent = `${c}${count > 0 ? ` (${count})` : ''}`;
-      chip.addEventListener('click', () => { state.category = c; $('#categorySelect').value = c; render(filterAndSearch()); renderCategoryChips(); });
-      wrap.appendChild(chip);
-    }
+    const chip = document.createElement('button');
+    chip.className = `chip${state.category === c ? ' active' : ''}`;
+    chip.type = 'button';
+    chip.textContent = `${c}${count > 0 ? ` (${count})` : ''}`;
+    chip.addEventListener('click', () => { 
+      state.category = c; 
+      const sel = $('#categorySelect');
+      if (sel) sel.value = c; 
+      render(filterAndSearch()); 
+      renderCategoryChips(); 
+    });
+    wrap.appendChild(chip);
   });
+  
   // Other categories not in predefined list
   Array.from(counts.keys())
     .filter(c => !PREDEFINED_CATEGORIES.includes(c))
@@ -133,7 +150,13 @@ function renderCategoryChips() {
       chip.className = `chip${state.category === c ? ' active' : ''}`;
       chip.type = 'button';
       chip.textContent = `${c} (${counts.get(c)})`;
-      chip.addEventListener('click', () => { state.category = c; $('#categorySelect').value = c; render(filterAndSearch()); renderCategoryChips(); });
+      chip.addEventListener('click', () => { 
+        state.category = c; 
+        const sel = $('#categorySelect');
+        if (sel) sel.value = c; 
+        render(filterAndSearch()); 
+        renderCategoryChips(); 
+      });
       wrap.appendChild(chip);
     });
 }
@@ -315,6 +338,11 @@ async function main() {
   }
 
   render(filterAndSearch());
+  
+  // Ensure category chips are visible after render
+  setTimeout(() => {
+    renderCategoryChips();
+  }, 100);
 }
 
 main().catch((err) => {
