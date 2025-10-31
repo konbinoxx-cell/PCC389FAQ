@@ -1,0 +1,42 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "slug": "account-create",
+      "question": "How do I create an account?",
+      "answer": "<p>Go to our sign-up page, enter your email and basic info, then verify your email to complete registration.</p>",
+      "category": "Account & Access",
+      "audience": ["新客户"],
+      "tags": ["signup", "email verification"]
+    },
+    {
+      "id": 2,
+      "slug": "billing-invoice",
+      "question": "How can I get an invoice?",
+      "answer": "<p>Sign in → Billing Center → choose the month → click \"Download Invoice\". For a paper invoice, contact Finance Support.</p>",
+      "category": "Billing & Invoices",
+      "audience": ["在服客户"],
+      "tags": ["invoice", "reimbursement"]
+    },
+    {
+      "id": 3,
+      "slug": "support-sla",
+      "question": "What is the support response time?",
+      "answer": "<p>Standard: Mon–Fri 9:00–18:00, first response within 2 hours. For critical incidents, mark the ticket as \"Urgent\" and also call us.</p>",
+      "category": "Service & Support",
+      "audience": ["在服客户", "新客户"],
+      "tags": ["SLA", "ticket"]
+    },
+    {
+      "id": 4,
+      "slug": "security-data",
+      "question": "How do you keep data secure?",
+      "answer": "<p>We use encryption in transit and at rest, least-privilege access, dual backups, and audit trails. See the Security Whitepaper. For sensitive data, sign a Data Processing Addendum (DPA) with us.</p>",
+      "category": "Security & Compliance",
+      "audience": ["新客户", "在服客户"],
+      "tags": ["encryption", "backup", "compliance"]
+    }
+  ]
+}
+
+
