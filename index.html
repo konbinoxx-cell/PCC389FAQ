@@ -44,6 +44,26 @@
     <header class="site-header">
       <div class="container header-inner">
         <h1>Building Services FAQ</h1>
+        <div class="lang-selector">
+          <label for="langSelect">🌐</label>
+          <select id="langSelect" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="ar">العربية</option>
+            <option value="zh">中文</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+            <option value="hi">हिन्दी</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="th">ไทย</option>
+            <option value="pl">Polski</option>
+          </select>
+        </div>
         <a class="repo-link" href="#" id="emailLink" target="_blank" rel="noopener">Email support</a>
         <a class="repo-link" href="https://github.com/konbinoxx-cell/PCC389FAQ" id="repoLink" target="_blank" rel="noopener">GitHub</a>
       </div>
@@ -132,9 +152,45 @@
       </div>
     </footer>
 
+    <!-- Google Translate Widget -->
+    <div id="google_translate_element" style="display:none;"></div>
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,es,ar,zh-CN,zh-TW,fr,de,it,pt,ru,ja,ko,hi,vi,th,pl',
+          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <!-- Fuse.js 轻量搜索（CDN） -->
     <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
     <script src="./assets/script.js" type="module"></script>
+    <script>
+      // Custom language selector - trigger Google Translate
+      document.addEventListener('DOMContentLoaded', () => {
+        const langSelect = document.getElementById('langSelect');
+        if (langSelect) {
+          langSelect.addEventListener('change', function(e) {
+            const targetLang = e.target.value;
+            // Use Google Translate's cookie method
+            document.cookie = `googtrans=/en/${targetLang}; path=/; domain=${window.location.hostname}`;
+            location.reload();
+          });
+          
+          // Set current language based on cookie
+          const cookie = document.cookie.match(/googtrans=([^;]+)/);
+          if (cookie) {
+            const lang = cookie[1].split('/').pop();
+            if (lang && lang !== 'en') {
+              langSelect.value = lang;
+            }
+          }
+        }
+      });
+    </script>
   </body>
   </html>
 
