@@ -51,9 +51,14 @@ function uniqueCategories() {
 
 function populateFilters() {
   const catSel = $('#categorySelect');
+  const catList = $('#categoryList');
   uniqueCategories().forEach((c) => {
     const opt = document.createElement('option');
     opt.value = c; opt.textContent = c; catSel.appendChild(opt);
+    
+    const datalistOpt = document.createElement('option');
+    datalistOpt.value = c;
+    catList.appendChild(datalistOpt);
   });
 }
 
@@ -131,6 +136,94 @@ function bindEvents() {
   $('#audienceSelect').addEventListener('change', (e) => {
     state.audience = e.target.value || '';
     render(filterAndSearch());
+  });
+
+  // Add FAQ form handling
+  $('#addFaqBtn').addEventListener('click', () => {
+    const form = $('#addFaqForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    if (form.style.display === 'block') {
+      $('#faqQuestion').focus();
+    }
+  });
+
+  $('#cancelFormBtn').addEventListener('click', () => {
+    $('#addFaqForm').style.display = 'none';
+    $('#faqForm').reset();
+    $('#jsonOutput').style.display = 'none';
+  });
+
+  $('#faqForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    // Get next ID
+    const nextId = state.allFaqs.length > 0 
+      ? Math.max(...state.allFaqs.map(it => it.id)) + 1 
+      : 1;
+    
+    // Collect audience checkboxes
+    const audience = [];
+    $$('input[name="audience"]:checked').forEach(cb => {
+      audience.push(cb.value);
+    });
+    
+    // Parse tags (comma-separated)
+    const tagsStr = formData.get('tags') || '';
+    const tags = tagsStr.split(',').map(t => t.trim()).filter(Boolean);
+    
+    // Build FAQ object
+    const newFaq = {
+      id: nextId,
+      question: formData.get('question'),
+      answer: formData.get('answer'),
+      category: formData.get('category') || null,
+      audience: audience.length > 0 ? audience : null,
+      tags: tags.length > 0 ? tags : null
+    };
+    
+    // Add slug if provided
+    const slug = formData.get('slug')?.trim();
+    if (slug) newFaq.slug = slug;
+    
+    // Remove null fields
+    Object.keys(newFaq).forEach(key => {
+      if (newFaq[key] === null || newFaq[key] === '') {
+        delete newFaq[key];
+      }
+    });
+    
+    // Generate JSON snippet
+    const jsonSnippet = JSON.stringify(newFaq, null, 2);
+    
+    // Show JSON output
+    $('#jsonContent').textContent = jsonSnippet;
+    $('#jsonOutput').style.display = 'block';
+    $('#jsonOutput').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Optional: Add to current list for preview
+    state.allFaqs.push(newFaq);
+    buildFuse();
+    populateFilters();
+    render(filterAndSearch());
+  });
+
+  $('#copyJsonBtn').addEventListener('click', async () => {
+    const text = $('#jsonContent').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      const btn = $('#copyJsonBtn');
+      const originalText = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.style.background = '#10b981';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      alert('Failed to copy. Please manually select and copy the JSON.');
+    }
   });
 }
 
