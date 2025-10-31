@@ -1,0 +1,153 @@
+/* eslint-disable no-console */
+const state = {
+  allFaqs: [],
+  fuse: null,
+  q: '',
+  category: '',
+  audience: ''
+};
+
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function getRepoUrlFromMeta() {
+  const url = new URL(window.location.href);
+  const repo = url.searchParams.get('repo');
+  return repo || '';
+}
+
+function updateRepoLink() {
+  const repo = getRepoUrlFromMeta();
+  if (!repo) return;
+  const el = $('#repoLink');
+  el.href = repo;
+}
+
+async function loadData() {
+  const res = await fetch('./data/faq.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('Failed to load FAQ data');
+  const json = await res.json();
+  state.allFaqs = json.items || [];
+}
+
+function buildFuse() {
+  state.fuse = new Fuse(state.allFaqs, {
+    includeScore: true,
+    threshold: 0.35,
+    minMatchCharLength: 2,
+    keys: [
+      { name: 'question', weight: 0.6 },
+      { name: 'answer', weight: 0.3 },
+      { name: 'tags', weight: 0.1 }
+    ]
+  });
+}
+
+function uniqueCategories() {
+  const s = new Set();
+  state.allFaqs.forEach((it) => { if (it.category) s.add(it.category); });
+  return Array.from(s).sort();
+}
+
+function populateFilters() {
+  const catSel = $('#categorySelect');
+  uniqueCategories().forEach((c) => {
+    const opt = document.createElement('option');
+    opt.value = c; opt.textContent = c; catSel.appendChild(opt);
+  });
+}
+
+function normalize(str) { return (str || '').toLowerCase(); }
+
+function filterAndSearch() {
+  const q = normalize(state.q);
+  let items = state.allFaqs;
+  if (state.category) items = items.filter((it) => it.category === state.category);
+  if (state.audience) items = items.filter((it) => (it.audience || []).includes(state.audience));
+  if (q.length >= 2) {
+    const result = state.fuse.search(q);
+    const ids = new Set(result.map((r) => r.item.id));
+    items = items.filter((it) => ids.has(it.id));
+  }
+  return items;
+}
+
+function render(items) {
+  const list = $('#faqList');
+  list.innerHTML = '';
+  const info = $('#resultsInfo');
+  info.textContent = `${items.length} result${items.length === 1 ? '' : 's'}`;
+
+  if (items.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'faq-item';
+    empty.innerHTML = '<div class="answer">No results. Try different keywords.</div>';
+    list.appendChild(empty);
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  items.forEach((it) => {
+    const card = document.createElement('article');
+    card.className = 'faq-item';
+    card.id = it.slug || `faq-${it.id}`;
+
+    const h3 = document.createElement('h3');
+    h3.textContent = it.question;
+    const anchor = document.createElement('a');
+    anchor.href = `#${card.id}`;
+    anchor.className = 'anchor';
+    anchor.textContent = 'Link';
+    h3.appendChild(anchor);
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const cat = it.category ? `<span class="badge">${it.category}</span>` : '';
+    const aud = (it.audience || []).map((a) => `<span class="badge">${a}</span>`).join(' ');
+    const tags = (it.tags || []).slice(0, 4).map((t) => `<span class="badge">#${t}</span>`).join(' ');
+    meta.innerHTML = [cat, aud, tags].filter(Boolean).join(' ');
+
+    const ans = document.createElement('div');
+    ans.className = 'answer';
+    ans.innerHTML = it.answer;
+
+    card.appendChild(h3);
+    card.appendChild(meta);
+    card.appendChild(ans);
+    frag.appendChild(card);
+  });
+  list.appendChild(frag);
+}
+
+function bindEvents() {
+  $('#searchInput').addEventListener('input', (e) => {
+    state.q = e.target.value || '';
+    render(filterAndSearch());
+  });
+  $('#categorySelect').addEventListener('change', (e) => {
+    state.category = e.target.value || '';
+    render(filterAndSearch());
+  });
+  $('#audienceSelect').addEventListener('change', (e) => {
+    state.audience = e.target.value || '';
+    render(filterAndSearch());
+  });
+}
+
+async function main() {
+  document.getElementById('year').textContent = String(new Date().getFullYear());
+  updateRepoLink();
+  await loadData();
+  buildFuse();
+  populateFilters();
+  bindEvents();
+  render(filterAndSearch());
+}
+
+main().catch((err) => {
+  console.error(err);
+  const list = document.getElementById('faqList');
+  list.innerHTML = '<div class="faq-item"><div class="answer">Load failed. Please refresh and try again later.</div></div>';
+});
+
+
