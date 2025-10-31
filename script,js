@@ -16,24 +16,13 @@ function getRepoUrlFromMeta() {
   return repo || '';
 }
 
-function getEmailFromMeta() {
+function getAdminEmail() {
   const url = new URL(window.location.href);
   const email = url.searchParams.get('email');
-  if (!email) return 'mailto:support@example.com?subject=New%20FAQ%20question&body=Please%20describe%20your%20question%3A%0A';
-  return email.startsWith('mailto:') ? email : `mailto:${email}`;
+  // Default email - you can change this or set via ?email=your@email.com
+  return email || 'johnetli@gmail.com';
 }
 
-function updateRepoLink() {
-  const repo = getRepoUrlFromMeta();
-  if (!repo) return;
-  const el = $('#repoLink');
-  el.href = repo;
-}
-
-function updateEmailLink() {
-  const link = $('#emailLink');
-  link.href = getEmailFromMeta();
-}
 
 async function loadData() {
   const res = await fetch('./data/faq.json', { cache: 'no-store' });
@@ -77,24 +66,7 @@ const PREDEFINED_CATEGORIES = [
   'Party Room'
 ];
 
-function populateFilters() {
-  const catSel = $('#categorySelect');
-  // Always populate with predefined categories
-  PREDEFINED_CATEGORIES.forEach((c) => {
-    // Check if option already exists
-    if (!Array.from(catSel.options).some(opt => opt.value === c)) {
-      const opt = document.createElement('option');
-      opt.value = c; opt.textContent = c; catSel.appendChild(opt);
-    }
-  });
-  // Also add any categories from data that aren't in predefined list
-  uniqueCategories().forEach((c) => {
-    if (!PREDEFINED_CATEGORIES.includes(c)) {
-      const opt = document.createElement('option');
-      opt.value = c; opt.textContent = c; catSel.appendChild(opt);
-    }
-  });
-}
+// Removed populateFilters - category select is only in add FAQ form now
 
 function renderCategoryChips() {
   const wrap = document.getElementById('categoryChips');
@@ -117,8 +89,6 @@ function renderCategoryChips() {
   allChip.textContent = `All (${state.allFaqs.length})`;
   allChip.addEventListener('click', () => { 
     state.category = ''; 
-    const sel = $('#categorySelect');
-    if (sel) sel.value = ''; 
     render(filterAndSearch()); 
     renderCategoryChips(); 
   });
@@ -133,8 +103,6 @@ function renderCategoryChips() {
     chip.textContent = `${c}${count > 0 ? ` (${count})` : ''}`;
     chip.addEventListener('click', () => { 
       state.category = c; 
-      const sel = $('#categorySelect');
-      if (sel) sel.value = c; 
       render(filterAndSearch()); 
       renderCategoryChips(); 
     });
@@ -152,8 +120,6 @@ function renderCategoryChips() {
       chip.textContent = `${c} (${counts.get(c)})`;
       chip.addEventListener('click', () => { 
         state.category = c; 
-        const sel = $('#categorySelect');
-        if (sel) sel.value = c; 
         render(filterAndSearch()); 
         renderCategoryChips(); 
       });
@@ -185,8 +151,7 @@ function render(items) {
   if (items.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'faq-item';
-    const mail = getEmailFromMeta();
-    empty.innerHTML = `<div class="answer">No results. Try different keywords. <a href="${mail}">Email us your question</a>.</div>`;
+    empty.innerHTML = '<div class="answer">No results. Try different keywords.</div>';
     list.appendChild(empty);
     return;
   }
@@ -229,16 +194,49 @@ function bindEvents() {
     state.q = e.target.value || '';
     render(filterAndSearch());
   });
-  $('#categorySelect').addEventListener('change', (e) => {
-    state.category = e.target.value || '';
-    render(filterAndSearch());
-  });
-  $('#audienceSelect').addEventListener('change', (e) => {
-    state.audience = e.target.value || '';
-    render(filterAndSearch());
+
+  // Submit question form handling
+  $('#submitQuestionBtn').addEventListener('click', () => {
+    const form = $('#submitQuestionForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    if (form.style.display === 'block') {
+      $('#questionText').focus();
+      form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
   });
 
-  // Add FAQ form handling
+  $('#cancelQuestionBtn').addEventListener('click', () => {
+    $('#submitQuestionForm').style.display = 'none';
+    $('#questionForm').reset();
+  });
+
+  $('#questionForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const question = formData.get('question');
+    const category = formData.get('category') || 'Not specified';
+    const contact = formData.get('contact') || 'Not provided';
+    
+    const adminEmail = getAdminEmail();
+    const subject = encodeURIComponent('New FAQ Question Submission');
+    const body = encodeURIComponent(
+      `A new question has been submitted through the FAQ page:\n\n` +
+      `Question: ${question}\n\n` +
+      `Category: ${category}\n\n` +
+      `Contact: ${contact}\n\n` +
+      `Submitted on: ${new Date().toLocaleString()}`
+    );
+    
+    // Open mailto link to send email
+    window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
+    
+    // Show confirmation
+    alert('Thank you! Your email client should open. If it doesn\'t, please email us directly at ' + adminEmail);
+    $('#questionForm').reset();
+    $('#submitQuestionForm').style.display = 'none';
+  });
+
+  // Add FAQ form handling (admin only)
   $('#addFaqBtn').addEventListener('click', () => {
     const form = $('#addFaqForm');
     form.style.display = form.style.display === 'none' ? 'block' : 'none';
@@ -297,7 +295,7 @@ function bindEvents() {
     // Optional: Add to current list for preview
     state.allFaqs.push(newFaq);
     buildFuse();
-    populateFilters();
+    renderCategoryChips();
     render(filterAndSearch());
   });
 
@@ -322,11 +320,8 @@ function bindEvents() {
 
 async function main() {
   document.getElementById('year').textContent = String(new Date().getFullYear());
-  updateRepoLink();
-  updateEmailLink();
   await loadData();
   buildFuse();
-  populateFilters();
   renderCategoryChips();
   bindEvents();
 
