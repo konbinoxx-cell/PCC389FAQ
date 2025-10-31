@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="./assets/styles.css" />
-  <style>
+    <style>
       /* Critical fallback styles to ensure decent look even if external CSS fails */
       :root { --bg:#0b1220; --panel:#0f172a; --text:#e2e8f0; --muted:#94a3b8; --brand:#60a5fa; --border:#1f2937; }
       html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,'Noto Sans','Helvetica Neue';background:#0b1220;color:#e2e8f0}
@@ -26,6 +26,17 @@
       .meta{color:var(--muted);font-size:12px;margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap}
       .badge{background:#1e293b;color:#93c5fd;border:1px solid #334155;font-size:11px;padding:2px 6px;border-radius:999px}
       .site-footer{border-top:1px solid var(--border);margin-top:24px;padding:16px 0;color:var(--muted)}
+      .btn-add{background:var(--brand);color:#0b1220;border:none;padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer}
+      .add-form{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
+      .form-group{margin-bottom:16px}
+      .form-group label{display:block;margin-bottom:6px;font-size:14px;font-weight:600}
+      .form-group textarea{min-height:80px;resize:vertical}
+      .form-actions{display:flex;gap:10px;margin-top:20px}
+      .btn-submit,.btn-cancel{padding:10px 20px;border-radius:10px;font-weight:600;cursor:pointer;border:none}
+      .btn-submit{background:var(--brand);color:#0b1220}
+      .btn-cancel{background:transparent;color:var(--muted);border:1px solid var(--border)}
+      .json-output pre{background:#0a0f1a;color:#93c5fd;padding:14px;border-radius:8px;overflow-x:auto;font-size:13px;margin:12px 0}
+      .btn-copy{background:var(--brand);color:#0b1220;border:none;padding:10px 20px;border-radius:10px;font-weight:600;cursor:pointer}
       @media (min-width:720px){.faq-list{grid-template-columns:1fr 1fr}}
     </style>
   </head>
@@ -52,6 +63,53 @@
             <option value="在服客户">Active customers</option>
             <option value="内部">Internal</option>
           </select>
+          <button id="addFaqBtn" class="btn-add" type="button">+ Add FAQ</button>
+        </div>
+      </section>
+
+      <section id="addFaqForm" class="add-form" style="display: none;">
+        <h2>Add New FAQ</h2>
+        <form id="faqForm">
+          <div class="form-group">
+            <label for="faqQuestion">Question *</label>
+            <input type="text" id="faqQuestion" name="question" required placeholder="Enter the question..." />
+          </div>
+          <div class="form-group">
+            <label for="faqAnswer">Answer * (HTML allowed)</label>
+            <textarea id="faqAnswer" name="answer" rows="4" required placeholder="Enter the answer. HTML tags like &lt;p&gt;, &lt;strong&gt;, &lt;a&gt; are supported."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="faqCategory">Category</label>
+              <input type="text" id="faqCategory" name="category" list="categoryList" placeholder="e.g., Account & Access" />
+              <datalist id="categoryList"></datalist>
+            </div>
+            <div class="form-group">
+              <label for="faqSlug">Slug (optional)</label>
+              <input type="text" id="faqSlug" name="slug" placeholder="e.g., account-create" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Audience (select all that apply)</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="audience" value="新客户" /> New customers</label>
+              <label><input type="checkbox" name="audience" value="在服客户" /> Active customers</label>
+              <label><input type="checkbox" name="audience" value="内部" /> Internal</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="faqTags">Tags (comma-separated)</label>
+            <input type="text" id="faqTags" name="tags" placeholder="e.g., signup, email, verification" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Generate JSON</button>
+            <button type="button" class="btn-cancel" id="cancelFormBtn">Cancel</button>
+          </div>
+        </form>
+        <div id="jsonOutput" class="json-output" style="display: none;">
+          <h3>Copy this JSON to add to <code>data/faq.json</code>:</h3>
+          <pre id="jsonContent"></pre>
+          <button type="button" class="btn-copy" id="copyJsonBtn">Copy JSON</button>
         </div>
       </section>
 
