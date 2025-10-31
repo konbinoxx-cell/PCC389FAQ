@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FAQ | Company Service FAQ</title>
+    <meta name="description" content="Company services frequently asked questions" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1>Company Service FAQ</h1>
+        <a class="repo-link" href="https://github.com/konbinoxx-cell/PCC389FAQ" id="repoLink" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="controls">
+        <div class="search-box">
+          <input id="searchInput" type="search" placeholder="Search questions or keywords…" aria-label="Search" />
+        </div>
+        <div class="filters">
+          <select id="categorySelect" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+          <select id="audienceSelect" aria-label="Filter by audience">
+            <option value="">All audiences</option>
+            <option value="新客户">New customers</option>
+            <option value="在服客户">Active customers</option>
+            <option value="内部">Internal</option>
+          </select>
+        </div>
+      </section>
+
+      <section id="resultsInfo" class="results-info" aria-live="polite"></section>
+
+      <section id="faqList" class="faq-list">
+        <!-- 动态渲染 FAQ 条目 -->
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© <span id="year"></span> Your Company. For reference only.</small>
+      </div>
+    </footer>
+
+    <!-- Fuse.js 轻量搜索（CDN） -->
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    <script src="./assets/script.js" type="module"></script>
+  </body>
+  </html>
+
+
