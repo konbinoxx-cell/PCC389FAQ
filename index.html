@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FAQ | Company Service FAQ</title>
-    <meta name="description" content="Company services frequently asked questions" />
+    <title>FAQ | Building Services FAQ</title>
+    <meta name="description" content="Building services frequently asked questions for residents" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
@@ -43,7 +43,7 @@
   <body>
     <header class="site-header">
       <div class="container header-inner">
-        <h1>Company Service FAQ</h1>
+        <h1>Building Services FAQ</h1>
         <a class="repo-link" href="#" id="emailLink" target="_blank" rel="noopener">Email support</a>
         <a class="repo-link" href="https://github.com/konbinoxx-cell/PCC389FAQ" id="repoLink" target="_blank" rel="noopener">GitHub</a>
       </div>
@@ -58,11 +58,8 @@
           <select id="categorySelect" aria-label="Filter by category">
             <option value="">All categories</option>
           </select>
-          <select id="audienceSelect" aria-label="Filter by audience">
+          <select id="audienceSelect" aria-label="Filter by audience" style="display:none;">
             <option value="">All audiences</option>
-            <option value="新客户">New customers</option>
-            <option value="在服客户">Active customers</option>
-            <option value="内部">Internal</option>
           </select>
           <button id="addFaqBtn" class="btn-add" type="button" style="display:none;">+ Add FAQ</button>
         </div>
@@ -84,20 +81,26 @@
           <div class="form-row">
             <div class="form-group">
               <label for="faqCategory">Category</label>
-              <input type="text" id="faqCategory" name="category" list="categoryList" placeholder="e.g., Account & Access" />
-              <datalist id="categoryList"></datalist>
+              <select id="faqCategory" name="category">
+                <option value="">Select a category</option>
+                <option value="一般问题">一般问题</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="electricity">Electricity</option>
+                <option value="heating&cooling">Heating & Cooling</option>
+                <option value="parking">Parking</option>
+                <option value="garbage">Garbage</option>
+                <option value="回收垃圾">回收垃圾</option>
+                <option value="缴费">缴费</option>
+                <option value="游泳">游泳</option>
+                <option value="健身">健身</option>
+                <option value="壁球">壁球</option>
+                <option value="台球/乒乓球">台球/乒乓球</option>
+                <option value="Party Room">Party Room</option>
+              </select>
             </div>
             <div class="form-group">
               <label for="faqSlug">Slug (optional)</label>
               <input type="text" id="faqSlug" name="slug" placeholder="e.g., account-create" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Audience (select all that apply)</label>
-            <div class="checkbox-group">
-              <label><input type="checkbox" name="audience" value="新客户" /> New customers</label>
-              <label><input type="checkbox" name="audience" value="在服客户" /> Active customers</label>
-              <label><input type="checkbox" name="audience" value="内部" /> Internal</label>
             </div>
           </div>
           <div class="form-group">
@@ -125,7 +128,7 @@
 
     <footer class="site-footer">
       <div class="container">
-        <small>© <span id="year"></span> Your Company. For reference only.</small>
+        <small>© <span id="year"></span> Building Management. For reference only.</small>
       </div>
     </footer>
 
