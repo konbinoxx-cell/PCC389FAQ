@@ -41,6 +41,10 @@ main { padding: 18px 0 32px; }
 .filters { display: flex; gap: 10px; }
 .filters select { background: var(--panel); color: var(--text); border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; }
 
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 14px; }
+.chip { background: #0a162a; color: #cfe2ff; border: 1px solid #22324d; padding: 6px 10px; border-radius: 999px; font-size: 12px; cursor: pointer; }
+.chip.active { background: var(--brand); color: #0b1220; border-color: var(--brand); }
+
 .results-info { color: var(--muted); margin: 8px 0 2px; font-size: 12px; }
 
 .faq-list { display: grid; grid-template-columns: 1fr; gap: 10px; }
