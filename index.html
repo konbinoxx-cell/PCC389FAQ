@@ -38,6 +38,24 @@
       .json-output pre{background:#0a0f1a;color:#93c5fd;padding:14px;border-radius:8px;overflow-x:auto;font-size:13px;margin:12px 0}
       .btn-copy{background:var(--brand);color:#0b1220;border:none;padding:10px 20px;border-radius:10px;font-weight:600;cursor:pointer}
       @media (min-width:720px){.faq-list{grid-template-columns:1fr 1fr}}
+    <style>
+  /* 在现有的内联样式中添加 */
+
+  /* 确保所有交互元素都有正确的 cursor */
+  .btn-add, .btn-submit, .btn-cancel, .btn-copy, .chip {
+    cursor: pointer;
+  }
+  
+  input, select, textarea {
+    cursor: pointer;
+  }
+  
+  input[type="text"], input[type="search"], textarea {
+    cursor: text;
+  }
+
+  /* 现有的其他样式保持不变... */
+</style>
     </style>
   </head>
   <body>
