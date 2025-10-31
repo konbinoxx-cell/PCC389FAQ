@@ -269,5 +269,48 @@ main { padding: 18px 0 32px; }
     grid-template-columns: 1fr;
   }
 }
+/* 添加到 styles.css 的末尾 */
 
+/* Cursor 修复 */
+.btn-add,
+.btn-submit,
+.btn-cancel,
+.btn-copy,
+.chip,
+.filters select,
+.lang-selector select,
+.search-box input,
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+  cursor: pointer;
+}
+
+/* 特定输入框的 cursor */
+.search-box input,
+.form-group input[type="text"],
+.form-group textarea {
+  cursor: text;
+}
+
+/* 悬停效果增强 */
+.btn-add:hover,
+.btn-submit:hover,
+.btn-copy:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.btn-cancel:hover {
+  cursor: pointer;
+  color: var(--text);
+  border-color: #334155;
+}
+
+.chip:hover {
+  cursor: pointer;
+  background: #152033;
+  border-color: #3e4d6b;
+  transform: translateY(-1px);
+}
 
