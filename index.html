@@ -44,6 +44,7 @@
     <header class="site-header">
       <div class="container header-inner">
         <h1>Company Service FAQ</h1>
+        <a class="repo-link" href="#" id="emailLink" target="_blank" rel="noopener">Email support</a>
         <a class="repo-link" href="https://github.com/konbinoxx-cell/PCC389FAQ" id="repoLink" target="_blank" rel="noopener">GitHub</a>
       </div>
     </header>
@@ -63,9 +64,11 @@
             <option value="在服客户">Active customers</option>
             <option value="内部">Internal</option>
           </select>
-          <button id="addFaqBtn" class="btn-add" type="button">+ Add FAQ</button>
+          <button id="addFaqBtn" class="btn-add" type="button" style="display:none;">+ Add FAQ</button>
         </div>
       </section>
+
+      <section id="categoryChips" class="chips" aria-label="Quick categories"></section>
 
       <section id="addFaqForm" class="add-form" style="display: none;">
         <h2>Add New FAQ</h2>
