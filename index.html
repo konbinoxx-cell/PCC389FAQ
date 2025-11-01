@@ -49,19 +49,43 @@
             color: var(--muted);
         }
         
-        .language-selector {
-            margin: 15px 0;
+        .language-section {
+            margin: 20px 0;
             text-align: center;
+        }
+        
+        .language-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        
+        .language-selector {
+            display: inline-block;
+            position: relative;
         }
         
         .language-selector select {
             background: var(--panel);
             color: var(--text);
             border: 1px solid var(--border);
-            padding: 8px 12px;
+            padding: 10px 40px 10px 12px;
             border-radius: 6px;
             cursor: pointer;
             font-size: 14px;
+            appearance: none;
+            min-width: 150px;
+        }
+        
+        .language-selector::after {
+            content: "🌐";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 16px;
         }
         
         .latest-faqs {
@@ -183,52 +207,20 @@
             border-color: #334155;
         }
 
-        /* Google Translate Widget Styles */
+        /* Hide the default Google Translate widget */
         #google_translate_element {
-            text-align: center;
-            margin: 10px 0;
+            display: none !important;
         }
 
-        .goog-te-gadget {
-            font-family: inherit !important;
+        /* Style for translated content */
+        .goog-te-banner-frame {
+            display: none !important;
         }
 
-        .goog-te-gadget-simple {
-            background: var(--panel) !important;
-            border: 1px solid var(--border) !important;
-            border-radius: 6px !important;
-            padding: 8px 12px !important;
-        }
-
-        .goog-te-gadget-simple .goog-te-menu-value span {
-            color: var(--text) !important;
-        }
-
-        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(3) {
-            border-left: 1px solid var(--border) !important;
-        }
-
-        .goog-te-menu-frame {
-            max-width: 100% !important;
+        body {
+            top: 0px !important;
         }
     </style>
-    
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false,
-                gaTrack: false,
-                gaId: 'none'
-            }, 'google_translate_element');
-            
-            console.log('Google Translate initialized');
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <header>
@@ -239,28 +231,28 @@
             <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
         </div>
         
-        <!-- Google Translate Widget -->
-        <div id="google_translate_element"></div>
-        
-        <div class="language-selector" style="display:none;">
-            <select id="languageSelect">
-                <option value="en">English</option>
-                <option value="fr">Français</option>
-                <option value="zh-CN">中文</option>
-                <option value="es">Español</option>
-                <option value="ar">العربية</option>
-                <option value="de">Deutsch</option>
-                <option value="it">Italiano</option>
-                <option value="pt">Português</option>
-                <option value="ru">Русский</option>
-                <option value="ja">日本語</option>
-                <option value="ko">한국어</option>
-                <option value="hi">हिन्दी</option>
-                <option value="vi">Tiếng Việt</option>
-                <option value="pl">Polski</option>
-                <option value="uk">Українська</option>
-                <option value="tr">Türkçe</option>
-            </select>
+        <div class="language-section">
+            <span class="language-label">Select Language / 选择语言 / Choisir la langue:</span>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="fr">Français (French)</option>
+                    <option value="zh-CN">中文 (Chinese)</option>
+                    <option value="es">Español (Spanish)</option>
+                    <option value="ar">العربية (Arabic)</option>
+                    <option value="de">Deutsch (German)</option>
+                    <option value="it">Italiano (Italian)</option>
+                    <option value="pt">Português (Portuguese)</option>
+                    <option value="ru">Русский (Russian)</option>
+                    <option value="ja">日本語 (Japanese)</option>
+                    <option value="ko">한국어 (Korean)</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="vi">Tiếng Việt (Vietnamese)</option>
+                    <option value="pl">Polski (Polish)</option>
+                    <option value="uk">Українська (Ukrainian)</option>
+                    <option value="tr">Türkçe (Turkish)</option>
+                </select>
+            </div>
         </div>
     </header>
 
@@ -312,8 +304,11 @@
         <p>© 2024 PCC389 Building Management. For reference only.</p>
     </footer>
 
+    <!-- Google Translate -->
+    <div id="google_translate_element"></div>
+
     <script>
-        // FAQ Data - Updated with proper content
+        // FAQ Data
         const faqData = [
             {
                 id: 1,
@@ -355,7 +350,7 @@
         // Display latest 5 FAQs
         function displayFAQs() {
             const faqList = document.getElementById('faqList');
-            const latestFAQs = faqData.slice(0, 5); // Get latest 5
+            const latestFAQs = faqData.slice(0, 5);
             
             faqList.innerHTML = latestFAQs.map(faq => `
                 <div class="faq-item">
@@ -380,7 +375,6 @@
             const question = formData.get('question');
             const category = formData.get('category') || 'Not specified';
             
-            // Send email (this will open user's email client)
             const email = 'johnetli@gmail.com';
             const subject = encodeURIComponent('New PCC389 FAQ Question Submission');
             const body = encodeURIComponent(
@@ -392,34 +386,45 @@
             );
             
             window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-            
-            // Show confirmation
             alert('Thank you for your question! Your email client should open. If not, please email us directly at ' + email);
-            
-            // Reset form
             resetForm();
         });
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            displayFAQs();
-            console.log('FAQ application loaded');
-            
-            // Check if Google Translate is loaded
-            setTimeout(() => {
-                const translateFrame = document.querySelector('.goog-te-menu-frame');
-                if (translateFrame) {
-                    console.log('Google Translate is working');
-                } else {
-                    console.log('Google Translate not detected');
-                }
-            }, 2000);
-        });
-
-        // Fallback language selection (if Google Translate fails)
+        // Language selection handler
         document.getElementById('languageSelect').addEventListener('change', function(e) {
             const lang = e.target.value;
-            console.log('Language selected:', lang);
+            
+            // Use Google Translate API directly
+            if (window.google && google.translate) {
+                // If Google Translate is loaded, use it
+                const translateInstance = new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                });
+            } else {
+                // Fallback: set cookie for Google Translate
+                document.cookie = `googtrans=/en/${lang}; path=/`;
+                location.reload();
+            }
+        });
+
+        // Initialize Google Translate
+        function initializeGoogleTranslate() {
+            const script = document.createElement('script');
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.head.appendChild(script);
+        }
+
+        function googleTranslateElementInit() {
+            // Google Translate is now available
+            console.log('Google Translate loaded');
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            displayFAQs();
+            initializeGoogleTranslate();
         });
     </script>
 </body>
