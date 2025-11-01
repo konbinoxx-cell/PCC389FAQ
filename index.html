@@ -55,41 +55,29 @@
         }
         
         .language-selector {
-            display: inline-block;
-            position: relative;
-        }
-        
-        .language-selector select {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: var(--panel);
-            color: var(--text);
             border: 1px solid var(--border);
-            padding: 10px 40px 10px 12px;
             border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            appearance: none;
-            min-width: 150px;
+            padding: 8px 12px;
         }
         
-        .language-selector::before {
-            content: "🌐";
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
+        .language-icon {
             font-size: 16px;
         }
         
-        .language-selector::after {
-            content: "▼";
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            font-size: 10px;
-            color: var(--muted);
+        .language-selector select {
+            background: transparent;
+            color: var(--text);
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-size: 14px;
+            appearance: none;
+            outline: none;
+            min-width: 120px;
         }
         
         .latest-faqs {
@@ -211,7 +199,7 @@
             border-color: #334155;
         }
 
-        /* Hide the default Google Translate widget */
+        /* Google Translate Styles */
         #google_translate_element {
             display: none !important;
         }
@@ -220,30 +208,14 @@
             display: none !important;
         }
 
+        .skiptranslate {
+            display: none !important;
+        }
+
         body {
             top: 0px !important;
         }
-
-        /* Style for Google Translate if it appears */
-        .goog-te-gadget {
-            font-size: 0px !important;
-        }
     </style>
-
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            console.log('Google Translate initialized');
-            // Initialize but keep hidden
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <header>
@@ -256,6 +228,7 @@
         
         <div class="language-section">
             <div class="language-selector">
+                <span class="language-icon">🌐</span>
                 <select id="languageSelect">
                     <option value="en">English</option>
                     <option value="fr">Français</option>
@@ -271,13 +244,11 @@
                     <option value="hi">हिन्दी</option>
                     <option value="vi">Tiếng Việt</option>
                     <option value="pl">Polski</option>
-                    <option value="uk">Українська</option>
-                    <option value="tr">Türkçe</option>
                 </select>
             </div>
         </div>
 
-        <!-- Hidden Google Translate Element -->
+        <!-- Google Translate will be injected here -->
         <div id="google_translate_element"></div>
     </header>
 
@@ -328,6 +299,36 @@
     <footer>
         <p>© 2024 PCC389 Building Management. For reference only.</p>
     </footer>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        // Initialize Google Translate
+        function googleTranslateElementInit() {
+            console.log('Google Translate initialized');
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+            
+            // Hide the default Google Translate dropdown
+            const style = document.createElement('style');
+            style.textContent = `
+                .goog-te-gadget { display: none !important; }
+                .goog-te-combo { display: none !important; }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Load Google Translate
+        function loadGoogleTranslate() {
+            const script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.head.appendChild(script);
+        }
+    </script>
 
     <script>
         // FAQ Data
@@ -412,44 +413,51 @@
             resetForm();
         });
 
-        // Language selection handler - FIXED TRANSLATION
+        // Language selection - WORKING TRANSLATION
         document.getElementById('languageSelect').addEventListener('change', function(e) {
             const lang = e.target.value;
             
-            // Method 1: Use Google Translate if available
-            if (window.google && google.translate && google.translate.TranslateElement) {
+            // Method 1: Wait for Google Translate to load and use it directly
+            function attemptTranslate() {
                 const translateCombo = document.querySelector('.goog-te-combo');
                 if (translateCombo) {
                     translateCombo.value = lang;
                     translateCombo.dispatchEvent(new Event('change'));
-                    console.log('Translation triggered via Google Translate');
-                    return;
+                    console.log('Translation triggered for:', lang);
+                    return true;
                 }
+                return false;
             }
             
-            // Method 2: Set cookie and reload (fallback)
-            console.log('Using cookie method for translation');
-            const domain = window.location.hostname;
-            document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain}`;
-            
-            // Small delay to ensure cookie is set
-            setTimeout(() => {
-                window.location.reload();
-            }, 100);
+            // Try immediately
+            if (!attemptTranslate()) {
+                // If not ready, wait a bit and try again
+                setTimeout(() => {
+                    if (!attemptTranslate()) {
+                        // Fallback: reload with language cookie
+                        console.log('Using cookie fallback for:', lang);
+                        document.cookie = `googtrans=/en/${lang}; path=/`;
+                        setTimeout(() => location.reload(), 100);
+                    }
+                }, 500);
+            }
         });
 
-        // Check current language on load
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             displayFAQs();
+            loadGoogleTranslate(); // Load Google Translate
             
-            // Set current language in selector based on cookie
-            const cookie = document.cookie.match(/googtrans=([^;]+)/);
-            if (cookie) {
-                const lang = cookie[1].split('/').pop();
-                if (lang && lang !== 'en') {
-                    document.getElementById('languageSelect').value = lang;
+            // Set current language based on cookie
+            setTimeout(() => {
+                const cookie = document.cookie.match(/googtrans=([^;]+)/);
+                if (cookie) {
+                    const lang = cookie[1].split('/').pop();
+                    if (lang && lang !== 'en') {
+                        document.getElementById('languageSelect').value = lang;
+                    }
                 }
-            }
+            }, 1000);
             
             console.log('FAQ application loaded');
         });
