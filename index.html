@@ -1,261 +1,376 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
+<html lang="en">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FAQ | Building Services FAQ</title>
-    <meta name="description" content="Building services frequently asked questions for residents" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/styles.css" />
+    <title>Building Services FAQ</title>
     <style>
-  /* Critical fallback styles to ensure decent look even if external CSS fails */
-  :root { --bg:#0b1220; --panel:#0f172a; --text:#e2e8f0; --muted:#94a3b8; --brand:#60a5fa; --border:#1f2937; }
-  html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,'Noto Sans','Helvetica Neue';background:#0b1220;color:#e2e8f0}
-  .container{max-width:980px;margin:0 auto;padding:0 16px}
-  .site-header{border-bottom:1px solid var(--border);background:#0f172aAA;backdrop-filter:blur(8px);position:sticky;top:0;z-index:10}
-  .header-inner{display:flex;align-items:center;gap:12px;padding:14px 0}
-  h1{font-size:22px;margin:0}
-  a{color:var(--brand);text-decoration:none}
-  a:hover{text-decoration:underline}
-  .controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:16px 0}
-  input,select{background:#0f172a;color:#e2e8f0;border:1px solid var(--border);padding:10px 12px;border-radius:10px}
-  .faq-list{display:grid;grid-template-columns:1fr;gap:10px}
-  .faq-item{border:1px solid var(--border);background:#0f172a;border-radius:12px;padding:14px}
-  .meta{color:var(--muted);font-size:12px;margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap}
-  .badge{background:#1e293b;color:#93c5fd;border:1px solid #334155;font-size:11px;padding:2px 6px;border-radius:999px}
-  .site-footer{border-top:1px solid var(--border);margin-top:24px;padding:16px 0;color:var(--muted)}
-  .btn-add{background:var(--brand);color:#0b1220;border:none;padding:10px 16px;border-radius:10px;font-weight:600;cursor:pointer}
-  .add-form{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px}
-  .form-group{margin-bottom:16px}
-  .form-group label{display:block;margin-bottom:6px;font-size:14px;font-weight:600}
-  .form-group textarea{min-height:80px;resize:vertical}
-  .form-actions{display:flex;gap:10px;margin-top:20px}
-  .btn-submit,.btn-cancel{padding:10px 20px;border-radius:10px;font-weight:600;cursor:pointer;border:none}
-  .btn-submit{background:var(--brand);color:#0b1220}
-  .btn-cancel{background:transparent;color:var(--muted);border:1px solid var(--border)}
-  .json-output pre{background:#0a0f1a;color:#93c5fd;padding:14px;border-radius:8px;overflow-x:auto;font-size:13px;margin:12px 0}
-  .btn-copy{background:var(--brand);color:#0b1220;border:none;padding:10px 20px;border-radius:10px;font-weight:600;cursor:pointer}
-
-  /* === CURSOR FIXES === */
-  /* 确保所有交互元素都有正确的 cursor */
-  .btn-add, .btn-submit, .btn-cancel, .btn-copy, .chip {
-    cursor: pointer;
-  }
-  
-  /* 最基础的 cursor 确保，即使 CSS 加载失败 */
-  button, [role="button"], select, .btn {
-    cursor: pointer !important;
-  }
-  
-  input, select, textarea {
-    cursor: pointer;
-  }
-  
-  input[type="text"], input[type="search"], textarea {
-    cursor: text !important;
-  }
-  
-  /* 悬停效果 */
-  .btn-add:hover, .btn-submit:hover, .btn-copy:hover {
-    opacity: 0.9;
-  }
-  
-  .btn-cancel:hover {
-    color: var(--text);
-    border-color: #334155;
-  }
-
-  @media (min-width:720px){.faq-list{grid-template-columns:1fr 1fr}}
-</style>
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="container header-inner">
+        :root {
+            --bg: #0b1220;
+            --panel: #0f172a;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --brand: #60a5fa;
+            --border: #1f2937;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        h1 { color: var(--brand); margin-bottom: 10px; }
+        
+        .language-selector {
+            margin: 15px 0;
+        }
+        
+        .language-selector select {
+            background: var(--panel);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .latest-faqs {
+            margin-bottom: 30px;
+        }
+        
+        .faq-item {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .faq-item h3 {
+            color: var(--brand);
+            margin-bottom: 10px;
+        }
+        
+        .category {
+            display: inline-block;
+            background: #1e293b;
+            color: #93c5fd;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .answer {
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+        
+        .add-question-btn {
+            background: var(--brand);
+            color: #0b1220;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            font-size: 16px;
+        }
+        
+        .add-question-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .question-form {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            display: none;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: var(--bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .submit-btn {
+            background: var(--brand);
+            color: #0b1220;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .cancel-btn {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
         <h1>Building Services FAQ</h1>
-        <div class="lang-selector">
-          <label for="langSelect">🌐</label>
-          <select id="langSelect" aria-label="Select language">
-            <option value="en">English</option>
-            <option value="es">Español</option>
-            <option value="ar">العربية</option>
-            <option value="zh">中文</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="it">Italiano</option>
-            <option value="pt">Português</option>
-            <option value="ru">Русский</option>
-            <option value="ja">日本語</option>
-            <option value="ko">한국어</option>
-            <option value="hi">हिन्दी</option>
-            <option value="vi">Tiếng Việt</option>
-            <option value="th">ไทย</option>
-            <option value="pl">Polski</option>
-          </select>
+        <div class="language-selector">
+            <select id="languageSelect">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="zh-CN">中文</option>
+                <option value="es">Español</option>
+                <option value="ar">العربية</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+                <option value="pt">Português</option>
+                <option value="ru">Русский</option>
+                <option value="ja">日本語</option>
+                <option value="ko">한국어</option>
+                <option value="hi">हिन्दी</option>
+                <option value="vi">Tiếng Việt</option>
+                <option value="pl">Polski</option>
+                <option value="uk">Українська</option>
+                <option value="tr">Türkçe</option>
+            </select>
         </div>
-      </div>
     </header>
 
-    <main class="container">
-      <section class="controls">
-        <div class="search-box">
-          <input id="searchInput" type="search" placeholder="Search questions or keywords…" aria-label="Search" />
-        </div>
-        <div class="filters">
-          <button id="addFaqBtn" class="btn-add" type="button" style="display:none;">+ Add FAQ</button>
-        </div>
-      </section>
-
-      <section id="categoryChips" class="chips" aria-label="Quick categories"></section>
-
-      <section id="submitQuestionForm" class="add-form" style="display: none;">
-        <h2>Submit a New Question</h2>
-        <p style="color: var(--muted); margin-bottom: 16px;">Can't find what you're looking for? Submit your question and we'll get back to you.</p>
-        <form id="questionForm">
-          <div class="form-group">
-            <label for="questionText">Your Question *</label>
-            <textarea id="questionText" name="question" rows="3" required placeholder="Enter your question here..."></textarea>
-          </div>
-          <div class="form-group">
-            <label for="questionCategory">Category (optional)</label>
-            <select id="questionCategory" name="category">
-              <option value="">Select a category</option>
-              <option value="一般问题">一般问题</option>
-              <option value="plumbing">Plumbing</option>
-              <option value="electricity">Electricity</option>
-              <option value="heating&cooling">Heating & Cooling</option>
-              <option value="parking">Parking</option>
-              <option value="garbage">Garbage</option>
-              <option value="回收垃圾">回收垃圾</option>
-              <option value="缴费">缴费</option>
-              <option value="游泳">游泳</option>
-              <option value="健身">健身</option>
-              <option value="壁球">壁球</option>
-              <option value="台球/乒乓球">台球/乒乓球</option>
-              <option value="Party Room">Party Room</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="questionContact">Your Contact (optional)</label>
-            <input type="text" id="questionContact" name="contact" placeholder="Email or phone number" />
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-submit">Submit Question</button>
-            <button type="button" class="btn-cancel" id="cancelQuestionBtn">Cancel</button>
-          </div>
-        </form>
-      </section>
-
-      <section id="addFaqForm" class="add-form" style="display: none;">
-        <h2>Add New FAQ</h2>
-        <form id="faqForm">
-          <div class="form-group">
-            <label for="faqQuestion">Question *</label>
-            <input type="text" id="faqQuestion" name="question" required placeholder="Enter the question..." />
-          </div>
-          <div class="form-group">
-            <label for="faqAnswer">Answer * (HTML allowed)</label>
-            <textarea id="faqAnswer" name="answer" rows="4" required placeholder="Enter the answer. HTML tags like &lt;p&gt;, &lt;strong&gt;, &lt;a&gt; are supported."></textarea>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="faqCategory">Category</label>
-              <select id="faqCategory" name="category">
-                <option value="">Select a category</option>
-                <option value="一般问题">一般问题</option>
-                <option value="plumbing">Plumbing</option>
-                <option value="electricity">Electricity</option>
-                <option value="heating&cooling">Heating & Cooling</option>
-                <option value="parking">Parking</option>
-                <option value="garbage">Garbage</option>
-                <option value="回收垃圾">回收垃圾</option>
-                <option value="缴费">缴费</option>
-                <option value="游泳">游泳</option>
-                <option value="健身">健身</option>
-                <option value="壁球">壁球</option>
-                <option value="台球/乒乓球">台球/乒乓球</option>
-                <option value="Party Room">Party Room</option>
-              </select>
+    <main>
+        <section class="latest-faqs">
+            <h2>Latest Questions</h2>
+            <div id="faqList">
+                <!-- FAQ items will be loaded here -->
             </div>
-            <div class="form-group">
-              <label for="faqSlug">Slug (optional)</label>
-              <input type="text" id="faqSlug" name="slug" placeholder="e.g., account-create" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="faqTags">Tags (comma-separated)</label>
-            <input type="text" id="faqTags" name="tags" placeholder="e.g., signup, email, verification" />
-          </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-submit">Generate JSON</button>
-            <button type="button" class="btn-cancel" id="cancelFormBtn">Cancel</button>
-          </div>
-        </form>
-        <div id="jsonOutput" class="json-output" style="display: none;">
-          <h3>Copy this JSON to add to <code>data/faq.json</code>:</h3>
-          <pre id="jsonContent"></pre>
-          <button type="button" class="btn-copy" id="copyJsonBtn">Copy JSON</button>
+        </section>
+
+        <button class="add-question-btn" onclick="showQuestionForm()">+ Add New Question</button>
+
+        <div id="questionForm" class="question-form">
+            <h3>Submit a New Question</h3>
+            <form id="newQuestionForm">
+                <div class="form-group">
+                    <label for="question">Your Question *</label>
+                    <textarea id="question" name="question" required placeholder="Enter your question here..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">Select a category</option>
+                        <option value="一般问题">General Questions</option>
+                        <option value="plumbing">Plumbing</option>
+                        <option value="electricity">Electricity</option>
+                        <option value="heating&cooling">Heating & Cooling</option>
+                        <option value="parking">Parking</option>
+                        <option value="garbage">Garbage</option>
+                        <option value="回收垃圾">Recycling</option>
+                        <option value="缴费">Payment</option>
+                        <option value="游泳">Swimming Pool</option>
+                        <option value="健身">Fitness Center</option>
+                        <option value="壁球">Squash Court</option>
+                        <option value="台球/乒乓球">Billiards/Ping Pong</option>
+                        <option value="Party Room">Party Room</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Submit Question</button>
+                    <button type="button" class="cancel-btn" onclick="hideQuestionForm()">Cancel</button>
+                </div>
+            </form>
         </div>
-      </section>
-
-      <section id="resultsInfo" class="results-info" aria-live="polite"></section>
-
-      <section id="faqList" class="faq-list">
-        <!-- 动态渲染 FAQ 条目 -->
-      </section>
-
-      <div style="text-align: center; margin-top: 24px;">
-        <button id="submitQuestionBtn" class="btn-add" type="button">Can't find your answer? Submit a question</button>
-      </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <small>© <span id="year"></span> Building Management. For reference only.</small>
-      </div>
+    <footer>
+        <p>© 2024 Building Management. For reference only.</p>
     </footer>
 
-    <!-- Google Translate Widget -->
+    <!-- Google Translate -->
     <div id="google_translate_element" style="display:none;"></div>
+
     <script>
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-          pageLanguage: 'en',
-          includedLanguages: 'en,es,ar,zh-CN,zh-TW,fr,de,it,pt,ru,ja,ko,hi,vi,th,pl',
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-          autoDisplay: false
-        }, 'google_translate_element');
-      }
-    </script>
-    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- Fuse.js 轻量搜索（CDN） -->
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-    <script src="./assets/script.js" type="module"></script>
-    <script>
-      // Custom language selector - trigger Google Translate
-      document.addEventListener('DOMContentLoaded', () => {
-        const langSelect = document.getElementById('langSelect');
-        if (langSelect) {
-          langSelect.addEventListener('change', function(e) {
-            const targetLang = e.target.value;
-            // Use Google Translate's cookie method
-            document.cookie = `googtrans=/en/${targetLang}; path=/; domain=${window.location.hostname}`;
-            location.reload();
-          });
-          
-          // Set current language based on cookie
-          const cookie = document.cookie.match(/googtrans=([^;]+)/);
-          if (cookie) {
-            const lang = cookie[1].split('/').pop();
-            if (lang && lang !== 'en') {
-              langSelect.value = lang;
+        // FAQ Data - You can modify this later
+        const faqData = [
+            {
+                id: 1,
+                question: "Welcome! How do I get started?",
+                answer: "Welcome to the building! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+                category: "一般问题",
+                date: "2024-01-15"
+            },
+            {
+                id: 2,
+                question: "What should I do if there's a plumbing emergency?",
+                answer: "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at the emergency number provided in your welcome package.",
+                category: "plumbing",
+                date: "2024-01-10"
+            },
+            {
+                id: 3,
+                question: "How do I access the fitness center?",
+                answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use.",
+                category: "健身",
+                date: "2024-01-08"
+            },
+            {
+                id: 4,
+                question: "What are the swimming pool hours?",
+                answer: "The swimming pool is open from 6:00 AM to 10:00 PM daily. Guests must be accompanied by residents.",
+                category: "游泳",
+                date: "2024-01-05"
+            },
+            {
+                id: 5,
+                question: "How can I pay my monthly fees?",
+                answer: "You can pay via online portal, bank transfer, or in-person at the management office. Payment is due by the 1st of each month.",
+                category: "缴费",
+                date: "2024-01-03"
             }
-          }
+        ];
+
+        // Display latest 5 FAQs
+        function displayFAQs() {
+            const faqList = document.getElementById('faqList');
+            const latestFAQs = faqData.slice(0, 5); // Get latest 5
+            
+            faqList.innerHTML = latestFAQs.map(faq => `
+                <div class="faq-item">
+                    <span class="category">${faq.category}</span>
+                    <h3>${faq.question}</h3>
+                    <div class="answer">${faq.answer}</div>
+                    <small style="color: var(--muted);">Added: ${faq.date}</small>
+                </div>
+            `).join('');
         }
-      });
+
+        // Question Form Functions
+        function showQuestionForm() {
+            document.getElementById('questionForm').style.display = 'block';
+            document.getElementById('question').focus();
+        }
+
+        function hideQuestionForm() {
+            document.getElementById('questionForm').style.display = 'none';
+            document.getElementById('newQuestionForm').reset();
+        }
+
+        // Handle form submission
+        document.getElementById('newQuestionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const question = formData.get('question');
+            const category = formData.get('category') || 'Not specified';
+            
+            // Send email (this will open user's email client)
+            const email = 'johnetli@gmail.com';
+            const subject = encodeURIComponent('New FAQ Question Submission');
+            const body = encodeURIComponent(
+                `A new question has been submitted:\n\n` +
+                `Question: ${question}\n\n` +
+                `Category: ${category}\n\n` +
+                `Submitted on: ${new Date().toLocaleString()}`
+            );
+            
+            window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+            
+            // Show confirmation
+            alert('Thank you! Your email client should open. If not, please email us directly at ' + email);
+            
+            // Reset and hide form
+            hideQuestionForm();
+        });
+
+        // Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Language selector
+        document.getElementById('languageSelect').addEventListener('change', function(e) {
+            const lang = e.target.value;
+            if (lang !== 'en') {
+                // Trigger Google Translate
+                const googleTranslateElement = document.querySelector('.goog-te-combo');
+                if (googleTranslateElement) {
+                    googleTranslateElement.value = lang;
+                    googleTranslateElement.dispatchEvent(new Event('change'));
+                }
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            displayFAQs();
+            
+            // Load Google Translate script
+            const script = document.createElement('script');
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.head.appendChild(script);
+        });
     </script>
-  </body>
-  </html>
-
-
+</body>
+</html>
