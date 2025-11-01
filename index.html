@@ -49,6 +49,18 @@
             color: var(--muted);
         }
         
+        /* Make phone numbers more visible */
+        .contact-info strong {
+            color: var(--brand);
+            font-weight: 600;
+        }
+        
+        .phone-numbers {
+            color: var(--brand) !important;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
         .language-section {
             margin: 20px 0;
             text-align: center;
@@ -88,6 +100,36 @@
         
         .latest-faqs {
             margin-bottom: 30px;
+        }
+        
+        .faq-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .category-filter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .category-filter label {
+            color: var(--muted);
+            font-weight: 600;
+        }
+        
+        .category-filter select {
+            background: var(--panel);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            min-width: 180px;
         }
         
         .faq-item {
@@ -221,6 +263,17 @@
         body {
             top: 0px !important;
         }
+
+        @media (max-width: 768px) {
+            .faq-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .category-filter {
+                justify-content: space-between;
+            }
+        }
     </style>
 </head>
 <body>
@@ -228,7 +281,7 @@
         <h1>PCC389 FAQ</h1>
         
         <div class="contact-info">
-            <p><strong>Office:</strong> 905-566-1269, 905-566-1319, 647-335-0949</p>
+            <p><strong>Office:</strong> <span class="phone-numbers">905-566-1269, 905-566-1319, 647-335-0949</span></p>
             <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
         </div>
         
@@ -260,7 +313,28 @@
 
     <main>
         <section class="latest-faqs">
-            <h2>Latest Questions</h2>
+            <div class="faq-controls">
+                <h2>Latest Questions</h2>
+                <div class="category-filter">
+                    <label for="categoryFilter">Filter by Category:</label>
+                    <select id="categoryFilter">
+                        <option value="all">All Categories</option>
+                        <option value="General Questions">General Questions</option>
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Heating & Cooling">Heating & Cooling</option>
+                        <option value="Parking">Parking</option>
+                        <option value="Garbage">Garbage</option>
+                        <option value="Recycling">Recycling</option>
+                        <option value="Payment">Payment</option>
+                        <option value="Swimming Pool">Swimming Pool</option>
+                        <option value="Fitness Center">Fitness Center</option>
+                        <option value="Squash Court">Squash Court</option>
+                        <option value="Billiards/Ping Pong">Billiards/Ping Pong</option>
+                        <option value="Party Room">Party Room</option>
+                    </select>
+                </div>
+            </div>
             <div id="faqList">
                 <!-- FAQ items will be loaded here -->
             </div>
@@ -343,15 +417,51 @@
                 answer: "You can pay via online portal, bank transfer, or in-person at the management office. Payment is due by the 1st of each month. Late fees may apply after the 5th.",
                 category: "Payment",
                 date: "2024-01-03"
+            },
+            {
+                id: 6,
+                question: "Where can I park my vehicle?",
+                answer: "Resident parking is available in the underground garage. Each unit is allocated one parking space. Visitor parking is available on a first-come, first-served basis.",
+                category: "Parking",
+                date: "2024-01-02"
+            },
+            {
+                id: 7,
+                question: "What is the garbage collection schedule?",
+                answer: "Garbage collection occurs every Tuesday and Friday. Please place garbage in the designated chute rooms by 8:00 AM on collection days.",
+                category: "Garbage",
+                date: "2024-01-01"
             }
         ];
 
-        // Display latest 5 FAQs
-        function displayFAQs() {
+        // Display FAQs based on selected category
+        function displayFAQs(category = 'all') {
             const faqList = document.getElementById('faqList');
-            const latestFAQs = faqData.slice(0, 5);
             
-            faqList.innerHTML = latestFAQs.map(faq => `
+            let filteredFAQs;
+            if (category === 'all') {
+                // Show all FAQs, latest first
+                filteredFAQs = [...faqData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else {
+                // Filter by category and sort by date
+                filteredFAQs = faqData
+                    .filter(faq => faq.category === category)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            // Get top 5
+            const displayFAQs = filteredFAQs.slice(0, 5);
+            
+            if (displayFAQs.length === 0) {
+                faqList.innerHTML = `
+                    <div class="faq-item">
+                        <div class="answer">No questions found in this category. Be the first to submit a question!</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            faqList.innerHTML = displayFAQs.map(faq => `
                 <div class="faq-item">
                     <span class="category">${faq.category}</span>
                     <h3>${faq.question}</h3>
@@ -359,6 +469,20 @@
                     <small style="color: var(--muted);">Added: ${faq.date}</small>
                 </div>
             `).join('');
+            
+            // Update results count
+            const resultsCount = document.getElementById('resultsCount');
+            if (!resultsCount) {
+                const controls = document.querySelector('.faq-controls');
+                const countElement = document.createElement('div');
+                countElement.id = 'resultsCount';
+                countElement.style.color = 'var(--muted)';
+                countElement.style.fontSize = '14px';
+                countElement.textContent = `Showing ${displayFAQs.length} of ${filteredFAQs.length} questions`;
+                controls.appendChild(countElement);
+            } else {
+                resultsCount.textContent = `Showing ${displayFAQs.length} of ${filteredFAQs.length} questions`;
+            }
         }
 
         // Reset form function
@@ -387,6 +511,12 @@
             window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
             alert('Thank you for your question! Your email client should open. If not, please email us directly at ' + email);
             resetForm();
+        });
+
+        // Category filter handler
+        document.getElementById('categoryFilter').addEventListener('change', function(e) {
+            const category = e.target.value;
+            displayFAQs(category);
         });
 
         // SIMPLE TRANSLATION SOLUTION
@@ -431,8 +561,7 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            displayFAQs();
-            initializeGoogleTranslate();
+            displayFAQs(); // Show all categories by default
             
             // Set current language based on cookie
             const cookie = document.cookie.match(/googtrans=([^;]+)/);
@@ -443,6 +572,7 @@
                 }
             }
             
+            initializeGoogleTranslate();
             console.log('FAQ application loaded');
         });
     </script>
