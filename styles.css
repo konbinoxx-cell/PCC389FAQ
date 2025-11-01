@@ -313,4 +313,38 @@ main { padding: 18px 0 32px; }
   border-color: #3e4d6b;
   transform: translateY(-1px);
 }
+/* 添加到 styles.css 的末尾 */
 
+/* Cursor 修复 */
+.chip {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.chip:hover {
+  background: #152033;
+  border-color: #3e4d6b;
+  transform: translateY(-1px);
+}
+
+/* 确保所有按钮都有 pointer cursor */
+button, 
+[type="button"], 
+[type="submit"], 
+.btn-add,
+.btn-submit,
+.btn-cancel,
+.btn-copy {
+  cursor: pointer;
+}
+
+/* 输入框正确 cursor */
+input[type="text"],
+input[type="search"],
+textarea {
+  cursor: text;
+}
+
+select {
+  cursor: pointer;
+}
