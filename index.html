@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Building Services FAQ</title>
+    <title>PCC389 FAQ</title>
     <style>
         :root {
             --bg: #0b1220;
@@ -33,7 +33,21 @@
             border-bottom: 1px solid var(--border);
         }
         
-        h1 { color: var(--brand); margin-bottom: 10px; }
+        h1 { color: var(--brand); margin-bottom: 15px; }
+        
+        .contact-info {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .contact-info p {
+            margin: 5px 0;
+            color: var(--muted);
+        }
         
         .language-selector {
             margin: 15px 0;
@@ -80,30 +94,18 @@
             margin-bottom: 15px;
         }
         
-        .add-question-btn {
-            background: var(--brand);
-            color: #0b1220;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            display: block;
-            margin: 30px auto;
-            font-size: 16px;
-        }
-        
-        .add-question-btn:hover {
-            opacity: 0.9;
-        }
-        
         .question-form {
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: 10px;
             padding: 25px;
-            margin: 20px 0;
-            display: none;
+            margin: 40px 0 20px 0;
+        }
+        
+        .question-form h3 {
+            color: var(--brand);
+            margin-bottom: 20px;
+            text-align: center;
         }
         
         .form-group {
@@ -143,19 +145,22 @@
             background: var(--brand);
             color: #0b1220;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
+            font-size: 16px;
+            flex: 1;
         }
         
         .cancel-btn {
             background: transparent;
             color: var(--muted);
             border: 1px solid var(--border);
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 6px;
             cursor: pointer;
+            flex: 1;
         }
         
         footer {
@@ -166,11 +171,26 @@
             color: var(--muted);
             font-size: 14px;
         }
+        
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+        
+        .cancel-btn:hover {
+            color: var(--text);
+            border-color: #334155;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Building Services FAQ</h1>
+        <h1>PCC389 FAQ</h1>
+        
+        <div class="contact-info">
+            <p><strong>Office:</strong> 905-566-1269, 905-566-1319, 647-335-0949</p>
+            <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
+        </div>
+        
         <div class="language-selector">
             <select id="languageSelect">
                 <option value="en">English</option>
@@ -201,8 +221,6 @@
             </div>
         </section>
 
-        <button class="add-question-btn" onclick="showQuestionForm()">+ Add New Question</button>
-
         <div id="questionForm" class="question-form">
             <h3>Submit a New Question</h3>
             <form id="newQuestionForm">
@@ -215,73 +233,73 @@
                     <label for="category">Category</label>
                     <select id="category" name="category">
                         <option value="">Select a category</option>
-                        <option value="一般问题">General Questions</option>
-                        <option value="plumbing">Plumbing</option>
-                        <option value="electricity">Electricity</option>
-                        <option value="heating&cooling">Heating & Cooling</option>
-                        <option value="parking">Parking</option>
-                        <option value="garbage">Garbage</option>
-                        <option value="回收垃圾">Recycling</option>
-                        <option value="缴费">Payment</option>
-                        <option value="游泳">Swimming Pool</option>
-                        <option value="健身">Fitness Center</option>
-                        <option value="壁球">Squash Court</option>
-                        <option value="台球/乒乓球">Billiards/Ping Pong</option>
+                        <option value="General Questions">General Questions</option>
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Heating & Cooling">Heating & Cooling</option>
+                        <option value="Parking">Parking</option>
+                        <option value="Garbage">Garbage</option>
+                        <option value="Recycling">Recycling</option>
+                        <option value="Payment">Payment</option>
+                        <option value="Swimming Pool">Swimming Pool</option>
+                        <option value="Fitness Center">Fitness Center</option>
+                        <option value="Squash Court">Squash Court</option>
+                        <option value="Billiards/Ping Pong">Billiards/Ping Pong</option>
                         <option value="Party Room">Party Room</option>
                     </select>
                 </div>
                 
                 <div class="form-actions">
                     <button type="submit" class="submit-btn">Submit Question</button>
-                    <button type="button" class="cancel-btn" onclick="hideQuestionForm()">Cancel</button>
+                    <button type="button" class="cancel-btn" onclick="resetForm()">Clear Form</button>
                 </div>
             </form>
         </div>
     </main>
 
     <footer>
-        <p>© 2024 Building Management. For reference only.</p>
+        <p>© 2024 PCC389 Building Management. For reference only.</p>
     </footer>
 
     <!-- Google Translate -->
     <div id="google_translate_element" style="display:none;"></div>
 
     <script>
-        // FAQ Data - You can modify this later
+        // FAQ Data - Updated with proper content
         const faqData = [
             {
                 id: 1,
                 question: "Welcome! How do I get started?",
-                answer: "Welcome to the building! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
-                category: "一般问题",
+                answer: "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+                category: "General Questions",
                 date: "2024-01-15"
             },
             {
                 id: 2,
                 question: "What should I do if there's a plumbing emergency?",
-                answer: "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at the emergency number provided in your welcome package.",
-                category: "plumbing",
+                answer: "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
+                category: "Plumbing",
                 date: "2024-01-10"
             },
             {
                 id: 3,
                 question: "How do I access the fitness center?",
-                answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use.",
-                category: "健身",
+                answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
+                category: "Fitness Center",
                 date: "2024-01-08"
             },
             {
                 id: 4,
                 question: "What are the swimming pool hours?",
-                answer: "The swimming pool is open from 6:00 AM to 10:00 PM daily. Guests must be accompanied by residents.",
-                category: "游泳",
+                answer: "The swimming pool is open from 6:00 AM to 10:00 PM daily. Guests must be accompanied by residents. Pool rules are posted at the facility.",
+                category: "Swimming Pool",
                 date: "2024-01-05"
             },
             {
                 id: 5,
                 question: "How can I pay my monthly fees?",
-                answer: "You can pay via online portal, bank transfer, or in-person at the management office. Payment is due by the 1st of each month.",
-                category: "缴费",
+                answer: "You can pay via online portal, bank transfer, or in-person at the management office. Payment is due by the 1st of each month. Late fees may apply after the 5th.",
+                category: "Payment",
                 date: "2024-01-03"
             }
         ];
@@ -301,14 +319,8 @@
             `).join('');
         }
 
-        // Question Form Functions
-        function showQuestionForm() {
-            document.getElementById('questionForm').style.display = 'block';
-            document.getElementById('question').focus();
-        }
-
-        function hideQuestionForm() {
-            document.getElementById('questionForm').style.display = 'none';
+        // Reset form function
+        function resetForm() {
             document.getElementById('newQuestionForm').reset();
         }
 
@@ -322,21 +334,22 @@
             
             // Send email (this will open user's email client)
             const email = 'johnetli@gmail.com';
-            const subject = encodeURIComponent('New FAQ Question Submission');
+            const subject = encodeURIComponent('New PCC389 FAQ Question Submission');
             const body = encodeURIComponent(
-                `A new question has been submitted:\n\n` +
+                `A new question has been submitted for PCC389 FAQ:\n\n` +
                 `Question: ${question}\n\n` +
                 `Category: ${category}\n\n` +
-                `Submitted on: ${new Date().toLocaleString()}`
+                `Submitted on: ${new Date().toLocaleString()}\n\n` +
+                `Please review and add to the FAQ if appropriate.`
             );
             
             window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
             
             // Show confirmation
-            alert('Thank you! Your email client should open. If not, please email us directly at ' + email);
+            alert('Thank you for your question! Your email client should open. If not, please email us directly at ' + email);
             
-            // Reset and hide form
-            hideQuestionForm();
+            // Reset form
+            resetForm();
         });
 
         // Google Translate
