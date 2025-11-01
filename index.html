@@ -69,15 +69,21 @@
         }
         
         .language-selector select {
-            background: transparent;
+            background: var(--panel);
             color: var(--text);
             border: none;
             padding: 0;
             cursor: pointer;
             font-size: 14px;
-            appearance: none;
             outline: none;
             min-width: 120px;
+        }
+        
+        /* Fix dropdown background */
+        .language-selector select option {
+            background: var(--panel);
+            color: var(--text);
+            padding: 8px;
         }
         
         .latest-faqs {
@@ -300,36 +306,6 @@
         <p>© 2024 PCC389 Building Management. For reference only.</p>
     </footer>
 
-    <!-- Google Translate Script -->
-    <script type="text/javascript">
-        // Initialize Google Translate
-        function googleTranslateElementInit() {
-            console.log('Google Translate initialized');
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-            
-            // Hide the default Google Translate dropdown
-            const style = document.createElement('style');
-            style.textContent = `
-                .goog-te-gadget { display: none !important; }
-                .goog-te-combo { display: none !important; }
-            `;
-            document.head.appendChild(style);
-        }
-        
-        // Load Google Translate
-        function loadGoogleTranslate() {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
-        }
-    </script>
-
     <script>
         // FAQ Data
         const faqData = [
@@ -413,51 +389,59 @@
             resetForm();
         });
 
-        // Language selection - WORKING TRANSLATION
+        // SIMPLE TRANSLATION SOLUTION
         document.getElementById('languageSelect').addEventListener('change', function(e) {
             const lang = e.target.value;
             
-            // Method 1: Wait for Google Translate to load and use it directly
-            function attemptTranslate() {
-                const translateCombo = document.querySelector('.goog-te-combo');
-                if (translateCombo) {
-                    translateCombo.value = lang;
-                    translateCombo.dispatchEvent(new Event('change'));
-                    console.log('Translation triggered for:', lang);
-                    return true;
-                }
-                return false;
-            }
-            
-            // Try immediately
-            if (!attemptTranslate()) {
-                // If not ready, wait a bit and try again
-                setTimeout(() => {
-                    if (!attemptTranslate()) {
-                        // Fallback: reload with language cookie
-                        console.log('Using cookie fallback for:', lang);
-                        document.cookie = `googtrans=/en/${lang}; path=/`;
-                        setTimeout(() => location.reload(), 100);
-                    }
-                }, 500);
+            // Simple and reliable method
+            if (lang === 'en') {
+                // If English, remove translation
+                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+                location.reload();
+            } else {
+                // Set translation cookie and reload
+                document.cookie = `googtrans=/en/${lang}; path=/`;
+                location.reload();
             }
         });
+
+        // Initialize Google Translate
+        function initializeGoogleTranslate() {
+            const script = document.createElement('script');
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+            document.head.appendChild(script);
+        }
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+            
+            // Hide Google's default widget but keep functionality
+            const style = document.createElement('style');
+            style.textContent = `
+                .goog-te-gadget { display: none !important; }
+                .goog-te-combo { display: none !important; }
+            `;
+            document.head.appendChild(style);
+        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             displayFAQs();
-            loadGoogleTranslate(); // Load Google Translate
+            initializeGoogleTranslate();
             
             // Set current language based on cookie
-            setTimeout(() => {
-                const cookie = document.cookie.match(/googtrans=([^;]+)/);
-                if (cookie) {
-                    const lang = cookie[1].split('/').pop();
-                    if (lang && lang !== 'en') {
-                        document.getElementById('languageSelect').value = lang;
-                    }
+            const cookie = document.cookie.match(/googtrans=([^;]+)/);
+            if (cookie) {
+                const lang = cookie[1].split('/').pop();
+                if (lang && lang !== 'en') {
+                    document.getElementById('languageSelect').value = lang;
                 }
-            }, 1000);
+            }
             
             console.log('FAQ application loaded');
         });
