@@ -51,6 +51,7 @@
         
         .language-selector {
             margin: 15px 0;
+            text-align: center;
         }
         
         .language-selector select {
@@ -60,6 +61,7 @@
             padding: 8px 12px;
             border-radius: 6px;
             cursor: pointer;
+            font-size: 14px;
         }
         
         .latest-faqs {
@@ -180,7 +182,53 @@
             color: var(--text);
             border-color: #334155;
         }
+
+        /* Google Translate Widget Styles */
+        #google_translate_element {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .goog-te-gadget {
+            font-family: inherit !important;
+        }
+
+        .goog-te-gadget-simple {
+            background: var(--panel) !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 6px !important;
+            padding: 8px 12px !important;
+        }
+
+        .goog-te-gadget-simple .goog-te-menu-value span {
+            color: var(--text) !important;
+        }
+
+        .goog-te-gadget-simple .goog-te-menu-value span:nth-child(3) {
+            border-left: 1px solid var(--border) !important;
+        }
+
+        .goog-te-menu-frame {
+            max-width: 100% !important;
+        }
     </style>
+    
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                gaTrack: false,
+                gaId: 'none'
+            }, 'google_translate_element');
+            
+            console.log('Google Translate initialized');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <header>
@@ -191,7 +239,10 @@
             <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
         </div>
         
-        <div class="language-selector">
+        <!-- Google Translate Widget -->
+        <div id="google_translate_element"></div>
+        
+        <div class="language-selector" style="display:none;">
             <select id="languageSelect">
                 <option value="en">English</option>
                 <option value="fr">Français</option>
@@ -260,9 +311,6 @@
     <footer>
         <p>© 2024 PCC389 Building Management. For reference only.</p>
     </footer>
-
-    <!-- Google Translate -->
-    <div id="google_translate_element" style="display:none;"></div>
 
     <script>
         // FAQ Data - Updated with proper content
@@ -352,37 +400,26 @@
             resetForm();
         });
 
-        // Google Translate
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
-        // Language selector
-        document.getElementById('languageSelect').addEventListener('change', function(e) {
-            const lang = e.target.value;
-            if (lang !== 'en') {
-                // Trigger Google Translate
-                const googleTranslateElement = document.querySelector('.goog-te-combo');
-                if (googleTranslateElement) {
-                    googleTranslateElement.value = lang;
-                    googleTranslateElement.dispatchEvent(new Event('change'));
-                }
-            }
-        });
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             displayFAQs();
+            console.log('FAQ application loaded');
             
-            // Load Google Translate script
-            const script = document.createElement('script');
-            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
+            // Check if Google Translate is loaded
+            setTimeout(() => {
+                const translateFrame = document.querySelector('.goog-te-menu-frame');
+                if (translateFrame) {
+                    console.log('Google Translate is working');
+                } else {
+                    console.log('Google Translate not detected');
+                }
+            }, 2000);
+        });
+
+        // Fallback language selection (if Google Translate fails)
+        document.getElementById('languageSelect').addEventListener('change', function(e) {
+            const lang = e.target.value;
+            console.log('Language selected:', lang);
         });
     </script>
 </body>
