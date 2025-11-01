@@ -54,13 +54,6 @@
             text-align: center;
         }
         
-        .language-label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--muted);
-            font-size: 14px;
-        }
-        
         .language-selector {
             display: inline-block;
             position: relative;
@@ -78,14 +71,25 @@
             min-width: 150px;
         }
         
-        .language-selector::after {
+        .language-selector::before {
             content: "🌐";
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 16px;
+        }
+        
+        .language-selector::after {
+            content: "▼";
             position: absolute;
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
             pointer-events: none;
-            font-size: 16px;
+            font-size: 10px;
+            color: var(--muted);
         }
         
         .latest-faqs {
@@ -212,7 +216,6 @@
             display: none !important;
         }
 
-        /* Style for translated content */
         .goog-te-banner-frame {
             display: none !important;
         }
@@ -220,7 +223,27 @@
         body {
             top: 0px !important;
         }
+
+        /* Style for Google Translate if it appears */
+        .goog-te-gadget {
+            font-size: 0px !important;
+        }
     </style>
+
+    <!-- Google Translate Script -->
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            console.log('Google Translate initialized');
+            // Initialize but keep hidden
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
     <header>
@@ -232,28 +255,30 @@
         </div>
         
         <div class="language-section">
-            <span class="language-label">Select Language / 选择语言 / Choisir la langue:</span>
             <div class="language-selector">
                 <select id="languageSelect">
                     <option value="en">English</option>
-                    <option value="fr">Français (French)</option>
-                    <option value="zh-CN">中文 (Chinese)</option>
-                    <option value="es">Español (Spanish)</option>
-                    <option value="ar">العربية (Arabic)</option>
-                    <option value="de">Deutsch (German)</option>
-                    <option value="it">Italiano (Italian)</option>
-                    <option value="pt">Português (Portuguese)</option>
-                    <option value="ru">Русский (Russian)</option>
-                    <option value="ja">日本語 (Japanese)</option>
-                    <option value="ko">한국어 (Korean)</option>
-                    <option value="hi">हिन्दी (Hindi)</option>
-                    <option value="vi">Tiếng Việt (Vietnamese)</option>
-                    <option value="pl">Polski (Polish)</option>
-                    <option value="uk">Українська (Ukrainian)</option>
-                    <option value="tr">Türkçe (Turkish)</option>
+                    <option value="fr">Français</option>
+                    <option value="zh-CN">中文</option>
+                    <option value="es">Español</option>
+                    <option value="ar">العربية</option>
+                    <option value="de">Deutsch</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt">Português</option>
+                    <option value="ru">Русский</option>
+                    <option value="ja">日本語</option>
+                    <option value="ko">한국어</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="vi">Tiếng Việt</option>
+                    <option value="pl">Polski</option>
+                    <option value="uk">Українська</option>
+                    <option value="tr">Türkçe</option>
                 </select>
             </div>
         </div>
+
+        <!-- Hidden Google Translate Element -->
+        <div id="google_translate_element"></div>
     </header>
 
     <main>
@@ -303,9 +328,6 @@
     <footer>
         <p>© 2024 PCC389 Building Management. For reference only.</p>
     </footer>
-
-    <!-- Google Translate -->
-    <div id="google_translate_element"></div>
 
     <script>
         // FAQ Data
@@ -390,41 +412,46 @@
             resetForm();
         });
 
-        // Language selection handler
+        // Language selection handler - FIXED TRANSLATION
         document.getElementById('languageSelect').addEventListener('change', function(e) {
             const lang = e.target.value;
             
-            // Use Google Translate API directly
-            if (window.google && google.translate) {
-                // If Google Translate is loaded, use it
-                const translateInstance = new google.translate.TranslateElement({
-                    pageLanguage: 'en',
-                    includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl,uk,tr',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                });
-            } else {
-                // Fallback: set cookie for Google Translate
-                document.cookie = `googtrans=/en/${lang}; path=/`;
-                location.reload();
+            // Method 1: Use Google Translate if available
+            if (window.google && google.translate && google.translate.TranslateElement) {
+                const translateCombo = document.querySelector('.goog-te-combo');
+                if (translateCombo) {
+                    translateCombo.value = lang;
+                    translateCombo.dispatchEvent(new Event('change'));
+                    console.log('Translation triggered via Google Translate');
+                    return;
+                }
             }
+            
+            // Method 2: Set cookie and reload (fallback)
+            console.log('Using cookie method for translation');
+            const domain = window.location.hostname;
+            document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain}`;
+            
+            // Small delay to ensure cookie is set
+            setTimeout(() => {
+                window.location.reload();
+            }, 100);
         });
 
-        // Initialize Google Translate
-        function initializeGoogleTranslate() {
-            const script = document.createElement('script');
-            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
-        }
-
-        function googleTranslateElementInit() {
-            // Google Translate is now available
-            console.log('Google Translate loaded');
-        }
-
-        // Initialize the application
+        // Check current language on load
         document.addEventListener('DOMContentLoaded', function() {
             displayFAQs();
-            initializeGoogleTranslate();
+            
+            // Set current language in selector based on cookie
+            const cookie = document.cookie.match(/googtrans=([^;]+)/);
+            if (cookie) {
+                const lang = cookie[1].split('/').pop();
+                if (lang && lang !== 'en') {
+                    document.getElementById('languageSelect').value = lang;
+                }
+            }
+            
+            console.log('FAQ application loaded');
         });
     </script>
 </body>
