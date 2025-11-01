@@ -338,7 +338,34 @@ function bindEvents() {
     renderCategoryChips();
     render(filterAndSearch());
   });
-
+function renderCategoryChips() {
+  const wrap = document.getElementById('categoryChips');
+  if (!wrap) {
+    console.warn('categoryChips element not found');
+    return;
+  }
+  
+  wrap.innerHTML = '';
+  const counts = new Map();
+  state.allFaqs.forEach((it) => {
+    const key = it.category || '一般问题';
+    counts.set(key, (counts.get(key) || 0) + 1);
+  });
+  
+  // "All" chip - 确保有 chip 类
+  const allChip = document.createElement('button');
+  allChip.className = `chip${state.category ? '' : ' active'}`; // 确保有 chip 类
+  allChip.type = 'button';
+  allChip.textContent = `All (${state.allFaqs.length})`;
+  allChip.addEventListener('click', () => { 
+    state.category = ''; 
+    render(filterAndSearch()); 
+    renderCategoryChips(); 
+  });
+  wrap.appendChild(allChip);
+  
+  // 其他 chip 代码保持不变...
+}
   $('#copyJsonBtn').addEventListener('click', async () => {
     const text = $('#jsonContent').textContent;
     try {
