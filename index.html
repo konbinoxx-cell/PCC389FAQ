@@ -77,7 +77,6 @@
             color: var(--muted);
         }
         
-        /* Make phone numbers more visible */
         .contact-info strong {
             color: var(--brand);
             font-weight: 600;
@@ -119,7 +118,6 @@
             min-width: 120px;
         }
         
-        /* Fix dropdown background */
         .language-selector select option {
             background: var(--panel);
             color: var(--text);
@@ -166,6 +164,7 @@
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 15px;
+            position: relative;
         }
         
         .faq-item h3 {
@@ -275,6 +274,65 @@
             border-color: #334155;
         }
 
+        /* 管理员面板样式 */
+        .admin-panel {
+            background: var(--panel);
+            border: 1px solid var(--brand);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .admin-panel h3 {
+            color: var(--brand);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .admin-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .faq-editor {
+            display: none;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .edit-buttons {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .edit-btn, .delete-btn {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .edit-btn:hover {
+            color: var(--brand);
+            border-color: var(--brand);
+        }
+        
+        .delete-btn:hover {
+            color: #f87171;
+            border-color: #f87171;
+        }
+
         /* Google Translate Styles */
         #google_translate_element {
             display: none !important;
@@ -308,6 +366,10 @@
                 margin-bottom: 15px;
                 display: inline-block;
             }
+            
+            .admin-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -316,11 +378,57 @@
         <div class="header-content">
             <a href="#" class="home-btn" onclick="goToHome()">🏠 Home</a>
             <h1>PCC389 FAQ</h1>
+            <button class="home-btn" onclick="toggleAdmin()" style="right: 0; left: auto;">🔧 Admin</button>
         </div>
         
         <div class="contact-info">
             <p><strong>Office:</strong> <span class="phone-numbers">905-566-1269, 905-566-1319, 647-335-0949</span></p>
             <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
+        </div>
+        
+        <!-- 管理员面板 -->
+        <div class="admin-panel" id="adminPanel" style="display: none;">
+            <h3>📝 管理员面板</h3>
+            <div class="admin-buttons">
+                <button onclick="showAddForm()" class="submit-btn">添加新问题</button>
+                <button onclick="exportData()" class="cancel-btn">导出数据</button>
+                <button onclick="importData()" class="cancel-btn">导入数据</button>
+                <button onclick="resetToDefault()" class="cancel-btn">恢复默认</button>
+            </div>
+            
+            <div class="faq-editor" id="faqEditor">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label>问题:</label>
+                    <textarea id="editQuestion" placeholder="输入问题..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>答案:</label>
+                    <textarea id="editAnswer" placeholder="输入答案..." style="min-height: 150px;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>分类:</label>
+                    <select id="editCategory">
+                        <option value="General Questions">General Questions</option>
+                        <option value="Plumbing">Plumbing</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Heating & Cooling">Heating & Cooling</option>
+                        <option value="Parking">Parking</option>
+                        <option value="Garbage">Garbage</option>
+                        <option value="Recycling">Recycling</option>
+                        <option value="Payment">Payment</option>
+                        <option value="Swimming Pool">Swimming Pool</option>
+                        <option value="Fitness Center">Fitness Center</option>
+                        <option value="Squash Court">Squash Court</option>
+                        <option value="Billiards/Ping Pong">Billiards/Ping Pong</option>
+                        <option value="Party Room">Party Room</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button onclick="saveFAQ()" class="submit-btn">保存</button>
+                    <button onclick="hideEditor()" class="cancel-btn">取消</button>
+                </div>
+            </div>
         </div>
         
         <div class="language-section">
@@ -345,7 +453,6 @@
             </div>
         </div>
 
-        <!-- Google Translate will be injected here -->
         <div id="google_translate_element"></div>
     </header>
 
@@ -374,11 +481,11 @@
                 </div>
             </div>
             <div id="faqList">
-                <!-- FAQ items will be loaded here -->
+                <!-- FAQ列表 -->
             </div>
         </section>
 
-        <div id="questionForm" class="question-form">
+        <div class="question-form">
             <h3>Submit a New Question</h3>
             <form id="newQuestionForm">
                 <div class="form-group">
@@ -419,8 +526,8 @@
     </footer>
 
     <script>
-        // FAQ Data - FIXED: Added missing comma between items and fixed category name
-        const faqData = [
+        // 默认FAQ数据
+        const defaultFAQData = [
             {
                 id: 1,
                 question: "Welcome! How do I get started?",
@@ -441,68 +548,173 @@
                 answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
                 category: "Fitness Center",
                 date: "2024-01-08"
-            },
-            {
-                id: 4,
-                question: "What are the swimming pool hours?",
-                answer: "The swimming pool is open from 6:00 AM to 10:00 PM daily. Guests must be accompanied by residents. Pool rules are posted at the facility.",
-                category: "Swimming Pool",
-                date: "2024-01-05"
-            },
-            {
-                id: 5,
-                question: "How can I pay my monthly fees?",
-                answer: "You can pay via online portal, bank transfer, or in-person at the management office. Payment is due by the 1st of each month. Late fees may apply after the 5th.",
-                category: "Payment",
-                date: "2024-01-03"
-            },
-            {
-                id: 6,
-                question: "Where can I park my vehicle?",
-                answer: "Resident parking is available in the underground garage. Each unit is allocated one parking space. Visitor parking is available on a first-come, first-served basis.",
-                category: "Parking",
-                date: "2024-01-02"
-            },
-            {
-                id: 7,
-                question: "What is the garbage collection schedule?",
-                answer: "Garbage collection occurs every Tuesday and Friday. Please place garbage in the designated chute rooms by 8:00 AM on collection days.",
-                category: "Garbage",
-                date: "2024-01-01"
-            },
-            {
-                id: 8,
-                question: "Both bathroom no power?",
-                answer: "The power outage in both bathrooms was caused by overloading or short-circuiting the relevant outlets. Restoring power is simple: just press the RESET button on the GFCI outlet, located on the left-hand side upon entering the smaller bathroom.",
-                category: "Electricity",
-                date: "2025-11-01"
-            }, // FIXED: Added missing comma here
-            {
-                id: 9,
-                question: "How to use a room thermostat?",
-                answer: "Locate the thermostat, located on the short wall next to the floor-to-ceiling window visible from the living room. In winter, set the 'Cooling-Off-Heating' selector switch to 'Heating,' and the right-hand fan to 'Auto.' In the center of the thermostat, you'll see two semi-circular dials with numbers. The upper one displays your set temperature, and the lower one shows the current temperature. Rotate the dials until the pointer is at your desired temperature. There's another switch behind this wall, located in the 'middle' position.",
-                category: "Heating & Cooling", // FIXED: Changed to match category filter
-                date: "2025-11-02"
             }
         ];
 
-        // Display FAQs based on selected category
+        // 从localStorage加载数据或使用默认数据
+        function loadFAQData() {
+            const savedData = localStorage.getItem('pcc389_faq_data');
+            if (savedData) {
+                return JSON.parse(savedData);
+            } else {
+                saveFAQData(defaultFAQData);
+                return defaultFAQData;
+            }
+        }
+
+        function saveFAQData(data) {
+            localStorage.setItem('pcc389_faq_data', JSON.stringify(data));
+        }
+
+        // 显示/隐藏管理员面板
+        function toggleAdmin() {
+            const password = prompt("请输入管理员密码:");
+            if (password === "pcc389admin") {
+                const panel = document.getElementById('adminPanel');
+                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+            } else if (password) {
+                alert("密码错误!");
+            }
+        }
+
+        // 显示添加表单
+        function showAddForm() {
+            document.getElementById('faqEditor').style.display = 'block';
+            document.getElementById('editId').value = '';
+            document.getElementById('editQuestion').value = '';
+            document.getElementById('editAnswer').value = '';
+            document.getElementById('editCategory').value = 'General Questions';
+        }
+
+        // 编辑FAQ
+        function editFAQ(id) {
+            const data = loadFAQData();
+            const faq = data.find(item => item.id === id);
+            if (faq) {
+                document.getElementById('faqEditor').style.display = 'block';
+                document.getElementById('editId').value = faq.id;
+                document.getElementById('editQuestion').value = faq.question;
+                document.getElementById('editAnswer').value = faq.answer;
+                document.getElementById('editCategory').value = faq.category;
+            }
+        }
+
+        // 删除FAQ
+        function deleteFAQ(id) {
+            if (confirm('确定要删除这个问题吗？')) {
+                const data = loadFAQData();
+                const newData = data.filter(item => item.id !== id);
+                saveFAQData(newData);
+                displayFAQs();
+                alert('问题已删除!');
+            }
+        }
+
+        // 保存FAQ
+        function saveFAQ() {
+            const id = document.getElementById('editId').value;
+            const question = document.getElementById('editQuestion').value;
+            const answer = document.getElementById('editAnswer').value;
+            const category = document.getElementById('editCategory').value;
+            
+            if (question && answer) {
+                const data = loadFAQData();
+                
+                if (id) {
+                    // 编辑现有FAQ
+                    const index = data.findIndex(item => item.id === parseInt(id));
+                    if (index !== -1) {
+                        data[index] = {
+                            ...data[index],
+                            question: question,
+                            answer: answer,
+                            category: category
+                        };
+                    }
+                } else {
+                    // 添加新FAQ
+                    const newFAQ = {
+                        id: Date.now(),
+                        question: question,
+                        answer: answer,
+                        category: category,
+                        date: new Date().toISOString().split('T')[0]
+                    };
+                    data.push(newFAQ);
+                }
+                
+                saveFAQData(data);
+                displayFAQs();
+                hideEditor();
+                alert('问题已保存!');
+            } else {
+                alert('请填写问题和答案!');
+            }
+        }
+
+        function hideEditor() {
+            document.getElementById('faqEditor').style.display = 'none';
+        }
+
+        // 数据导入导出
+        function exportData() {
+            const data = loadFAQData();
+            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'pcc389_faq_backup.json';
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 100);
+        }
+
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = e => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = event => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        saveFAQData(data);
+                        displayFAQs();
+                        alert('数据导入成功!');
+                    } catch (error) {
+                        alert('文件格式错误!');
+                    }
+                };
+                reader.readAsText(file);
+            };
+            input.click();
+        }
+
+        // 恢复默认数据
+        function resetToDefault() {
+            if (confirm('确定要恢复默认数据吗？当前数据将会丢失!')) {
+                saveFAQData(defaultFAQData);
+                displayFAQs();
+                alert('已恢复默认数据!');
+            }
+        }
+
+        // 显示FAQs
         function displayFAQs(category = 'all') {
             const faqList = document.getElementById('faqList');
+            const data = loadFAQData();
+            const isAdmin = document.getElementById('adminPanel').style.display === 'block';
             
             let filteredFAQs;
             if (category === 'all') {
-                // Show all FAQs, latest first
-                filteredFAQs = [...faqData].sort((a, b) => new Date(b.date) - new Date(a.date));
+                filteredFAQs = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
             } else {
-                // Filter by category and sort by date
-                filteredFAQs = faqData
+                filteredFAQs = data
                     .filter(faq => faq.category === category)
                     .sort((a, b) => new Date(b.date) - new Date(a.date));
             }
             
-            // Get top 5
-            const displayFAQs = filteredFAQs.slice(0, 5);
+            const displayFAQs = filteredFAQs.slice(0, 10);
             
             if (displayFAQs.length === 0) {
                 faqList.innerHTML = `
@@ -515,46 +727,33 @@
             
             faqList.innerHTML = displayFAQs.map(faq => `
                 <div class="faq-item">
+                    ${isAdmin ? `
+                    <div class="edit-buttons">
+                        <button class="edit-btn" onclick="editFAQ(${faq.id})">编辑</button>
+                        <button class="delete-btn" onclick="deleteFAQ(${faq.id})">删除</button>
+                    </div>
+                    ` : ''}
                     <span class="category">${faq.category}</span>
                     <h3>${faq.question}</h3>
                     <div class="answer">${faq.answer}</div>
                     <small style="color: var(--muted);">Added: ${faq.date}</small>
                 </div>
             `).join('');
-            
-            // Update results count
-            const resultsCount = document.getElementById('resultsCount');
-            if (!resultsCount) {
-                const controls = document.querySelector('.faq-controls');
-                const countElement = document.createElement('div');
-                countElement.id = 'resultsCount';
-                countElement.style.color = 'var(--muted)';
-                countElement.style.fontSize = '14px';
-                countElement.textContent = `Showing ${displayFAQs.length} of ${filteredFAQs.length} questions`;
-                controls.appendChild(countElement);
-            } else {
-                resultsCount.textContent = `Showing ${displayFAQs.length} of ${filteredFAQs.length} questions`;
-            }
         }
 
-        // Home button function
+        // 原有的其他函数保持不变
         function goToHome() {
-            // Reset to default view
             document.getElementById('categoryFilter').value = 'all';
             displayFAQs('all');
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Reset form function
         function resetForm() {
             document.getElementById('newQuestionForm').reset();
         }
 
-        // Handle form submission
         document.getElementById('newQuestionForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const formData = new FormData(this);
             const question = formData.get('question');
             const category = formData.get('category') || 'Not specified';
@@ -574,29 +773,21 @@
             resetForm();
         });
 
-        // Category filter handler
         document.getElementById('categoryFilter').addEventListener('change', function(e) {
-            const category = e.target.value;
-            displayFAQs(category);
+            displayFAQs(e.target.value);
         });
 
-        // SIMPLE TRANSLATION SOLUTION
         document.getElementById('languageSelect').addEventListener('change', function(e) {
             const lang = e.target.value;
-            
-            // Simple and reliable method
             if (lang === 'en') {
-                // If English, remove translation
                 document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                 location.reload();
             } else {
-                // Set translation cookie and reload
                 document.cookie = `googtrans=/en/${lang}; path=/`;
                 location.reload();
             }
         });
 
-        // Initialize Google Translate
         function initializeGoogleTranslate() {
             const script = document.createElement('script');
             script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
@@ -611,7 +802,6 @@
                 autoDisplay: false
             }, 'google_translate_element');
             
-            // Hide Google's default widget but keep functionality
             const style = document.createElement('style');
             style.textContent = `
                 .goog-te-gadget { display: none !important; }
@@ -620,21 +810,9 @@
             document.head.appendChild(style);
         }
 
-        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            displayFAQs(); // Show all categories by default
-            
-            // Set current language based on cookie
-            const cookie = document.cookie.match(/googtrans=([^;]+)/);
-            if (cookie) {
-                const lang = cookie[1].split('/').pop();
-                if (lang && lang !== 'en') {
-                    document.getElementById('languageSelect').value = lang;
-                }
-            }
-            
+            displayFAQs();
             initializeGoogleTranslate();
-            console.log('FAQ application loaded');
         });
     </script>
 </body>
