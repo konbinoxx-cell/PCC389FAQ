@@ -175,7 +175,9 @@
         }
         
         .faq-item.pending {
-            border-left: 4px solid var(--warning);
+            border-left: 8px solid var(--warning);
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.05) 20%, transparent 100%);
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.1);
         }
         
         .faq-item h3 {
@@ -357,46 +359,6 @@
             border-color: #334155;
         }
 
-        /* 管理员面板样式 */
-        .admin-panel {
-            background: var(--panel);
-            border: 1px solid var(--brand);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-        
-        .admin-panel h3 {
-            color: var(--brand);
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .admin-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .pending-questions {
-            margin: 20px 0;
-        }
-        
-        .pending-item {
-            background: var(--bg);
-            border: 1px solid var(--warning);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-        }
-        
-        .answer-form {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border);
-        }
-
         /* Google Translate Styles */
         #google_translate_element {
             display: none !important;
@@ -431,20 +393,10 @@
                 display: inline-block;
             }
             
-            .admin-buttons {
-                flex-direction: column;
-            }
-            
             .contact-options {
                 flex-direction: column;
             }
         }
-            .faq-item.pending {
-                border-left: 8px solid var(--warning);
-                background: linear-gradient(90deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.05) 20%, transparent 100%);
-                box-shadow: 0 2px 8px rgba(251, 191, 36, 0.1);
-            }
-        
     </style>
 </head>
 <body>
@@ -452,63 +404,11 @@
         <div class="header-content">
             <a href="#" class="home-btn" onclick="goToHome()">🏠 Home</a>
             <h1>PCC389 FAQ</h1>
-            <button class="home-btn" onclick="toggleAdmin()" style="right: 0; left: auto;">🔧 Admin</button>
         </div>
         
         <div class="contact-info">
             <p><strong>Office:</strong> <span class="phone-numbers">905-566-1269, 905-566-1319, 647-335-0949</span></p>
             <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
-        </div>
-        
-        <!-- 管理员面板 -->
-        <div class="admin-panel" id="adminPanel" style="display: none;">
-            <h3>📝 管理员面板</h3>
-            <div class="admin-buttons">
-                <button onclick="showAddForm()" class="submit-btn">直接添加FAQ</button>
-                <button onclick="exportData()" class="cancel-btn">导出数据</button>
-                <button onclick="importData()" class="cancel-btn">导入数据</button>
-            </div>
-            
-            <!-- 待回答问题 -->
-            <div class="pending-questions" id="pendingQuestions">
-                <h4>⏳ 待回答问题</h4>
-                <div id="pendingList"></div>
-            </div>
-            
-            <!-- FAQ编辑器 -->
-            <div class="faq-editor" id="faqEditor" style="display: none;">
-                <input type="hidden" id="editId">
-                <div class="form-group">
-                    <label>问题:</label>
-                    <textarea id="editQuestion" placeholder="输入问题..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label>答案:</label>
-                    <textarea id="editAnswer" placeholder="输入答案..." style="min-height: 150px;"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>分类:</label>
-                    <select id="editCategory">
-                        <option value="General Questions">General Questions</option>
-                        <option value="Plumbing">Plumbing</option>
-                        <option value="Electricity">Electricity</option>
-                        <option value="Heating & Cooling">Heating & Cooling</option>
-                        <option value="Parking">Parking</option>
-                        <option value="Garbage">Garbage</option>
-                        <option value="Recycling">Recycling</option>
-                        <option value="Payment">Payment</option>
-                        <option value="Swimming Pool">Swimming Pool</option>
-                        <option value="Fitness Center">Fitness Center</option>
-                        <option value="Squash Court">Squash Court</option>
-                        <option value="Billiards/Ping Pong">Billiards/Ping Pong</option>
-                        <option value="Party Room">Party Room</option>
-                    </select>
-                </div>
-                <div class="form-actions">
-                    <button onclick="saveFAQ()" class="submit-btn">保存</button>
-                    <button onclick="hideEditor()" class="cancel-btn">取消</button>
-                </div>
-            </div>
         </div>
         
         <div class="language-section">
@@ -561,7 +461,7 @@
                 </div>
             </div>
             <div id="faqList">
-                <!-- FAQ列表 -->
+                <!-- FAQ列表将由JavaScript生成 -->
             </div>
         </section>
 
@@ -638,8 +538,8 @@
     </footer>
 
     <script>
-        // 默认FAQ数据 - 修复了第5项的引号问题
-        const defaultFAQData = [
+        // 静态FAQ数据 - 所有人都看到相同的内容
+        const faqData = [
             {
                 id: 1,
                 question: "Welcome! How do I get started?",
@@ -668,7 +568,7 @@
                 id: 4,
                 question: "Bathrooms no power",
                 answer: "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
-                category: "General Questions",
+                category: "Electricity",
                 date: "2024-01-15",
                 status: "answered"
             },
@@ -676,39 +576,11 @@
                 id: 5,
                 question: "How to setup my Thermostat?",
                 answer: "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
-                category: "General Questions",
+                category: "Heating & Cooling",
                 date: "2024-01-15",
                 status: "answered"
             }
         ];
-
-        // 待回答问题存储
-        const defaultPendingQuestions = [];
-
-        // 从localStorage加载数据
-        function loadFAQData() {
-            const savedData = localStorage.getItem('pcc389_faq_data');
-            if (savedData) {
-                return JSON.parse(savedData);
-            } else {
-                // 首次使用时保存默认数据
-                saveFAQData(defaultFAQData);
-                return defaultFAQData;
-            }
-        }
-
-        function loadPendingQuestions() {
-            const savedData = localStorage.getItem('pcc389_pending_questions');
-            return savedData ? JSON.parse(savedData) : defaultPendingQuestions;
-        }
-
-        function saveFAQData(data) {
-            localStorage.setItem('pcc389_faq_data', JSON.stringify(data));
-        }
-
-        function savePendingQuestions(data) {
-            localStorage.setItem('pcc389_pending_questions', JSON.stringify(data));
-        }
 
         let selectedContactOption = 'none';
 
@@ -765,20 +637,6 @@
                 contactInfo = `Phone: ${phone}`;
             }
             
-            // 保存到待回答问题
-            const pendingQuestions = loadPendingQuestions();
-            const newPendingQuestion = {
-                id: Date.now(),
-                question: question,
-                category: category,
-                contactInfo: contactInfo,
-                date: new Date().toISOString(),
-                status: 'pending'
-            };
-            
-            pendingQuestions.push(newPendingQuestion);
-            savePendingQuestions(pendingQuestions);
-            
             // 发送邮件给管理员
             const adminEmail = 'johnetli@gmail.com';
             const subject = encodeURIComponent(`New PCC389 FAQ Question: ${category}`);
@@ -788,15 +646,10 @@
                 `Category: ${category}\n\n` +
                 `Contact Info: ${contactInfo || 'User will check back later'}\n\n` +
                 `Submitted on: ${new Date().toLocaleString()}\n\n` +
-                `Please login to the admin panel to answer this question.\n` +
-                `Admin URL: ${window.location.href}?admin=true\n\n` +
-                `To answer this question:\n` +
-                `1. Open the admin panel (password: pcc389admin)\n` +
-                `2. Find the pending question\n` +
-                `3. Enter your answer and click 'Submit Answer' or 'Add to FAQ'`
+                `Please reply to this question and consider adding it to the FAQ if appropriate.`
             );
             
-            // 尝试打开邮件客户端
+            // 打开邮件客户端
             const mailtoLink = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
             window.open(mailtoLink, '_blank');
             
@@ -808,137 +661,7 @@
             }
             
             resetForm();
-            
-            // 如果管理员面板是打开的，刷新待处理问题列表
-            if (document.getElementById('adminPanel').style.display === 'block') {
-                displayPendingQuestions();
-            }
         });
-
-        // 显示待回答问题（管理员用）
-        function displayPendingQuestions() {
-            const pendingList = document.getElementById('pendingList');
-            const pendingQuestions = loadPendingQuestions();
-            
-            if (pendingQuestions.length === 0) {
-                pendingList.innerHTML = '<p style="text-align: center; color: var(--muted);">No pending questions.</p>';
-                return;
-            }
-            
-            pendingList.innerHTML = pendingQuestions.map(pending => `
-                <div class="pending-item">
-                    <strong>${pending.question}</strong>
-                    <div class="category">${pending.category}</div>
-                    <small>Submitted: ${new Date(pending.date).toLocaleString()}</small>
-                    ${pending.contactInfo ? `<div><small>Contact: ${pending.contactInfo}</small></div>` : ''}
-                    
-                    <div class="answer-form">
-                        <textarea id="answer_${pending.id}" placeholder="Enter your answer here..." style="width: 100%; min-height: 80px; margin: 10px 0; padding: 8px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;"></textarea>
-                        <div style="display: flex; gap: 10px;">
-                            <button onclick="submitAnswer(${pending.id})" class="submit-btn" style="padding: 8px 16px;">Submit Answer</button>
-                            <button onclick="addToFAQ(${pending.id})" class="cancel-btn" style="padding: 8px 16px;">Add to FAQ</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 提交答案
-        function submitAnswer(questionId) {
-            const answer = document.getElementById(`answer_${questionId}`).value;
-            if (!answer) {
-                alert('Please enter an answer!');
-                return;
-            }
-            
-            const pendingQuestions = loadPendingQuestions();
-            const questionIndex = pendingQuestions.findIndex(q => q.id === questionId);
-            
-            if (questionIndex !== -1) {
-                const question = pendingQuestions[questionIndex];
-                
-                // 如果有联系方式，发送答案
-                if (question.contactInfo) {
-                    const subject = encodeURIComponent(`Answer to your PCC389 question`);
-                    const body = encodeURIComponent(
-                        `Your question: ${question.question}\n\n` +
-                        `Our answer: ${answer}\n\n` +
-                        `Thank you for using PCC389 FAQ!\n` +
-                        `If you have more questions, please visit: ${window.location.href}`
-                    );
-                    
-                    if (question.contactInfo.startsWith('Email:')) {
-                        const email = question.contactInfo.replace('Email: ', '');
-                        window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
-                    } else if (question.contactInfo.startsWith('Phone:')) {
-                        // 对于手机号，显示信息让管理员手动发送短信
-                        const phoneNumber = question.contactInfo.replace('Phone: ', '');
-                        alert(`Please send SMS to: ${phoneNumber}\n\nMessage: ${answer}`);
-                    }
-                }
-                
-                // 从待处理列表中移除
-                pendingQuestions.splice(questionIndex, 1);
-                savePendingQuestions(pendingQuestions);
-                
-                alert('Answer submitted successfully!');
-                displayPendingQuestions();
-            }
-        }
-
-        // 添加到FAQ
-        function addToFAQ(questionId) {
-            const answer = document.getElementById(`answer_${questionId}`).value;
-            if (!answer) {
-                alert('Please enter an answer before adding to FAQ!');
-                return;
-            }
-            
-            const pendingQuestions = loadPendingQuestions();
-            const questionIndex = pendingQuestions.findIndex(q => q.id === questionId);
-            
-            if (questionIndex !== -1) {
-                const question = pendingQuestions[questionIndex];
-                
-                // 添加到FAQ
-                const faqData = loadFAQData();
-                const newFAQ = {
-                    id: Date.now(),
-                    question: question.question,
-                    answer: answer,
-                    category: question.category,
-                    date: new Date().toISOString().split('T')[0],
-                    status: 'answered'
-                };
-                
-                faqData.push(newFAQ);
-                saveFAQData(faqData);
-                
-                // 从待处理列表中移除
-                pendingQuestions.splice(questionIndex, 1);
-                savePendingQuestions(pendingQuestions);
-                
-                // 如果有联系方式，发送通知
-                if (question.contactInfo) {
-                    const subject = encodeURIComponent(`Answer to your PCC389 question`);
-                    const body = encodeURIComponent(
-                        `Your question: ${question.question}\n\n` +
-                        `Our answer: ${answer}\n\n` +
-                        `Your question has been added to our FAQ for future reference.\n` +
-                        `Thank you for using PCC389 FAQ!`
-                    );
-                    
-                    if (question.contactInfo.startsWith('Email:')) {
-                        const email = question.contactInfo.replace('Email: ', '');
-                        window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
-                    }
-                }
-                
-                alert('Question added to FAQ successfully!');
-                displayPendingQuestions();
-                displayFAQs();
-            }
-        }
 
         // 重置表单
         function resetForm() {
@@ -952,110 +675,15 @@
             document.getElementById('checkLaterWarning').style.display = 'none';
         }
 
-        // 管理员功能
-        function toggleAdmin() {
-            const password = prompt("请输入管理员密码:");
-            if (password === "pcc389admin") {
-                const panel = document.getElementById('adminPanel');
-                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-                if (panel.style.display === 'block') {
-                    displayPendingQuestions();
-                }
-            } else if (password) {
-                alert("密码错误!");
-            }
-        }
-
-        // 其他原有函数保持不变
-        function showAddForm() {
-            document.getElementById('faqEditor').style.display = 'block';
-            document.getElementById('editId').value = '';
-            document.getElementById('editQuestion').value = '';
-            document.getElementById('editAnswer').value = '';
-            document.getElementById('editCategory').value = 'General Questions';
-        }
-
-        function saveFAQ() {
-            const id = document.getElementById('editId').value;
-            const question = document.getElementById('editQuestion').value;
-            const answer = document.getElementById('editAnswer').value;
-            const category = document.getElementById('editCategory').value;
-            
-            if (question && answer) {
-                const data = loadFAQData();
-                
-                if (id) {
-                    const index = data.findIndex(item => item.id === parseInt(id));
-                    if (index !== -1) {
-                        data[index] = { ...data[index], question, answer, category };
-                    }
-                } else {
-                    const newFAQ = {
-                        id: Date.now(),
-                        question: question,
-                        answer: answer,
-                        category: category,
-                        date: new Date().toISOString().split('T')[0],
-                        status: 'answered'
-                    };
-                    data.push(newFAQ);
-                }
-                
-                saveFAQData(data);
-                displayFAQs();
-                hideEditor();
-                alert('FAQ saved!');
-            } else {
-                alert('Please fill in both question and answer!');
-            }
-        }
-
-        function hideEditor() {
-            document.getElementById('faqEditor').style.display = 'none';
-        }
-
-        function exportData() {
-            const data = loadFAQData();
-            const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'pcc389_faq_backup.json';
-            a.click();
-        }
-
-        function importData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            input.onchange = e => {
-                const file = e.target.files[0];
-                const reader = new FileReader();
-                reader.onload = event => {
-                    try {
-                        const data = JSON.parse(event.target.result);
-                        saveFAQData(data);
-                        displayFAQs();
-                        alert('Data imported successfully!');
-                    } catch (error) {
-                        alert('Invalid file format!');
-                    }
-                };
-                reader.readAsText(file);
-            };
-            input.click();
-        }
-
         // 显示FAQs
         function displayFAQs(category = 'all') {
             const faqList = document.getElementById('faqList');
-            const data = loadFAQData();
             
             let filteredFAQs;
             if (category === 'all') {
-                filteredFAQs = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+                filteredFAQs = [...faqData].sort((a, b) => new Date(b.date) - new Date(a.date));
             } else {
-                filteredFAQs = data
+                filteredFAQs = faqData
                     .filter(faq => faq.category === category)
                     .sort((a, b) => new Date(b.date) - new Date(a.date));
             }
@@ -1121,17 +749,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             displayFAQs();
             initializeGoogleTranslate();
-            
-            // 检查URL参数
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('admin') === 'true') {
-                document.getElementById('adminPanel').style.display = 'block';
-                displayPendingQuestions();
-            }
-            
-            console.log('PCC389 FAQ System Loaded Successfully');
-            console.log('Total FAQs:', loadFAQData().length);
-            console.log('Pending Questions:', loadPendingQuestions().length);
         });
     </script>
 </body>
