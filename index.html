@@ -632,7 +632,7 @@
     </footer>
 
     <script>
-        // 默认FAQ数据
+        // 默认FAQ数据 - 修复了第5项的引号问题
         const defaultFAQData = [
             {
                 id: 1,
@@ -669,11 +669,11 @@
             {
                 id: 5,
                 question: "How to setup my Thermostat?",
-                answer: "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a "cool-off-heat" switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
+                answer: "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
                 category: "General Questions",
                 date: "2024-01-15",
                 status: "answered"
-            },
+            }
         ];
 
         // 待回答问题存储
@@ -682,7 +682,13 @@
         // 从localStorage加载数据
         function loadFAQData() {
             const savedData = localStorage.getItem('pcc389_faq_data');
-            return savedData ? JSON.parse(savedData) : defaultFAQData;
+            if (savedData) {
+                return JSON.parse(savedData);
+            } else {
+                // 首次使用时保存默认数据
+                saveFAQData(defaultFAQData);
+                return defaultFAQData;
+            }
         }
 
         function loadPendingQuestions() {
@@ -734,6 +740,18 @@
             const email = formData.get('email');
             const phone = formData.get('phone');
             
+            // 验证必填字段
+            if (!question.trim()) {
+                alert('Please enter your question!');
+                return;
+            }
+            
+            if ((selectedContactOption === 'email' && !email) || 
+                (selectedContactOption === 'phone' && !phone)) {
+                alert('Please provide your contact information!');
+                return;
+            }
+            
             let contactInfo = '';
             if (selectedContactOption === 'email' && email) {
                 contactInfo = `Email: ${email}`;
@@ -757,7 +775,7 @@
             
             // 发送邮件给管理员
             const adminEmail = 'johnetli@gmail.com';
-            const subject = encodeURIComponent(`New Question: ${category}`);
+            const subject = encodeURIComponent(`New PCC389 FAQ Question: ${category}`);
             const body = encodeURIComponent(
                 `A new question has been submitted to PCC389 FAQ:\n\n` +
                 `Question: ${question}\n\n` +
@@ -765,20 +783,30 @@
                 `Contact Info: ${contactInfo || 'User will check back later'}\n\n` +
                 `Submitted on: ${new Date().toLocaleString()}\n\n` +
                 `Please login to the admin panel to answer this question.\n` +
-                `Admin URL: ${window.location.href}?admin=true`
+                `Admin URL: ${window.location.href}?admin=true\n\n` +
+                `To answer this question:\n` +
+                `1. Open the admin panel (password: pcc389admin)\n` +
+                `2. Find the pending question\n` +
+                `3. Enter your answer and click 'Submit Answer' or 'Add to FAQ'`
             );
             
-            window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
+            // 尝试打开邮件客户端
+            const mailtoLink = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
+            window.open(mailtoLink, '_blank');
             
             // 显示成功消息
             if (contactInfo) {
-                alert('Thank you for your question! We will send the answer to your provided contact information within 24 hours.');
+                alert('Thank you for your question! We will send the answer to your provided contact information within 24 hours. A notification has been sent to our team.');
             } else {
-                alert('Thank you for your question! Please check back in 24 hours to see if your question has been answered.');
+                alert('Thank you for your question! Please check back in 24 hours to see if your question has been answered. A notification has been sent to our team.');
             }
             
             resetForm();
-            displayPendingQuestions();
+            
+            // 如果管理员面板是打开的，刷新待处理问题列表
+            if (document.getElementById('adminPanel').style.display === 'block') {
+                displayPendingQuestions();
+            }
         });
 
         // 显示待回答问题（管理员用）
@@ -787,7 +815,7 @@
             const pendingQuestions = loadPendingQuestions();
             
             if (pendingQuestions.length === 0) {
-                pendingList.innerHTML = '<p>No pending questions.</p>';
+                pendingList.innerHTML = '<p style="text-align: center; color: var(--muted);">No pending questions.</p>';
                 return;
             }
             
@@ -799,9 +827,11 @@
                     ${pending.contactInfo ? `<div><small>Contact: ${pending.contactInfo}</small></div>` : ''}
                     
                     <div class="answer-form">
-                        <textarea id="answer_${pending.id}" placeholder="Enter your answer here..." style="width: 100%; min-height: 80px; margin: 10px 0;"></textarea>
-                        <button onclick="submitAnswer(${pending.id})" class="submit-btn" style="padding: 8px 16px;">Submit Answer</button>
-                        <button onclick="addToFAQ(${pending.id})" class="cancel-btn" style="padding: 8px 16px;">Add to FAQ</button>
+                        <textarea id="answer_${pending.id}" placeholder="Enter your answer here..." style="width: 100%; min-height: 80px; margin: 10px 0; padding: 8px; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px;"></textarea>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="submitAnswer(${pending.id})" class="submit-btn" style="padding: 8px 16px;">Submit Answer</button>
+                            <button onclick="addToFAQ(${pending.id})" class="cancel-btn" style="padding: 8px 16px;">Add to FAQ</button>
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -833,10 +863,11 @@
                     
                     if (question.contactInfo.startsWith('Email:')) {
                         const email = question.contactInfo.replace('Email: ', '');
-                        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                        window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
                     } else if (question.contactInfo.startsWith('Phone:')) {
                         // 对于手机号，显示信息让管理员手动发送短信
-                        alert(`Please send SMS to: ${question.contactInfo}\n\nMessage: ${answer}`);
+                        const phoneNumber = question.contactInfo.replace('Phone: ', '');
+                        alert(`Please send SMS to: ${phoneNumber}\n\nMessage: ${answer}`);
                     }
                 }
                 
@@ -893,7 +924,7 @@
                     
                     if (question.contactInfo.startsWith('Email:')) {
                         const email = question.contactInfo.replace('Email: ', '');
-                        window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+                        window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
                     }
                 }
                 
@@ -1088,8 +1119,13 @@
             // 检查URL参数
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.get('admin') === 'true') {
-                toggleAdmin();
+                document.getElementById('adminPanel').style.display = 'block';
+                displayPendingQuestions();
             }
+            
+            console.log('PCC389 FAQ System Loaded Successfully');
+            console.log('Total FAQs:', loadFAQData().length);
+            console.log('Pending Questions:', loadPendingQuestions().length);
         });
     </script>
 </body>
