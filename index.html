@@ -376,6 +376,22 @@
             top: 0px !important;
         }
 
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--muted);
+        }
+
+        .error-message {
+            background: rgba(248, 113, 113, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+        }
+
         @media (max-width: 768px) {
             .faq-controls {
                 flex-direction: column;
@@ -461,7 +477,7 @@
                 </div>
             </div>
             <div id="faqList">
-                <!-- FAQ列表将由JavaScript生成 -->
+                <div class="loading">Loading FAQs...</div>
             </div>
         </section>
 
@@ -535,54 +551,45 @@
 
     <footer>
         <p>© 2024 PCC389 Building Management. For reference only.</p>
+        <p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
+            FAQ data is automatically updated from our GitHub repository.
+        </p>
     </footer>
 
     <script>
-        // 静态FAQ数据 - 所有人都看到相同的内容
-        const faqData = [
-            {
-                id: 1,
-                question: "Welcome! How do I get started?",
-                answer: "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
-                category: "General Questions",
-                date: "2024-01-15",
-                status: "answered"
-            },
-            {
-                id: 2,
-                question: "What should I do if there's a plumbing emergency?",
-                answer: "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
-                category: "Plumbing",
-                date: "2024-01-10",
-                status: "answered"
-            },
-            {
-                id: 3,
-                question: "How do I access the fitness center?",
-                answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
-                category: "Fitness Center",
-                date: "2024-01-08",
-                status: "answered"
-            },
-            {
-                id: 4,
-                question: "Bathrooms no power",
-                answer: "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
-                category: "Electricity",
-                date: "2024-01-15",
-                status: "answered"
-            },
-            {
-                id: 5,
-                question: "How to setup my Thermostat?",
-                answer: "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
-                category: "Heating & Cooling",
-                date: "2024-01-15",
-                status: "answered"
-            }
-        ];
-
         let selectedContactOption = 'none';
+        let faqData = [];
+
+        // 从 faq.json 加载FAQ数据
+        async function loadFAQs() {
+            try {
+                const response = await fetch('faq.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                // 转换数据格式以兼容现有代码
+                faqData = data.faqs.map(faq => ({
+                    id: faq.id,
+                    question: faq.question,
+                    answer: faq.answer,
+                    category: faq.category || "General Questions",
+                    date: new Date(faq.last_updated).toISOString().split('T')[0],
+                    status: "answered" // 从JSON加载的都是已回答的问题
+                }));
+                
+                displayFAQs();
+            } catch (error) {
+                console.error('Error loading FAQs:', error);
+                document.getElementById('faqList').innerHTML = `
+                    <div class="error-message">
+                        <strong>Error loading FAQs:</strong> ${error.message}<br>
+                        Please refresh the page or contact support.
+                    </div>
+                `;
+            }
+        }
 
         // 选择联系方式
         function selectContactOption(option) {
@@ -608,8 +615,8 @@
             }
         }
 
-        // 提交新问题
-        document.getElementById('newQuestionForm').addEventListener('submit', function(e) {
+        // 提交新问题 - 现在创建GitHub Issue
+        document.getElementById('newQuestionForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const formData = new FormData(this);
@@ -636,31 +643,43 @@
             } else if (selectedContactOption === 'phone' && phone) {
                 contactInfo = `Phone: ${phone}`;
             }
-            
-            // 发送邮件给管理员
-            const adminEmail = 'johnetli@gmail.com';
-            const subject = encodeURIComponent(`New PCC389 FAQ Question: ${category}`);
-            const body = encodeURIComponent(
-                `A new question has been submitted to PCC389 FAQ:\n\n` +
-                `Question: ${question}\n\n` +
-                `Category: ${category}\n\n` +
-                `Contact Info: ${contactInfo || 'User will check back later'}\n\n` +
-                `Submitted on: ${new Date().toLocaleString()}\n\n` +
-                `Please reply to this question and consider adding it to the FAQ if appropriate.`
-            );
-            
-            // 打开邮件客户端
-            const mailtoLink = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
-            window.open(mailtoLink, '_blank');
-            
-            // 显示成功消息
-            if (contactInfo) {
-                alert('Thank you for your question! We will send the answer to your provided contact information within 24 hours. A notification has been sent to our team.');
-            } else {
-                alert('Thank you for your question! Please check back in 24 hours to see if your question has been answered. A notification has been sent to our team.');
+
+            // 创建GitHub Issue
+            try {
+                const issueTitle = `FAQ: ${question.substring(0, 100)}${question.length > 100 ? '...' : ''}`;
+                const issueBody = `
+**Question:** ${question}
+
+**Category:** ${category}
+
+**Contact Information:** ${contactInfo || 'User will check back later'}
+
+**Submitted:** ${new Date().toLocaleString()}
+
+---
+
+*To answer this question, please comment with:*
+\`/faq Your answer here\`
+
+*The answer will be automatically added to the FAQ.*
+                `.trim();
+
+                // 打开GitHub Issue创建页面
+                const githubUrl = `https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=faq`;
+                window.open(githubUrl, '_blank');
+                
+                // 显示成功消息
+                if (contactInfo) {
+                    alert('Thank you for your question! A GitHub Issue has been created. Our team will answer it soon and the answer will be automatically added to the FAQ. We will also contact you at the provided information.');
+                } else {
+                    alert('Thank you for your question! A GitHub Issue has been created. Please check back in 24 hours to see if your question has been answered and added to the FAQ.');
+                }
+                
+                resetForm();
+            } catch (error) {
+                console.error('Error creating issue:', error);
+                alert('There was an error submitting your question. Please try again or contact support directly.');
             }
-            
-            resetForm();
         });
 
         // 重置表单
@@ -678,6 +697,11 @@
         // 显示FAQs
         function displayFAQs(category = 'all') {
             const faqList = document.getElementById('faqList');
+            
+            if (faqData.length === 0) {
+                faqList.innerHTML = '<div class="loading">Loading FAQs...</div>';
+                return;
+            }
             
             let filteredFAQs;
             if (category === 'all') {
@@ -703,7 +727,7 @@
                     <span class="status ${faq.status}">${faq.status}</span>
                     <h3>${faq.question}</h3>
                     <div class="answer">${faq.answer}</div>
-                    <small style="color: var(--muted);">Added: ${faq.date}</small>
+                    <small style="color: var(--muted);">Last updated: ${faq.date}</small>
                 </div>
             `).join('');
         }
@@ -747,7 +771,7 @@
 
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
-            displayFAQs();
+            loadFAQs(); // 改为从JSON加载
             initializeGoogleTranslate();
         });
     </script>
