@@ -1,0 +1,45 @@
+  // 静态FAQ数据 - 所有人都看到相同的内容
+   {     
+    faqs: [
+            {
+                id: 1,
+                question: "Welcome! How do I get started?",
+                answer: "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+                category: "General Questions",
+                date: "2024-01-15",
+                status: "answered"
+            },
+            {
+                id: 2,
+                question: "What should I do if there's a plumbing emergency?",
+                answer: "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
+                category: "Plumbing",
+                date: "2024-01-10",
+                status: "answered"
+            },
+            {
+                id: 3,
+                question: "How do I access the fitness center?",
+                answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
+                category: "Fitness Center",
+                date: "2024-01-08",
+                status: "answered"
+            },
+            {
+                id: 4,
+                question: "Bathrooms no power",
+                answer: "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
+                category: "Electricity",
+                date: "2024-01-15",
+                status: "answered"
+            },
+            {
+                id: 5,
+                question: "How to setup my Thermostat?",
+                answer: "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
+                category: "Heating & Cooling",
+                date: "2024-01-15",
+                status: "answered"
+            }
+        ];
+   }
