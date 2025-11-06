@@ -1,38 +1,25 @@
-// 从 faq.json 加载FAQ数据
-async function loadFAQs() {
-    try {
-        const response = await fetch('faq.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const text = await response.text();
-        console.log('Raw JSON response:', text); // 调试用
-        
-        const data = JSON.parse(text);
-        
-        // 检查数据格式是否正确
-        if (!data || !data.faqs || !Array.isArray(data.faqs)) {
-            throw new Error('Invalid FAQ data format: missing or invalid "faqs" array');
-        }
-        
-        // 转换数据格式以兼容现有代码
-        faqData = data.faqs.map(faq => ({
-            id: faq.id,
-            question: faq.question,
-            answer: faq.answer,
-            category: faq.category || "General Questions",
-            date: new Date(faq.last_updated).toISOString().split('T')[0],
-            status: "answered"
-        }));
-        
-        displayFAQs();
-    } catch (error) {
-        console.error('Error loading FAQs:', error);
-        document.getElementById('faqList').innerHTML = `
-            <div class="error-message">
-                <strong>Error loading FAQs:</strong> ${error.message}<br>
-                <small>Please check the browser console for details and ensure faq.json has valid JSON format.</small>
-            </div>
-        `;
-    }
-}
+<!-- 临时测试页面 test.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test JSON</title>
+</head>
+<body>
+    <h1>Testing faq.json</h1>
+    <div id="result"></div>
+    
+    <script>
+        fetch('faq.json')
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById('result').innerHTML = 
+                    '<h2>Raw Content:</h2><pre>' + text + '</pre>' +
+                    '<h2>Parsed:</h2><pre>' + JSON.stringify(JSON.parse(text), null, 2) + '</pre>';
+            })
+            .catch(error => {
+                document.getElementById('result').innerHTML = 
+                    '<h2>Error:</h2><pre>' + error + '</pre>';
+            });
+    </script>
+</body>
+</html>
