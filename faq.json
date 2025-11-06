@@ -1,37 +1,18 @@
 [
-    {
-      "id": 1,
-      "question": "Welcome! How do I get started?",
-      "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
-      "category": "General Questions",
-      "last_updated": "2024-01-15T00:00:00"
-    },
-    {
-      "id": 2,
-      "question": "What should I do if there's a plumbing emergency?",
-      "answer": "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
-      "category": "Plumbing",
-      "last_updated": "2024-01-10T00:00:00"
-    },
-    {
-      "id": 3,
-      "question": "How do I access the fitness center?",
-      "answer": "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
-      "category": "Fitness Center",
-      "last_updated": "2024-01-08T00:00:00"
-    },
-    {
-      "id": 4,
-      "question": "Bathrooms no power",
-      "answer": "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
-      "category": "Electricity",
-      "last_updated": "2024-01-15T00:00:00"
-    },
-    {
-      "id": 5,
-      "question": "How to setup my Thermostat?",
-      "answer": "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
-      "category": "Heating & Cooling",
-      "last_updated": "2024-01-15T00:00:00"
-    }
-  ]
+  {
+    "id": 1,
+    "question": "什么是福音？",
+    "answer": "福音的意思是'好消息'。福音的核心信息是：神爱世人，甚至将祂的独生子赐给我们，叫一切信祂的，不至灭亡，反得永生（约翰福音3:16）。这好消息包括：1) 人因罪与神隔绝；2) 耶稣基督为我们的罪死在十字架上；3) 祂从死里复活，战胜了死亡；4) 凡信靠祂的人都能得救，获得永生。",
+    "category": "基本信仰",
+    "date": "2024-01-20",
+    "status": "answered"
+  },
+  {
+    "id": 2,
+    "question": "我如何才能得救？",
+    "answer": "得救的方法很简单，却需要真诚的心：1) 承认自己是罪人，需要神的救赎；2) 相信耶稣基督是神的儿子，为你的罪死在十字架上，并且复活；3) 悔改你的罪，愿意离弃罪恶；4) 接受耶稣作你个人的救主和生命的主。你可以用祷告向神表达你的信心：'主耶稣，我承认我是个罪人，我相信你为我的罪死在十字架上，求你赦免我的罪，进入我的生命，作我的救主。阿们。'",
+    "category": "救恩之道",
+    "date": "2024-01-19",
+    "status": "answered"
+  }
+]
