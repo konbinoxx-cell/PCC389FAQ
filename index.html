@@ -46,15 +46,42 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         
-        .category-filter select {
+        .controls-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .category-filter select,
+        .language-toggle {
             background: #0f172a;
             color: #e2e8f0;
             border: 1px solid #1f2937;
             padding: 8px 12px;
             border-radius: 6px;
             min-width: 180px;
+        }
+        
+        .language-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-width: 120px;
+        }
+        
+        .language-toggle:hover {
+            background: #1e293b;
+        }
+        
+        .language-toggle:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         
         .faq-item {
@@ -126,6 +153,11 @@
             width: 100%;
         }
         
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
         .loading {
             text-align: center;
             padding: 40px;
@@ -141,47 +173,70 @@
             text-align: center;
             margin: 15px 0;
         }
+        
+        .translating-indicator {
+            display: inline-block;
+            background: #f59e0b;
+            color: #0f172a;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-left: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>PCC389 FAQ</h1>
+        <h1 id="pageTitle">PCC389 FAQ</h1>
         <div class="contact-info">
-            <p><strong>Office:</strong> 905-566-1269, 905-566-1319, 647-335-0949</p>
-            <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
+            <p><strong id="officeLabel">Office:</strong> <span id="officeNumbers">905-566-1269, 905-566-1319, 647-335-0949</span></p>
+            <p><strong id="addressLabel">Address:</strong> <span id="addressText">285 Enfield Pl, Mississauga, ON L5B 3Y6</span></p>
         </div>
     </header>
 
     <main>
         <section class="latest-faqs">
             <div class="faq-controls">
-                <h2>Questions & Answers</h2>
-                <div class="category-filter">
-                    <select id="categoryFilter">
-                        <option value="all">All Categories</option>
-                        <option value="General Questions">General Questions</option>
-                        <option value="Plumbing">Plumbing</option>
-                        <option value="Electricity">Electricity</option>
-                        <option value="Heating & Cooling">Heating & Cooling</option>
-                        <option value="Fitness Center">Fitness Center</option>
-                    </select>
+                <h2 id="questionsTitle">Questions & Answers</h2>
+                <div class="controls-right">
+                    <div class="category-filter">
+                        <select id="categoryFilter">
+                            <option value="all" id="allCategories">All Categories</option>
+                            <option value="General Questions" id="generalCategory">General Questions</option>
+                            <option value="Plumbing" id="plumbingCategory">Plumbing</option>
+                            <option value="Electricity" id="electricityCategory">Electricity</option>
+                            <option value="Heating & Cooling" id="heatingCategory">Heating & Cooling</option>
+                            <option value="Fitness Center" id="fitnessCategory">Fitness Center</option>
+                        </select>
+                    </div>
+                    <button class="language-toggle" id="languageToggle">
+                        <span>🌐</span>
+                        <span id="languageText">中文</span>
+                    </button>
                 </div>
             </div>
             <div id="faqList">
-                <div class="loading">Loading FAQs...</div>
+                <div class="loading" id="loadingText">Loading FAQs...</div>
             </div>
         </section>
 
         <div class="question-form">
-            <h3>Submit a New Question</h3>
+            <h3 id="submitQuestionTitle">Submit a New Question</h3>
             <form id="newQuestionForm">
                 <div class="form-group">
-                    <label for="question">Your Question *</label>
+                    <label for="question" id="questionLabel">Your Question *</label>
                     <textarea id="question" name="question" required placeholder="Enter your question here..."></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="category">Category</label>
+                    <label for="category" id="categoryLabel">Category</label>
                     <select id="category" name="category">
                         <option value="General Questions">General Questions</option>
                         <option value="Plumbing">Plumbing</option>
@@ -191,13 +246,189 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="submit-btn">Submit Question</button>
+                <button type="submit" class="submit-btn" id="submitButton">Submit Question</button>
             </form>
         </div>
     </main>
 
     <script>
-        // 简单可靠的FAQ加载
+        // 翻译数据
+        const translations = {
+            en: {
+                pageTitle: "PCC389 FAQ",
+                officeLabel: "Office:",
+                addressLabel: "Address:",
+                questionsTitle: "Questions & Answers",
+                allCategories: "All Categories",
+                generalCategory: "General Questions",
+                plumbingCategory: "Plumbing",
+                electricityCategory: "Electricity",
+                heatingCategory: "Heating & Cooling",
+                fitnessCategory: "Fitness Center",
+                languageText: "中文",
+                submitQuestionTitle: "Submit a New Question",
+                questionLabel: "Your Question *",
+                categoryLabel: "Category",
+                submitButton: "Submit Question",
+                questionPlaceholder: "Enter your question here...",
+                loadingText: "Loading FAQs...",
+                noQuestions: "No questions found in this category.",
+                submitSuccess: "Question submitted! You will be redirected to GitHub.",
+                enterQuestion: "Please enter a question!",
+                translating: "Translating...",
+                translationError: "Translation failed, showing original text"
+            },
+            zh: {
+                pageTitle: "PCC389 常见问题",
+                officeLabel: "办公室:",
+                addressLabel: "地址:",
+                questionsTitle: "问题与解答",
+                allCategories: "全部分类",
+                generalCategory: "一般问题",
+                plumbingCategory: "管道",
+                electricityCategory: "电力",
+                heatingCategory: "供暖与制冷",
+                fitnessCategory: "健身中心",
+                languageText: "English",
+                submitQuestionTitle: "提交新问题",
+                questionLabel: "您的问题 *",
+                categoryLabel: "分类",
+                submitButton: "提交问题",
+                questionPlaceholder: "在这里输入您的问题...",
+                loadingText: "加载常见问题中...",
+                noQuestions: "此分类中没有找到问题。",
+                submitSuccess: "问题已提交！您将被重定向到GitHub。",
+                enterQuestion: "请输入问题！",
+                translating: "翻译中...",
+                translationError: "翻译失败，显示原文"
+            }
+        };
+
+        let currentLanguage = 'en';
+        let originalFAQs = [];
+        let translatedFAQs = [];
+
+        // 使用免费的翻译API (Google Translate API 代理)
+        async function translateText(text, targetLang) {
+            try {
+                // 使用免费的翻译API
+                const response = await fetch('https://api.mymemory.translated.net/get', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang === 'zh' ? 'zh-CN' : 'en'}`;
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error('Translation API error');
+                }
+                
+                const data = await response.json();
+                
+                if (data.responseStatus === 200 && data.responseData) {
+                    return data.responseData.translatedText;
+                } else {
+                    throw new Error('Translation failed');
+                }
+            } catch (error) {
+                console.error('Translation error:', error);
+                // 如果翻译失败，返回原始文本
+                return text;
+            }
+        }
+
+        // 批量翻译FAQ内容
+        async function translateFAQs(faqs, targetLang) {
+            if (targetLang === 'en') {
+                return faqs; // 英文不需要翻译
+            }
+
+            const translated = [];
+            
+            for (const faq of faqs) {
+                try {
+                    // 翻译答案
+                    const translatedAnswer = await translateText(faq.answer, targetLang);
+                    
+                    // 翻译分类
+                    const translatedCategory = await translateText(faq.category, targetLang);
+                    
+                    translated.push({
+                        ...faq,
+                        translatedAnswer,
+                        translatedCategory
+                    });
+                } catch (error) {
+                    console.error(`Failed to translate FAQ: ${faq.question}`, error);
+                    translated.push({
+                        ...faq,
+                        translatedAnswer: faq.answer,
+                        translatedCategory: faq.category
+                    });
+                }
+            }
+            
+            return translated;
+        }
+
+        // 切换语言
+        async function toggleLanguage() {
+            const toggleBtn = document.getElementById('languageToggle');
+            const originalText = toggleBtn.innerHTML;
+            
+            try {
+                toggleBtn.disabled = true;
+                toggleBtn.innerHTML = '<span>🌐</span><span class="translating-indicator">Translating...</span>';
+                
+                const targetLanguage = currentLanguage === 'en' ? 'zh' : 'en';
+                
+                if (targetLanguage === 'zh' && translatedFAQs.length === 0) {
+                    // 首次翻译
+                    translatedFAQs = await translateFAQs(originalFAQs, 'zh');
+                }
+                
+                currentLanguage = targetLanguage;
+                applyTranslations();
+                displayFAQs(currentLanguage === 'en' ? originalFAQs : translatedFAQs);
+                
+            } catch (error) {
+                console.error('Language toggle error:', error);
+                const t = translations[currentLanguage];
+                showError(t.translationError);
+            } finally {
+                toggleBtn.disabled = false;
+                toggleBtn.innerHTML = originalText;
+            }
+        }
+
+        // 应用翻译
+        function applyTranslations() {
+            const t = translations[currentLanguage];
+            
+            // 更新所有文本元素
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+            document.getElementById('officeLabel').textContent = t.officeLabel;
+            document.getElementById('addressLabel').textContent = t.addressLabel;
+            document.getElementById('questionsTitle').textContent = t.questionsTitle;
+            document.getElementById('allCategories').textContent = t.allCategories;
+            document.getElementById('generalCategory').textContent = t.generalCategory;
+            document.getElementById('plumbingCategory').textContent = t.plumbingCategory;
+            document.getElementById('electricityCategory').textContent = t.electricityCategory;
+            document.getElementById('heatingCategory').textContent = t.heatingCategory;
+            document.getElementById('fitnessCategory').textContent = t.fitnessCategory;
+            document.getElementById('languageText').textContent = t.languageText;
+            document.getElementById('submitQuestionTitle').textContent = t.submitQuestionTitle;
+            document.getElementById('questionLabel').textContent = t.questionLabel;
+            document.getElementById('categoryLabel').textContent = t.categoryLabel;
+            document.getElementById('submitButton').textContent = t.submitButton;
+            document.getElementById('question').placeholder = t.questionPlaceholder;
+            document.getElementById('loadingText').textContent = t.loadingText;
+        }
+
+        // 加载FAQ数据
         async function loadFAQs() {
             try {
                 console.log('Loading FAQs...');
@@ -214,7 +445,9 @@
                     throw new Error('FAQ data is missing "faqs" array');
                 }
                 
-                displayFAQs(data.faqs);
+                originalFAQs = data.faqs;
+                translatedFAQs = []; // 重置翻译缓存
+                displayFAQs(originalFAQs);
                 
             } catch (error) {
                 console.error('Error:', error);
@@ -224,24 +457,34 @@
 
         function displayFAQs(faqs, category = 'all') {
             const faqList = document.getElementById('faqList');
+            const t = translations[currentLanguage];
             
             let filteredFAQs = category === 'all' 
                 ? faqs 
-                : faqs.filter(faq => faq.category === category);
+                : faqs.filter(faq => {
+                    const faqCategory = currentLanguage === 'zh' && faq.translatedCategory ? faq.translatedCategory : faq.category;
+                    return faqCategory === category;
+                });
             
             if (filteredFAQs.length === 0) {
-                faqList.innerHTML = '<div class="error">No questions found in this category.</div>';
+                faqList.innerHTML = `<div class="error">${t.noQuestions}</div>`;
                 return;
             }
             
-            faqList.innerHTML = filteredFAQs.map(faq => `
+            faqList.innerHTML = filteredFAQs.map(faq => {
+                // 根据当前语言选择显示的答案和分类
+                const answer = currentLanguage === 'zh' && faq.translatedAnswer ? faq.translatedAnswer : faq.answer;
+                const displayCategory = currentLanguage === 'zh' && faq.translatedCategory ? faq.translatedCategory : faq.category;
+                
+                return `
                 <div class="faq-item">
-                    <span class="category">${faq.category}</span>
+                    <span class="category">${displayCategory}</span>
                     <h3>${faq.question}</h3>
-                    <div class="answer">${faq.answer}</div>
+                    <div class="answer">${answer}</div>
                     <small style="color: #94a3b8;">Updated: ${faq.last_updated}</small>
                 </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function showError(message) {
@@ -257,43 +500,43 @@
         document.getElementById('newQuestionForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
+            const t = translations[currentLanguage];
             const question = document.getElementById('question').value;
             const category = document.getElementById('category').value;
             
             if (!question.trim()) {
-                alert('Please enter a question!');
+                alert(t.enterQuestion);
                 return;
             }
             
             // 创建GitHub Issue链接
             const issueTitle = `FAQ: ${question.substring(0, 50)}${question.length > 50 ? '...' : ''}`;
-            const issueBody = `**Question:** ${question}\n\n**Category:** ${category}\n\n**Submitted:** ${new Date().toLocaleString()}`;
+            const issueBody = `**Question:** ${question}\n\n**Category:** ${category}\n\n**Language:** ${currentLanguage}\n\n**Submitted:** ${new Date().toLocaleString()}`;
             
-            // 在表单提交部分，替换这一行：
+            // 替换成你的实际GitHub仓库URL
             const githubUrl = `https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=faq`;
-                
-            // 替换成你的实际仓库，例如：
-            // const githubUrl = `https://github.com/johnetli/pcc389-faq/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=faq`;
+            
             window.open(githubUrl, '_blank');
-            alert('Question submitted! You will be redirected to GitHub.');
+            alert(t.submitSuccess);
             
             // 清空表单
             this.reset();
         });
 
         // 分类筛选
-        document.getElementById('categoryFilter').addEventListener('change', async function(e) {
-            try {
-                const response = await fetch('faq.json');
-                const data = await response.json();
-                displayFAQs(data.faqs, e.target.value);
-            } catch (error) {
-                showError('Failed to filter FAQs');
-            }
+        document.getElementById('categoryFilter').addEventListener('change', function(e) {
+            const faqsToDisplay = currentLanguage === 'en' ? originalFAQs : translatedFAQs;
+            displayFAQs(faqsToDisplay, e.target.value);
         });
 
+        // 语言切换
+        document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
+
         // 初始化
-        document.addEventListener('DOMContentLoaded', loadFAQs);
+        document.addEventListener('DOMContentLoaded', function() {
+            applyTranslations();
+            loadFAQs();
+        });
     </script>
 </body>
 </html>
