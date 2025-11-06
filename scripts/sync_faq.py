@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from datetime import datetime
+import os
 
 def parse_faq_data(issue_title, comment_body, issue_number):
     """从issue标题和评论中解析FAQ数据"""
@@ -20,6 +21,7 @@ def parse_faq_data(issue_title, comment_body, issue_number):
         "id": issue_number,
         "question": question,
         "answer": answer,
+        "category": "General Questions",  # 默认分类
         "last_updated": datetime.now().isoformat()
     }
 
@@ -37,7 +39,7 @@ def update_faq_json(new_faq):
     existing_ids = [faq["id"] for faq in faqs.get("faqs", [])]
     if new_faq["id"] in existing_ids:
         print(f"FAQ with ID {new_faq['id']} already exists, skipping...")
-        return
+        return False
     
     # 添加新的FAQ
     faqs.setdefault("faqs", []).append(new_faq)
@@ -47,6 +49,7 @@ def update_faq_json(new_faq):
         json.dump(faqs, f, ensure_ascii=False, indent=2)
     
     print(f"Successfully added FAQ: {new_faq['question']}")
+    return True
 
 def main():
     if len(sys.argv) != 4:
@@ -65,9 +68,12 @@ def main():
     new_faq = parse_faq_data(issue_title, comment_body, issue_number)
     
     # 更新JSON文件
-    update_faq_json(new_faq)
+    success = update_faq_json(new_faq)
     
-    print("FAQ sync completed successfully!")
+    if success:
+        print("FAQ sync completed successfully!")
+    else:
+        print("FAQ sync completed (no changes made)")
 
 if __name__ == "__main__":
     main()
