@@ -5,27 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PCC389 FAQ</title>
     <style>
-        :root {
-            --bg: #0b1220;
-            --panel: #0f172a;
-            --text: #e2e8f0;
-            --muted: #94a3b8;
-            --brand: #60a5fa;
-            --border: #1f2937;
-            --success: #4ade80;
-            --warning: #fbbf24;
-            --error: #f87171;
-        }
-        
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0b1220;
+            color: #e2e8f0;
             line-height: 1.6;
             padding: 20px;
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
         }
         
@@ -33,102 +21,24 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .header-content {
-            position: relative;
+            border-bottom: 1px solid #1f2937;
         }
         
         h1 { 
-            color: var(--brand); 
+            color: #60a5fa;
             margin-bottom: 15px;
-            display: inline-block;
-        }
-        
-        .home-btn {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--panel);
-            color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-        }
-        
-        .home-btn:hover {
-            color: var(--text);
-            border-color: var(--brand);
         }
         
         .contact-info {
-            background: var(--panel);
-            border: 1px solid var(--border);
+            background: #0f172a;
+            border: 1px solid #1f2937;
             border-radius: 10px;
             padding: 15px;
             margin: 20px 0;
-            text-align: center;
         }
         
         .contact-info p {
             margin: 5px 0;
-            color: var(--muted);
-        }
-        
-        .contact-info strong {
-            color: var(--brand);
-            font-weight: 600;
-        }
-        
-        .phone-numbers {
-            color: var(--brand) !important;
-            font-weight: 600;
-            font-size: 15px;
-        }
-        
-        .language-section {
-            margin: 20px 0;
-            text-align: center;
-        }
-        
-        .language-selector {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 8px 12px;
-        }
-        
-        .language-icon {
-            font-size: 16px;
-        }
-        
-        .language-selector select {
-            background: var(--panel);
-            color: var(--text);
-            border: none;
-            padding: 0;
-            cursor: pointer;
-            font-size: 14px;
-            outline: none;
-            min-width: 120px;
-        }
-        
-        .language-selector select option {
-            background: var(--panel);
-            color: var(--text);
-            padding: 8px;
-        }
-        
-        .latest-faqs {
-            margin-bottom: 30px;
         }
         
         .faq-controls {
@@ -136,52 +46,27 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .category-filter {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .category-filter label {
-            color: var(--muted);
-            font-weight: 600;
         }
         
         .category-filter select {
-            background: var(--panel);
-            color: var(--text);
-            border: 1px solid var(--border);
+            background: #0f172a;
+            color: #e2e8f0;
+            border: 1px solid #1f2937;
             padding: 8px 12px;
             border-radius: 6px;
-            cursor: pointer;
             min-width: 180px;
         }
         
         .faq-item {
-            background: var(--panel);
-            border: 1px solid var(--border);
+            background: #0f172a;
+            border: 1px solid #1f2937;
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 15px;
-            position: relative;
-        }
-        
-        .faq-item.answered {
-            border-left: 4px solid var(--success);
-        }
-        
-        .faq-item.pending {
-            border-left: 8px solid var(--warning);
-            background: linear-gradient(90deg, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0.05) 20%, transparent 100%);
-            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.1);
         }
         
         .faq-item h3 {
-            color: var(--brand);
+            color: #60a5fa;
             margin-bottom: 10px;
         }
         
@@ -195,41 +80,12 @@
             margin-bottom: 10px;
         }
         
-        .status {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            margin-left: 8px;
-        }
-        
-        .status.answered {
-            background: #166534;
-            color: #bbf7d0;
-        }
-        
-        .status.pending {
-            background: #92400e;
-            color: #fed7aa;
-        }
-        
-        .answer {
-            color: var(--text);
-            margin-bottom: 15px;
-        }
-        
         .question-form {
-            background: var(--panel);
-            border: 1px solid var(--border);
+            background: #0f172a;
+            border: 1px solid #1f2937;
             border-radius: 10px;
             padding: 25px;
             margin: 40px 0 20px 0;
-        }
-        
-        .question-form h3 {
-            color: var(--brand);
-            margin-bottom: 20px;
-            text-align: center;
         }
         
         .form-group {
@@ -246,9 +102,9 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            background: var(--bg);
-            color: var(--text);
-            border: 1px solid var(--border);
+            background: #0b1220;
+            color: #e2e8f0;
+            border: 1px solid #1f2937;
             padding: 10px 12px;
             border-radius: 6px;
             font-family: inherit;
@@ -259,220 +115,55 @@
             resize: vertical;
         }
         
-        .contact-options {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-        
-        .contact-option {
-            flex: 1;
-            text-align: center;
-            padding: 15px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .contact-option.selected {
-            border-color: var(--brand);
-            background: rgba(96, 165, 250, 0.1);
-        }
-        
-        .contact-option i {
-            font-size: 24px;
-            margin-bottom: 8px;
-            display: block;
-        }
-        
-        .contact-input {
-            display: none;
-        }
-        
-        .contact-input.active {
-            display: block;
-        }
-        
-        .notification {
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: center;
-        }
-        
-        .notification.info {
-            background: rgba(96, 165, 250, 0.1);
-            border: 1px solid var(--brand);
-            color: var(--brand);
-        }
-        
-        .notification.warning {
-            background: rgba(251, 191, 36, 0.1);
-            border: 1px solid var(--warning);
-            color: var(--warning);
-        }
-        
-        .form-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 25px;
-        }
-        
         .submit-btn {
-            background: var(--brand);
+            background: #60a5fa;
             color: #0b1220;
             border: none;
             padding: 12px 24px;
             border-radius: 6px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
-            flex: 1;
+            width: 100%;
         }
         
-        .cancel-btn {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--border);
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            flex: 1;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-            color: var(--muted);
-            font-size: 14px;
-        }
-        
-        .submit-btn:hover {
-            opacity: 0.9;
-        }
-        
-        .cancel-btn:hover {
-            color: var(--text);
-            border-color: #334155;
-        }
-
-        /* Google Translate Styles */
-        #google_translate_element {
-            display: none !important;
-        }
-
-        .goog-te-banner-frame {
-            display: none !important;
-        }
-
-        .skiptranslate {
-            display: none !important;
-        }
-
-        body {
-            top: 0px !important;
-        }
-
         .loading {
             text-align: center;
             padding: 40px;
-            color: var(--muted);
+            color: #94a3b8;
         }
-
-        .error-message {
+        
+        .error {
             background: rgba(248, 113, 113, 0.1);
-            border: 1px solid var(--error);
-            color: var(--error);
+            border: 1px solid #f87171;
+            color: #f87171;
             padding: 15px;
             border-radius: 8px;
             text-align: center;
             margin: 15px 0;
         }
-
-        @media (max-width: 768px) {
-            .faq-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .category-filter {
-                justify-content: space-between;
-            }
-            
-            .home-btn {
-                position: static;
-                transform: none;
-                margin-bottom: 15px;
-                display: inline-block;
-            }
-            
-            .contact-options {
-                flex-direction: column;
-            }
-        }
     </style>
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <a href="#" class="home-btn" onclick="goToHome()">🏠 Home</a>
-            <h1>PCC389 FAQ</h1>
-        </div>
-        
+        <h1>PCC389 FAQ</h1>
         <div class="contact-info">
-            <p><strong>Office:</strong> <span class="phone-numbers">905-566-1269, 905-566-1319, 647-335-0949</span></p>
+            <p><strong>Office:</strong> 905-566-1269, 905-566-1319, 647-335-0949</p>
             <p><strong>Address:</strong> 285 Enfield Pl, Mississauga, ON L5B 3Y6</p>
         </div>
-        
-        <div class="language-section">
-            <div class="language-selector">
-                <span class="language-icon">🌐</span>
-                <select id="languageSelect">
-                    <option value="en">English</option>
-                    <option value="fr">Français</option>
-                    <option value="zh-CN">中文</option>
-                    <option value="es">Español</option>
-                    <option value="ar">العربية</option>
-                    <option value="de">Deutsch</option>
-                    <option value="it">Italiano</option>
-                    <option value="pt">Português</option>
-                    <option value="ru">Русский</option>
-                    <option value="ja">日本語</option>
-                    <option value="ko">한국어</option>
-                    <option value="hi">हिन्दी</option>
-                    <option value="vi">Tiếng Việt</option>
-                    <option value="pl">Polski</option>
-                </select>
-            </div>
-        </div>
-
-        <div id="google_translate_element"></div>
     </header>
 
     <main>
         <section class="latest-faqs">
             <div class="faq-controls">
-                <h2>Latest Questions & Answers</h2>
+                <h2>Questions & Answers</h2>
                 <div class="category-filter">
-                    <label for="categoryFilter">Filter by Category:</label>
                     <select id="categoryFilter">
                         <option value="all">All Categories</option>
                         <option value="General Questions">General Questions</option>
                         <option value="Plumbing">Plumbing</option>
                         <option value="Electricity">Electricity</option>
                         <option value="Heating & Cooling">Heating & Cooling</option>
-                        <option value="Parking">Parking</option>
-                        <option value="Garbage">Garbage</option>
-                        <option value="Recycling">Recycling</option>
-                        <option value="Payment">Payment</option>
-                        <option value="Swimming Pool">Swimming Pool</option>
                         <option value="Fitness Center">Fitness Center</option>
-                        <option value="Squash Court">Squash Court</option>
-                        <option value="Billiards/Ping Pong">Billiards/Ping Pong</option>
-                        <option value="Party Room">Party Room</option>
                     </select>
                 </div>
             </div>
@@ -492,293 +183,114 @@
                 <div class="form-group">
                     <label for="category">Category</label>
                     <select id="category" name="category">
-                        <option value="">Select a category</option>
                         <option value="General Questions">General Questions</option>
                         <option value="Plumbing">Plumbing</option>
                         <option value="Electricity">Electricity</option>
                         <option value="Heating & Cooling">Heating & Cooling</option>
-                        <option value="Parking">Parking</option>
-                        <option value="Garbage">Garbage</option>
-                        <option value="Recycling">Recycling</option>
-                        <option value="Payment">Payment</option>
-                        <option value="Swimming Pool">Swimming Pool</option>
                         <option value="Fitness Center">Fitness Center</option>
-                        <option value="Squash Court">Squash Court</option>
-                        <option value="Billiards/Ping Pong">Billiards/Ping Pong</option>
-                        <option value="Party Room">Party Room</option>
                     </select>
                 </div>
                 
-                <div class="form-group">
-                    <label>How would you like to receive the answer?</label>
-                    <div class="contact-options">
-                        <div class="contact-option" onclick="selectContactOption('email')">
-                            <i>📧</i>
-                            <div>Email</div>
-                        </div>
-                        <div class="contact-option" onclick="selectContactOption('phone')">
-                            <i>📱</i>
-                            <div>SMS</div>
-                        </div>
-                        <div class="contact-option" onclick="selectContactOption('none')">
-                            <i>🔍</i>
-                            <div>Check Later</div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-input" id="emailInput">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" placeholder="your@email.com">
-                    </div>
-                    
-                    <div class="contact-input" id="phoneInput">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
-                    </div>
-                    
-                    <div class="notification warning" id="checkLaterWarning" style="display: none;">
-                        <strong>⚠️ Notice:</strong> If you don't provide contact information, please check back in 24 hours to see if your question has been answered.
-                    </div>
-                </div>
-                
-                <div class="form-actions">
-                    <button type="submit" class="submit-btn">Submit Question</button>
-                    <button type="button" class="cancel-btn" onclick="resetForm()">Clear Form</button>
-                </div>
+                <button type="submit" class="submit-btn">Submit Question</button>
             </form>
         </div>
     </main>
 
-    <footer>
-        <p>© 2024 PCC389 Building Management. For reference only.</p>
-        <p style="margin-top: 10px; font-size: 12px; color: var(--muted);">
-            FAQ data is automatically updated from our GitHub repository.
-        </p>
-    </footer>
-
     <script>
-        let selectedContactOption = 'none';
-        let faqData = [];
-
-        // 从 faq.json 加载FAQ数据
+        // 简单可靠的FAQ加载
         async function loadFAQs() {
             try {
+                console.log('Loading FAQs...');
+                
                 const response = await fetch('faq.json');
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(`Failed to load FAQ file: ${response.status}`);
                 }
+                
                 const data = await response.json();
+                console.log('Loaded data:', data);
                 
-                // 检查数据格式是否正确
-                if (!data || !data.faqs || !Array.isArray(data.faqs)) {
-                    throw new Error('Invalid FAQ data format');
+                if (!data.faqs) {
+                    throw new Error('FAQ data is missing "faqs" array');
                 }
                 
-                // 转换数据格式以兼容现有代码
-                faqData = data.faqs.map(faq => ({
-                    id: faq.id,
-                    question: faq.question,
-                    answer: faq.answer,
-                    category: faq.category || "General Questions",
-                    date: new Date(faq.last_updated).toISOString().split('T')[0],
-                    status: "answered"
-                }));
+                displayFAQs(data.faqs);
                 
-                displayFAQs();
             } catch (error) {
-                console.error('Error loading FAQs:', error);
-                document.getElementById('faqList').innerHTML = `
-                    <div class="error-message">
-                        <strong>Error loading FAQs:</strong> ${error.message}<br>
-                        Please make sure faq.json file exists and has correct format.
-                    </div>
-                `;
+                console.error('Error:', error);
+                showError(error.message);
             }
         }
 
-        // 选择联系方式
-        function selectContactOption(option) {
-            selectedContactOption = option;
-            
-            // 更新UI
-            document.querySelectorAll('.contact-option').forEach(el => {
-                el.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-            
-            // 显示对应的输入框
-            document.getElementById('emailInput').classList.remove('active');
-            document.getElementById('phoneInput').classList.remove('active');
-            document.getElementById('checkLaterWarning').style.display = 'none';
-            
-            if (option === 'email') {
-                document.getElementById('emailInput').classList.add('active');
-            } else if (option === 'phone') {
-                document.getElementById('phoneInput').classList.add('active');
-            } else {
-                document.getElementById('checkLaterWarning').style.display = 'block';
-            }
-        }
-
-        // 提交新问题 - 现在创建GitHub Issue
-        document.getElementById('newQuestionForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const question = formData.get('question');
-            const category = formData.get('category') || 'General Questions';
-            const email = formData.get('email');
-            const phone = formData.get('phone');
-            
-            // 验证必填字段
-            if (!question.trim()) {
-                alert('Please enter your question!');
-                return;
-            }
-            
-            if ((selectedContactOption === 'email' && !email) || 
-                (selectedContactOption === 'phone' && !phone)) {
-                alert('Please provide your contact information!');
-                return;
-            }
-            
-            let contactInfo = '';
-            if (selectedContactOption === 'email' && email) {
-                contactInfo = `Email: ${email}`;
-            } else if (selectedContactOption === 'phone' && phone) {
-                contactInfo = `Phone: ${phone}`;
-            }
-
-            // 创建GitHub Issue
-            try {
-                const issueTitle = `FAQ: ${question.substring(0, 100)}${question.length > 100 ? '...' : ''}`;
-                const issueBody = `
-**Question:** ${question}
-
-**Category:** ${category}
-
-**Contact Information:** ${contactInfo || 'User will check back later'}
-
-**Submitted:** ${new Date().toLocaleString()}
-
----
-
-*To answer this question, please comment with:*
-\`/faq Your answer here\`
-
-*The answer will be automatically added to the FAQ.*
-                `.trim();
-
-                // 打开GitHub Issue创建页面
-                const githubUrl = `https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=faq`;
-                window.open(githubUrl, '_blank');
-                
-                // 显示成功消息
-                if (contactInfo) {
-                    alert('Thank you for your question! A GitHub Issue has been created. Our team will answer it soon and the answer will be automatically added to the FAQ. We will also contact you at the provided information.');
-                } else {
-                    alert('Thank you for your question! A GitHub Issue has been created. Please check back in 24 hours to see if your question has been answered and added to the FAQ.');
-                }
-                
-                resetForm();
-            } catch (error) {
-                console.error('Error creating issue:', error);
-                alert('There was an error submitting your question. Please try again or contact support directly.');
-            }
-        });
-
-        // 重置表单
-        function resetForm() {
-            document.getElementById('newQuestionForm').reset();
-            selectedContactOption = 'none';
-            document.querySelectorAll('.contact-option').forEach(el => {
-                el.classList.remove('selected');
-            });
-            document.getElementById('emailInput').classList.remove('active');
-            document.getElementById('phoneInput').classList.remove('active');
-            document.getElementById('checkLaterWarning').style.display = 'none';
-        }
-
-        // 显示FAQs
-        function displayFAQs(category = 'all') {
+        function displayFAQs(faqs, category = 'all') {
             const faqList = document.getElementById('faqList');
             
-            if (faqData.length === 0) {
-                faqList.innerHTML = '<div class="loading">No FAQs available</div>';
-                return;
-            }
-            
-            let filteredFAQs;
-            if (category === 'all') {
-                filteredFAQs = [...faqData].sort((a, b) => new Date(b.date) - new Date(a.date));
-            } else {
-                filteredFAQs = faqData
-                    .filter(faq => faq.category === category)
-                    .sort((a, b) => new Date(b.date) - new Date(a.date));
-            }
+            let filteredFAQs = category === 'all' 
+                ? faqs 
+                : faqs.filter(faq => faq.category === category);
             
             if (filteredFAQs.length === 0) {
-                faqList.innerHTML = `
-                    <div class="faq-item">
-                        <div class="answer">No questions found in this category. Be the first to submit a question!</div>
-                    </div>
-                `;
+                faqList.innerHTML = '<div class="error">No questions found in this category.</div>';
                 return;
             }
             
             faqList.innerHTML = filteredFAQs.map(faq => `
-                <div class="faq-item ${faq.status === 'answered' ? 'answered' : 'pending'}">
+                <div class="faq-item">
                     <span class="category">${faq.category}</span>
-                    <span class="status ${faq.status}">${faq.status}</span>
                     <h3>${faq.question}</h3>
                     <div class="answer">${faq.answer}</div>
-                    <small style="color: var(--muted);">Last updated: ${faq.date}</small>
+                    <small style="color: #94a3b8;">Updated: ${faq.last_updated}</small>
                 </div>
             `).join('');
         }
 
-        function goToHome() {
-            document.getElementById('categoryFilter').value = 'all';
-            displayFAQs('all');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        function showError(message) {
+            document.getElementById('faqList').innerHTML = `
+                <div class="error">
+                    <strong>Error:</strong> ${message}<br>
+                    <small>Check browser console for details.</small>
+                </div>
+            `;
         }
 
-        document.getElementById('categoryFilter').addEventListener('change', function(e) {
-            displayFAQs(e.target.value);
+        // 表单提交
+        document.getElementById('newQuestionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const question = document.getElementById('question').value;
+            const category = document.getElementById('category').value;
+            
+            if (!question.trim()) {
+                alert('Please enter a question!');
+                return;
+            }
+            
+            // 创建GitHub Issue链接
+            const issueTitle = `FAQ: ${question.substring(0, 50)}${question.length > 50 ? '...' : ''}`;
+            const issueBody = `**Question:** ${question}\n\n**Category:** ${category}\n\n**Submitted:** ${new Date().toLocaleString()}`;
+            
+            const githubUrl = `https://github.com/YOUR_USERNAME/YOUR_REPO/issues/new?title=${encodeURIComponent(issueTitle)}&body=${encodeURIComponent(issueBody)}&labels=faq`;
+            
+            window.open(githubUrl, '_blank');
+            alert('Question submitted! You will be redirected to GitHub.');
+            
+            // 清空表单
+            this.reset();
         });
 
-        // 翻译功能
-        document.getElementById('languageSelect').addEventListener('change', function(e) {
-            const lang = e.target.value;
-            if (lang === 'en') {
-                document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-                location.reload();
-            } else {
-                document.cookie = `googtrans=/en/${lang}; path=/`;
-                location.reload();
+        // 分类筛选
+        document.getElementById('categoryFilter').addEventListener('change', async function(e) {
+            try {
+                const response = await fetch('faq.json');
+                const data = await response.json();
+                displayFAQs(data.faqs, e.target.value);
+            } catch (error) {
+                showError('Failed to filter FAQs');
             }
         });
 
-        function initializeGoogleTranslate() {
-            const script = document.createElement('script');
-            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-            document.head.appendChild(script);
-        }
-
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,fr,zh-CN,es,ar,de,it,pt,ru,ja,ko,hi,vi,pl',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-        }
-
         // 初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            loadFAQs(); // 改为从JSON加载
-            initializeGoogleTranslate();
-        });
+        document.addEventListener('DOMContentLoaded', loadFAQs);
     </script>
 </body>
 </html>
