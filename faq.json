@@ -1,108 +1,115 @@
 {
-  "items": [
+  "faqs": [
     {
       "id": 1,
-      "slug": "welcome-guide",
       "question": "Welcome! How do I get started?",
-      "answer": "<p>Welcome to the building! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to email us using the \"Email support\" link above.</p>",
-      "category": "一般问题",
-      "tags": ["welcome", "getting started"]
+      "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+      "category": "General Questions",
+      "last_updated": "2024-01-15T00:00:00"
     },
     {
       "id": 2,
-      "slug": "plumbing-emergency",
       "question": "What should I do if there's a plumbing emergency?",
-      "answer": "<p>For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at [emergency number]. For non-urgent issues, submit a maintenance request through the resident portal or email.</p>",
-      "category": "plumbing",
-      "tags": ["emergency", "maintenance", "leak"]
+      "answer": "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
+      "category": "Plumbing",
+      "last_updated": "2024-01-10T00:00:00"
     },
     {
       "id": 3,
-      "slug": "electricity-outage",
-      "question": "What should I do if I lose power in my unit?",
-      "answer": "<p>First, check your circuit breaker panel. If that doesn't resolve it, contact building maintenance. For building-wide outages, we will notify all residents via email.</p>",
-      "category": "electricity",
-      "tags": ["power", "outage", "maintenance"]
+      "question": "How do I access the fitness center?",
+      "answer": "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
+      "category": "Fitness Center",
+      "last_updated": "2024-01-08T00:00:00"
     },
     {
       "id": 4,
-      "slug": "heating-cooling-hours",
-      "question": "What are the heating and cooling hours?",
-      "answer": "<p>HVAC systems operate 24/7. If you experience issues with temperature control, please check your thermostat settings first. If problems persist, contact maintenance.</p>",
-      "category": "heating&cooling",
-      "tags": ["HVAC", "temperature", "thermostat"]
+      "question": "Bathrooms no power",
+      "answer": "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
+      "category": "Electricity",
+      "last_updated": "2024-01-15T00:00:00"
     },
     {
       "id": 5,
-      "slug": "parking-permit",
-      "question": "How do I get a parking permit?",
-      "answer": "<p>Parking permits can be obtained from the building management office. Please bring your lease agreement and vehicle registration. There may be a monthly fee depending on your lease terms.</p>",
-      "category": "parking",
-      "tags": ["permit", "registration", "fee"]
+      "question": "How to setup my Thermostat?",
+      "answer": "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
+      "category": "Heating & Cooling",
+      "last_updated": "2024-01-15T00:00:00"
+    }
+  ]
+}{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "Welcome! How do I get started?",
+      "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+      "category": "General Questions",
+      "last_updated": "2024-01-15T00:00:00"
     },
     {
-      "id": 6,
-      "slug": "garbage-schedule",
-      "question": "What is the garbage collection schedule?",
-      "answer": "<p>Garbage collection occurs [frequency - e.g., twice weekly] on [days]. Please place garbage bags in the designated chute or bins by [time]. Large items require special arrangements.</p>",
-      "category": "garbage",
-      "tags": ["collection", "schedule", "disposal"]
+      "id": 2,
+      "question": "What should I do if there's a plumbing emergency?",
+      "answer": "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
+      "category": "Plumbing",
+      "last_updated": "2024-01-10T00:00:00"
     },
     {
-      "id": 7,
-      "slug": "recycling-guide",
-      "question": "How do I properly dispose of recyclables?",
-      "answer": "<p>Please separate recyclables (paper, cardboard, plastics, glass, metal) and place them in the designated blue bins. Make sure items are clean and dry. Check the posted recycling guide for specific items.</p>",
-      "category": "回收垃圾",
-      "tags": ["recycling", "environment", "waste"]
-    },
-    {
-      "id": 8,
-      "slug": "payment-methods",
-      "question": "How can I pay my monthly fees?",
-      "answer": "<p>You can pay via online portal, bank transfer, or in-person at the management office. Payment is due by the [day] of each month. Late fees may apply after [grace period].</p>",
-      "category": "缴费",
-      "tags": ["payment", "fees", "billing"]
-    },
-    {
-      "id": 9,
-      "slug": "pool-hours",
-      "question": "What are the swimming pool hours?",
-      "answer": "<p>The swimming pool is open [hours, e.g., 6:00 AM - 10:00 PM] daily. Pool rules are posted at the facility. All residents must follow safety guidelines. Guests may use the pool when accompanied by a resident.</p>",
-      "category": "游泳",
-      "tags": ["pool", "hours", "rules", "safety"]
-    },
-    {
-      "id": 10,
-      "slug": "gym-access",
+      "id": 3,
       "question": "How do I access the fitness center?",
-      "answer": "<p>The fitness center is accessible 24/7 using your resident keycard. Equipment usage guidelines are posted in the gym. Please clean equipment after use and observe posted safety rules.</p>",
-      "category": "健身",
-      "tags": ["gym", "fitness", "access", "equipment"]
+      "answer": "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
+      "category": "Fitness Center",
+      "last_updated": "2024-01-08T00:00:00"
     },
     {
-      "id": 11,
-      "slug": "squash-reservation",
-      "question": "How do I reserve the squash court?",
-      "answer": "<p>Squash court reservations can be made through the resident portal or by calling the management office. Reservations are available in [time slots, e.g., 1-hour blocks]. Peak hours may have limited availability.</p>",
-      "category": "壁球",
-      "tags": ["squash", "reservation", "court"]
+      "id": 4,
+      "question": "Bathrooms no power",
+      "answer": "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
+      "category": "Electricity",
+      "last_updated": "2024-01-15T00:00:00"
     },
     {
-      "id": 12,
-      "slug": "billiards-pingpong",
-      "question": "How do I use the billiards and ping pong facilities?",
-      "answer": "<p>The billiards and ping pong tables are located in [location]. Equipment can be checked out from the front desk. First-come, first-served basis during regular hours. Please return equipment after use.</p>",
-      "category": "台球/乒乓球",
-      "tags": ["billiards", "ping pong", "equipment", "recreation"]
+      "id": 5,
+      "question": "How to setup my Thermostat?",
+      "answer": "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
+      "category": "Heating & Cooling",
+      "last_updated": "2024-01-15T00:00:00"
+    }
+  ]
+}{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "Welcome! How do I get started?",
+      "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+      "category": "General Questions",
+      "last_updated": "2024-01-15T00:00:00"
     },
     {
-      "id": 13,
-      "slug": "party-room-booking",
-      "question": "How do I book the Party Room?",
-      "answer": "<p>Party Room bookings can be made through the resident portal or management office. Advance booking is recommended. A security deposit may be required. Please review the Party Room policies and cleaning requirements before your event.</p>",
-      "category": "Party Room",
-      "tags": ["party room", "booking", "event", "reservation"]
+      "id": 2,
+      "question": "What should I do if there's a plumbing emergency?",
+      "answer": "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
+      "category": "Plumbing",
+      "last_updated": "2024-01-10T00:00:00"
+    },
+    {
+      "id": 3,
+      "question": "How do I access the fitness center?",
+      "answer": "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
+      "category": "Fitness Center",
+      "last_updated": "2024-01-08T00:00:00"
+    },
+    {
+      "id": 4,
+      "question": "Bathrooms no power",
+      "answer": "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
+      "category": "Electricity",
+      "last_updated": "2024-01-15T00:00:00"
+    },
+    {
+      "id": 5,
+      "question": "How to setup my Thermostat?",
+      "answer": "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
+      "category": "Heating & Cooling",
+      "last_updated": "2024-01-15T00:00:00"
     }
   ]
 }
