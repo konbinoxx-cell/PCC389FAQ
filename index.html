@@ -191,7 +191,6 @@
             padding: 4px 8px;
             border-radius: 12px;
             font-size: 10px;
-            margin-left: 8px;
         }
         
         .translating-dots {
@@ -217,12 +216,6 @@
             40% { 
                 transform: scale(1.0);
             }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
         }
 
         /* 响应式设计 */
@@ -357,29 +350,67 @@
         let originalFAQs = [];
         let translatedFAQs = [];
 
-        // 模拟翻译函数（实际使用时需要替换为真实的翻译API）
+        // 改进的翻译函数 - 使用更可靠的免费API
         async function translateText(text, targetLang) {
-            // 模拟网络延迟
-            await new Promise(resolve => setTimeout(resolve, 500));
-            
-            // 这里应该是真实的翻译API调用
-            // 暂时返回模拟的翻译结果
-            if (targetLang === 'zh') {
-                const translations = {
-                    "General Questions": "一般问题",
-                    "Plumbing": "管道",
-                    "Electricity": "电力",
-                    "Heating & Cooling": "供暖与制冷",
-                    "Fitness Center": "健身中心",
-                    "You can report maintenance issues by calling our office or submitting a request through the online portal.": "您可以通过致电办公室或通过在线门户提交请求来报告维护问题。",
-                    "The fitness center is open from 5:00 AM to 11:00 PM daily.": "健身中心每天从早上5点开放到晚上11点。",
-                    "For urgent plumbing issues, please call our emergency line at 647-335-0949.": "对于紧急管道问题，请拨打我们的紧急热线647-335-0949。"
-                };
+            try {
+                // 使用 LibreTranslate 免费API
+                const response = await fetch('https://libretranslate.de/translate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        q: text,
+                        source: 'en',
+                        target: targetLang === 'zh' ? 'zh' : 'en',
+                        format: 'text'
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Translation API error');
+                }
                 
-                return translations[text] || text + " [翻译]";
+                const data = await response.json();
+                
+                if (data.translatedText) {
+                    return data.translatedText;
+                } else {
+                    throw new Error('Translation failed');
+                }
+            } catch (error) {
+                console.error('Translation error:', error);
+                // 如果翻译失败，使用简单的内置词典
+                return simpleTranslate(text, targetLang);
             }
+        }
+
+        // 简单的内置翻译词典作为备用
+        function simpleTranslate(text, targetLang) {
+            if (targetLang !== 'zh') return text;
             
-            return text;
+            const dictionary = {
+                // 分类
+                "General Questions": "一般问题",
+                "Plumbing": "管道",
+                "Electricity": "电力", 
+                "Heating & Cooling": "供暖与制冷",
+                "Fitness Center": "健身中心",
+                
+                // 常见回答
+                "You can report maintenance issues by calling our office or submitting a request through the online portal.": 
+                    "您可以通过致电办公室或通过在线门户提交请求来报告维护问题。",
+                "The fitness center is open from 5:00 AM to 11:00 PM daily.": 
+                    "健身中心每天从早上5点开放到晚上11点。",
+                "For urgent plumbing issues, please call our emergency line at 647-335-0949.": 
+                    "对于紧急管道问题，请拨打我们的紧急热线647-335-0949。",
+                "Please contact the building management during office hours for electrical issues.":
+                    "请在办公时间内联系大楼管理处处理电力问题。",
+                "The heating system is centrally controlled. For temperature adjustments, please contact the front desk.":
+                    "供暖系统是集中控制的。如需调节温度，请联系前台。"
+            };
+            
+            return dictionary[text] || text;
         }
 
         // 批量翻译FAQ内容
@@ -405,10 +436,11 @@
                     });
                 } catch (error) {
                     console.error(`Failed to translate FAQ: ${faq.question}`, error);
+                    // 如果翻译失败，使用内置词典
                     translated.push({
                         ...faq,
-                        translatedAnswer: faq.answer,
-                        translatedCategory: faq.category
+                        translatedAnswer: simpleTranslate(faq.answer, targetLang),
+                        translatedCategory: simpleTranslate(faq.category, targetLang)
                     });
                 }
             }
@@ -453,7 +485,24 @@
                 
             } catch (error) {
                 console.error('Language toggle error:', error);
-                alert('Translation failed, please try again.');
+                // 出错时仍然切换界面语言，但使用内置翻译
+                currentLanguage = currentLanguage === 'en' ? 'zh' : 'en';
+                applyTranslations();
+                
+                // 使用内置词典的翻译
+                if (currentLanguage === 'zh' && translatedFAQs.length === 0) {
+                    translatedFAQs = originalFAQs.map(faq => ({
+                        ...faq,
+                        translatedAnswer: simpleTranslate(faq.answer, 'zh'),
+                        translatedCategory: simpleTranslate(faq.category, 'zh')
+                    }));
+                }
+                
+                const selectedCategory = document.getElementById('categoryFilter').value;
+                const faqsToDisplay = currentLanguage === 'en' ? originalFAQs : translatedFAQs;
+                displayFAQs(faqsToDisplay, selectedCategory);
+                
+                alert('部分翻译可能不完整，但界面已切换为中文。');
             } finally {
                 toggleBtn.disabled = false;
                 applyTranslations(); // 重新应用正确的按钮文本
@@ -487,10 +536,17 @@
         // 加载FAQ数据
         async function loadFAQs() {
             try {
-                // 模拟加载数据（实际应该从faq.json加载）
-                await new Promise(resolve => setTimeout(resolve, 1000));
-                
-                // 模拟FAQ数据
+                // 先尝试从faq.json加载
+                const response = await fetch('faq.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    originalFAQs = data.faqs || [];
+                } else {
+                    throw new Error('FAQ file not found');
+                }
+            } catch (error) {
+                console.log('Using sample FAQs:', error);
+                // 如果加载失败，使用示例数据
                 originalFAQs = [
                     {
                         "question": "How do I report a maintenance issue?",
@@ -509,18 +565,26 @@
                         "answer": "For urgent plumbing issues, please call our emergency line at 647-335-0949.",
                         "category": "Plumbing",
                         "last_updated": "2024-01-12"
+                    },
+                    {
+                        "question": "How do I report electrical problems?",
+                        "answer": "Please contact the building management during office hours for electrical issues.",
+                        "category": "Electricity",
+                        "last_updated": "2024-01-08"
+                    },
+                    {
+                        "question": "How is the heating system controlled?",
+                        "answer": "The heating system is centrally controlled. For temperature adjustments, please contact the front desk.",
+                        "category": "Heating & Cooling",
+                        "last_updated": "2024-01-05"
                     }
                 ];
-                
-                translatedFAQs = []; // 重置翻译缓存
-                
-                const selectedCategory = document.getElementById('categoryFilter').value;
-                displayFAQs(originalFAQs, selectedCategory);
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showError('Failed to load FAQs: ' + error.message);
             }
+            
+            translatedFAQs = []; // 重置翻译缓存
+            
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            displayFAQs(originalFAQs, selectedCategory);
         }
 
         function displayFAQs(faqs, category = 'all') {
