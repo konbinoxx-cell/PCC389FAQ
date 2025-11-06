@@ -1,5 +1,4 @@
-{
-  "faqs": [
+[
     {
       "id": 1,
       "question": "Welcome! How do I get started?",
@@ -36,4 +35,3 @@
       "last_updated": "2024-01-15T00:00:00"
     }
   ]
-}
