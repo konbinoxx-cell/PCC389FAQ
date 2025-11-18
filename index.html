@@ -11,7 +11,7 @@
 </head>
 <body>
   <h1>PCC389 FAQ</h1>
-  <div id="list">Loading…</div>
+  <div id="list">Loadingï¿½</div>
 
   <h2>Submit a new question</h2>
   <form id="form">
@@ -41,7 +41,7 @@
       const question = document.getElementById('q').value;
       const category = document.getElementById('c').value;
       const pat = prompt('GitHub PAT(????)');
-      await fetch(`https://api.github.com/repos/${location.pathname.split('/')[1]}/${location.pathname.split('/')[2]}/issues`,{
+      await fetch('https://api.github.com/repos/konbinoxx-cell/pcc389faq/issues',{
         method:'POST',
         headers:{
           'Accept':'application/vnd.github+json',
