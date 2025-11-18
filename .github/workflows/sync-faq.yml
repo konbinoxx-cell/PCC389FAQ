@@ -1,5 +1,4 @@
-name: Sync FAQ from Issues
-
+﻿name: sync-faq
 on:
   issue_comment:
     types: [created]
@@ -7,28 +6,9 @@ on:
 jobs:
   sync-faq:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.title, 'FAQ:') && github.event.comment.body.startsWith('/faq')
-    
+    if: contains(github.event.issue.title,'FAQ:') && startsWith(github.event.comment.body,'/faq')
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-
-    - name: Run FAQ sync script
-      run: |
-        python scripts/sync_faq.py "${{ github.event.issue.title }}" "${{ github.event.comment.body }}" ${{ github.event.issue.number }}
-
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add faq.json
-        git commit -m "docs: update FAQ from issue #${{ github.event.issue.number }}"
-        git push
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
