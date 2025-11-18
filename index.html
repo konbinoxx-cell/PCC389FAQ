@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,user-scalable=yes">
+  <style>html{font-size:18px}@media(max-width:600px){html{font-size:22px}}</style>
   <title>PCC389 FAQ</title>
   <style>
     body{font-family:system-ui;background:#0b1220;color:#e2e8f0;margin:0;padding:2rem}
@@ -45,11 +47,11 @@
         method:'POST',
         headers:{
           'Accept':'application/vnd.github+json',
-          'Authorization':`Bearer ${pat}`,
+          'Authorization':'Bearer '+pat,
           'Content-Type':'application/json'
         },
         body:JSON.stringify({
-          title:`[FAQ] ${category}`,
+          title:`[FAQ] ${category}`,   // ← 保证标题非空
           body:`Question:\n${question}\n\nCategory:${category}`,
           labels:['faq']
         })
