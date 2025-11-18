@@ -1,0 +1,27 @@
+﻿name: Add FAQ from Issue
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  append-faq:
+    if: contains(github.event.issue.labels.*.name, 'faq')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse & append
+        run: |
+          BODY='${{ github.event.issue.body }}'
+          Q=$(echo "$BODY" | sed -n 's/^Question://p' | xargs)
+          C=$(echo "$BODY" | sed -n 's/^Category://p' | xargs)
+          ID=${{ github.event.issue.id }}
+          NEW=$(jq -n --arg q "$Q" --arg c "$C" --arg id "$ID" \
+                    '{id: ($id | tonumber), question: $q, answer: "（管理员尚未回答）", category: $c, date: (now | strftime("%Y-%m-%d"))}')
+          jq ". += [$NEW]" faq.json > tmp && mv tmp faq.json
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add faq.json
+          git commit -m "add FAQ from issue #${{ github.event.issue.number }}"
+          git push

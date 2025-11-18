@@ -1,25 +1,23 @@
-{
-  "faqs": [
-    {
-      "id": 1,
-      "question": "Welcome! How do I get started?",
-      "answer": "Welcome to PCC389! Check this FAQ first, then submit questions if needed.",
-      "category": "General Questions",
-      "last_updated": "2024-01-15"
-    },
-    {
-      "id": 2,
-      "question": "Plumbing emergency?",
-      "answer": "Contact building maintenance at 905-566-1269 for urgent issues.",
-      "category": "Plumbing", 
-      "last_updated": "2024-01-10"
-    },
-    {
-      "id": 3,
-      "question": "How to access fitness center?",
-      "answer": "Use your resident keycard 24/7. Clean equipment after use.",
-      "category": "Fitness Center",
-      "last_updated": "2024-01-08"
-    }
-  ]
-}
+﻿[
+  {
+    "id": 1,
+    "question": "Welcome! How do I get started?",
+    "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first.",
+    "category": "General Questions",
+    "date": "2024-01-15"
+  },
+  {
+    "id": 2,
+    "question": "What should I do if there's a plumbing emergency?",
+    "answer": "For urgent plumbing issues call 905-566-1269.",
+    "category": "Plumbing",
+    "date": "2024-01-10"
+  },
+  {
+    "id": 3,
+    "question": "How do I access the fitness center?",
+    "answer": "24/7 with your resident keycard.",
+    "category": "Fitness Center",
+    "date": "2024-01-08"
+  }
+]
