@@ -1,1 +1,44 @@
-﻿上面整段 YAML 粘在这里
+﻿name: Add FAQ from Issue
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: read
+
+jobs:
+  append-faq:
+    if: contains(github.event.issue.labels.*.name, 'faq')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse & append
+        shell: pwsh
+        run: |
+          $body = @'
+          ${{ github.event.issue.body }}
+          '@
+          $q = [regex]::Match($body,'(?s)Question:\s*(.+?)\s*Category:').Groups[1].Value.Trim()
+          $c = [regex]::Match($body,'Category:\s*(.+?)\s*$').Groups[1].Value.Trim()
+          $id = ${{ github.event.issue.id }}
+          $new = @{
+            id       = [int]$id
+            question = $q
+            answer   = "（管理员尚未回答）"
+            category = $c
+            date     = (Get-Date -Format 'yyyy-MM-dd')
+          } | ConvertTo-Json -Compress
+          $list = Get-Content faq.json | ConvertFrom-Json
+          $list += $new
+          $list | ConvertTo-Json -Depth 10 | Set-Content faq.json -Encoding UTF8
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/konbinoxx-cell/pcc389faq.git
+          git add faq.json
+          git commit -m "add FAQ from issue #${{ github.event.issue.number }}"
+          git push origin main
