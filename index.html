@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
@@ -11,7 +11,7 @@
 </head>
 <body>
   <h1>PCC389 FAQ</h1>
-  <div id="list">Loading…</div>
+  <div id="list">Loading�</div>
 
   <h2>Submit a new question</h2>
   <form id="form">
@@ -23,7 +23,7 @@
   </form>
 
   <script>
-    // 读取 faq.json
+    // ?? faq.json
     fetch('./faq.json').then(r=>r.json()).then(render);
 
     function render(list){
@@ -35,12 +35,12 @@
         </div>`).join('');
     }
 
-    // 提交新问题：直接开 GitHub Issue
+    // ?????:??? GitHub Issue
     document.getElementById('form').addEventListener('submit',async e=>{
       e.preventDefault();
       const question = document.getElementById('q').value;
       const category = document.getElementById('c').value;
-      const pat = prompt('GitHub PAT（仅第一次）');
+      const pat = prompt('GitHub PAT(????)');
       await fetch(`https://api.github.com/repos/${location.pathname.split('/')[1]}/${location.pathname.split('/')[2]}/issues`,{
         method:'POST',
         headers:{
@@ -54,7 +54,7 @@
           labels:['faq']
         })
       });
-      alert('已提交！刷新页面即可看到。');
+      alert('???!?????????');
       q.value='';
     });
   </script>
