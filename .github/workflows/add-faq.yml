@@ -25,3 +25,9 @@ jobs:
           git add faq.json
           git commit -m "add FAQ from issue #${{ github.event.issue.number }}"
           git push
+      - name: Set remote with token
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/konbinoxx-cell/pcc389faq.git
+      - name: Push changes
+        run: |
+          git push origin main
