@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PCC389 FAQ - Resident Information</title>
+  <meta name="description" content="Frequently Asked Questions for PCC389 residents - Plumbing, Fitness Center, General Questions and more"/>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #0f172a;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --brand: #60a5fa;
+      --success: #4ade80;
+      --error: #f87171;
+      --warning: #fbbf24;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+    
+    html { 
+      font-size: 18px; 
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    header, main {
+      width: 100%;
+      max-width: 900px;
+      padding: 1rem;
+    }
+    
+    header { 
+      border-bottom: 1px solid var(--muted); 
+      text-align: center;
+    }
+    
+    h1 {
+      color: var(--brand);
+      margin-bottom: 1rem;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--brand), #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    
+    .search, .lang, .category-filter {
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border: 1px solid var(--muted);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      transition: all 0.2s ease;
+    }
+    
+    .search:focus, .lang:focus, .category-filter:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+    }
+    
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--muted);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .card:hover {
+      border-color: var(--brand);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card.emergency {
+      border-color: var(--error);
+      background: linear-gradient(135deg, var(--panel), rgba(248, 113, 113, 0.05));
+    }
+    
+    .card.emergency::before {
+      content: "🚨 URGENT";
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background: var(--error);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
+    }
+    
+    .q {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--brand);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .q::before {
+      content: "Q:";
+      color: var(--muted);
+      font-weight: normal;
+    }
+    
+    .a {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--text);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    
+    .a::before {
+      content: "A:";
+      color: var(--success);
+      font-weight: bold;
+    }
+    
+    .meta {
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .category-tag {
+      background: rgba(96, 165, 250, 0.1);
+      color: var(--brand);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+    }
+    
+    .new-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--brand);
+      color: var(--bg);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      text-align: center;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .new-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
+    }
+    
+    .loading, .error, .empty {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--muted);
+      font-size: 1.1rem;
+    }
+    
+    .error {
+      color: var(--error);
+      background: rgba(248, 113, 113, 0.05);
+      border-radius: 12px;
+      border: 1px solid var(--error);
+    }
+    
+    .stats {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    
+    .emergency-contact {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid var(--error);
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+    
+    .emergency-contact h3 {
+      color: var(--error);
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+    
+    .phone {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--text);
+      text-decoration: none;
+    }
+    
+    .phone:hover {
+      color: var(--brand);
+    }
+    
+    @media (max-width: 600px) {
+      html { font-size: 16px; }
+      header, main { padding: 0.75rem; }
+      .card { padding: 1.25rem; }
+      .q { font-size: 1.1rem; }
+      .controls {
+        flex-direction: column;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .controls {
+        flex-direction: row;
+      }
+      .search {
+        flex: 1;
+      }
+      .lang, .category-filter {
+        width: auto;
+        min-width: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PCC389 FAQ</h1>
+    <div class="subtitle">Frequently Asked Questions for Residents</div>
+    
+    <div class="emergency-contact">
+      <h3>🚨 Plumbing Emergency</h3>
+      <a href="tel:905-566-1269" class="phone">📞 905-566-1269</a>
+    </div>
+    
+    <div class="controls">
+      <input class="search" id="search" placeholder="Search questions and answers…" autocomplete="off">
+      <select class="lang" id="lang">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="zh-Hans">简体中文</option>
+        <option value="es">Español</option>
+      </select>
+      <select class="category-filter" id="category">
+        <option value="">All Categories</option>
+      </select>
+    </div>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <main id="main">
+    <div id="list" class="loading">Loading FAQ…</div>
+    <a class="new-btn" href="https://github.com/konbinoxx-cell/pcc389faq/issues/new?template=faq.md&labels=faq" target="_blank">
+      <span>📝</span>
+      <span>Submit a New Question</span>
+    </a>
+  </main>
+
+  <script>
+    const search = document.getElementById('search');
+    const lang = document.getElementById('lang');
+    const categoryFilter = document.getElementById('category');
+    const stats = document.getElementById('stats');
+    
+    let originalList = [];
+    let categories = new Set();
+
+    // 防抖搜索
+    let searchTimeout;
+    search.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(render, 300);
+    });
+    
+    lang.addEventListener('change', render);
+    categoryFilter.addEventListener('change', render);
+
+    // 更新统计信息
+    function updateStats(visibleCount) {
+      stats.textContent = `Showing ${visibleCount} of ${originalList.length} questions`;
+    }
+
+    // 获取分类列表
+    function updateCategories() {
+      categories = new Set(originalList.map(item => item.category).filter(Boolean));
+      categoryFilter.innerHTML = '<option value="">All Categories</option>';
+      
+      const sortedCategories = Array.from(categories).sort();
+      sortedCategories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat;
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
+      });
+    }
+
+    async function render() {
+      const kw = search.value.toLowerCase().trim();
+      const selectedLang = lang.value;
+      const selectedCategory = categoryFilter.value;
+      const container = document.getElementById('list');
+      
+      container.innerHTML = '<div class="loading">🔍 Searching questions…</div>';
+
+      // 过滤逻辑
+      let filteredList = originalList.filter(item => {
+        const matchesSearch = !kw || 
+          item.question.toLowerCase().includes(kw) || 
+          (item.answer && item.answer.toLowerCase().includes(kw));
+        
+        const matchesCategory = !selectedCategory || item.category === selectedCategory;
+        
+        return matchesSearch && matchesCategory;
+      });
+
+      if (filteredList.length === 0) {
+        container.innerHTML = `
+          <div class="empty">
+            <div>🔍 No matching questions found.</div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem;">Try different keywords or select another category.</div>
+          </div>
+        `;
+        updateStats(0);
+        return;
+      }
+
+      // 紧急问题置顶
+      filteredList.sort((a, b) => {
+        const aEmergency = a.category === 'Plumbing' && a.answer.includes('905-566-1269');
+        const bEmergency = b.category === 'Plumbing' && b.answer.includes('905-566-1269');
+        if (aEmergency && !bEmergency) return -1;
+        if (!aEmergency && bEmergency) return 1;
+        return 0;
+      });
+
+      if (selectedLang === 'en') {
+        // 直接显示英文
+        const cards = filteredList.map((item, index) => {
+          if (index >= 50) return '';
+          
+          const isEmergency = item.category === 'Plumbing' && item.answer.includes('905-566-1269');
+          const cardClass = isEmergency ? 'card emergency' : 'card';
+          
+          return `
+            <div class="${cardClass}" data-category="${item.category || 'Uncategorized'}">
+              <div class="q">${item.question}</div>
+              <div class="a">${item.answer}</div>
+              <div class="meta">
+                <span class="category-tag">${item.category || 'Uncategorized'}</span>
+                <span>Updated ${new Date(item.date).toLocaleDateString()}</span>
+              </div>
+            </div>`;
+        }).filter(Boolean);
+
+        container.innerHTML = cards.join('');
+        updateStats(cards.length);
+      } else {
+        // 需要翻译
+        container.innerHTML = '<div class="loading">🌐 Translating content…</div>';
+        
+        try {
+          const cards = await Promise.all(filteredList.map(async (item, index) => {
+            if (index >= 50) return '';
+            
+            const isEmergency = item.category === 'Plumbing' && item.answer.includes('905-566-1269');
+            const cardClass = isEmergency ? 'card emergency' : 'card';
+            
+            const tq = await translate(item.question, selectedLang);
+            const ta = await translate(item.answer, selectedLang);
+
+            return `
+              <div class="${cardClass}" data-category="${item.category || 'Uncategorized'}">
+                <div class="q">${tq}</div>
+                <div class="a">${ta}</div>
+                <div class="meta">
+                  <span class="category-tag">${item.category || 'Uncategorized'}</span>
+                  <span>Updated ${new Date(item.date).toLocaleDateString()}</span>
+                </div>
+              </div>`;
+          }));
+
+          const visibleCards = cards.filter(Boolean);
+          container.innerHTML = visibleCards.join('');
+          updateStats(visibleCards.length);
+          
+        } catch (error) {
+          console.error('Rendering error:', error);
+          container.innerHTML = '<div class="error">❌ Error loading content. Please try again.</div>';
+        }
+      }
+    }
+
+    // 简化的翻译函数
+    async function translate(text, to) {
+      if (!text || !to || to === 'en') return text;
+      
+      // 这里可以集成翻译 API
+      // 暂时返回原文作为示例
+      return new Promise(resolve => {
+        setTimeout(() => resolve(text), 50);
+      });
+    }
+
+    // 加载数据
+    async function loadData() {
+      try {
+        const response = await fetch('./faq.json?' + Date.now());
+        if (!response.ok) throw new Error('Failed to load FAQ data');
+        
+        originalList = await response.json();
+        
+        // 确保数据按日期排序
+        originalList.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        updateCategories();
+        await render();
+        
+      } catch (err) {
+        console.error('Data loading error:', err);
+        document.getElementById('list').innerHTML = 
+          '<div class="error">❌ Failed to load FAQ. Please check your connection and try again.</div>';
+      }
+    }
+
+    // 初始化
+    loadData();
+  </script>
+</body>
+</html>

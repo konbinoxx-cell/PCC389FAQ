@@ -1,0 +1,443 @@
+/* eslint-disable no-console */
+const state = {
+  allFaqs: [],
+  fuse: null,
+  q: '',
+  category: '',
+  audience: ''
+};
+
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function getRepoUrlFromMeta() {
+  const url = new URL(window.location.href);
+  const repo = url.searchParams.get('repo');
+  return repo || '';
+}
+
+function getAdminEmail() {
+  const url = new URL(window.location.href);
+  const email = url.searchParams.get('email');
+  // Default email - you can change this or set via ?email=your@email.com
+  return email || 'johnetli@gmail.com';
+}
+
+
+async function loadData() {
+  try {
+    const res = await fetch('./data/faq.json', { cache: 'no-store' });
+    if (!res.ok) {
+      throw new Error(`Failed to load FAQ data: ${res.status} ${res.statusText}`);
+    }
+    const json = await res.json();
+    state.allFaqs = json.items || [];
+    console.log('FAQ data loaded:', state.allFaqs.length, 'items');
+    if (state.allFaqs.length === 0) {
+      console.warn('FAQ data file exists but contains no items!');
+    }
+  } catch (err) {
+    console.error('Error loading FAQ data:', err);
+    throw err;
+  }
+}
+
+function buildFuse() {
+  state.fuse = new Fuse(state.allFaqs, {
+    includeScore: true,
+    threshold: 0.35,
+    minMatchCharLength: 2,
+    keys: [
+      { name: 'question', weight: 0.6 },
+      { name: 'answer', weight: 0.3 },
+      { name: 'tags', weight: 0.1 }
+    ]
+  });
+}
+
+function uniqueCategories() {
+  const s = new Set();
+  state.allFaqs.forEach((it) => { if (it.category) s.add(it.category); });
+  return Array.from(s).sort();
+}
+
+const PREDEFINED_CATEGORIES = [
+  '一般问题',
+  'plumbing',
+  'electricity',
+  'heating&cooling',
+  'parking',
+  'garbage',
+  '回收垃圾',
+  '缴费',
+  '游泳',
+  '健身',
+  '壁球',
+  '台球/乒乓球',
+  'Party Room'
+];
+
+// Removed populateFilters - category select is only in add FAQ form now
+
+function renderCategoryChips() {
+  const wrap = document.getElementById('categoryChips');
+  if (!wrap) {
+    console.warn('categoryChips element not found');
+    return;
+  }
+  
+  wrap.innerHTML = '';
+  const counts = new Map();
+  state.allFaqs.forEach((it) => {
+    const key = it.category || '一般问题';
+    counts.set(key, (counts.get(key) || 0) + 1);
+  });
+  
+  // "All" chip
+  const allChip = document.createElement('button');
+  allChip.className = `chip${state.category ? '' : ' active'}`;
+  allChip.type = 'button';
+  allChip.textContent = `All (${state.allFaqs.length})`;
+  allChip.addEventListener('click', () => { 
+    state.category = ''; 
+    render(filterAndSearch()); 
+    renderCategoryChips(); 
+  });
+  wrap.appendChild(allChip);
+  
+  // Show predefined categories - always show all, even if count is 0
+  PREDEFINED_CATEGORIES.forEach((c) => {
+    const count = counts.get(c) || 0;
+    const chip = document.createElement('button');
+    chip.className = `chip${state.category === c ? ' active' : ''}`;
+    chip.type = 'button';
+    chip.textContent = `${c}${count > 0 ? ` (${count})` : ''}`;
+    chip.addEventListener('click', () => { 
+      state.category = c; 
+      render(filterAndSearch()); 
+      renderCategoryChips(); 
+    });
+    wrap.appendChild(chip);
+  });
+  
+  // Other categories not in predefined list
+  Array.from(counts.keys())
+    .filter(c => !PREDEFINED_CATEGORIES.includes(c))
+    .sort()
+    .forEach((c) => {
+      const chip = document.createElement('button');
+      chip.className = `chip${state.category === c ? ' active' : ''}`;
+      chip.type = 'button';
+      chip.textContent = `${c} (${counts.get(c)})`;
+      chip.addEventListener('click', () => { 
+        state.category = c; 
+        render(filterAndSearch()); 
+        renderCategoryChips(); 
+      });
+      wrap.appendChild(chip);
+    });
+}
+
+function normalize(str) { return (str || '').toLowerCase(); }
+
+function filterAndSearch() {
+  const q = normalize(state.q);
+  let items = state.allFaqs;
+  if (state.category) items = items.filter((it) => it.category === state.category);
+  if (state.audience) items = items.filter((it) => (it.audience || []).includes(state.audience));
+  if (q.length >= 2) {
+    const result = state.fuse.search(q);
+    const ids = new Set(result.map((r) => r.item.id));
+    items = items.filter((it) => ids.has(it.id));
+  }
+  return items;
+}
+
+function render(items) {
+  const list = document.getElementById('faqList');
+  if (!list) {
+    console.error('faqList element not found!');
+    return;
+  }
+  list.innerHTML = '';
+  const info = document.getElementById('resultsInfo');
+  if (info) {
+    info.textContent = `${items.length} result${items.length === 1 ? '' : 's'}`;
+  }
+
+  if (items.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'faq-item';
+    empty.innerHTML = '<div class="answer">No results. Try different keywords.</div>';
+    list.appendChild(empty);
+    return;
+  }
+
+  const frag = document.createDocumentFragment();
+  items.forEach((it) => {
+    const card = document.createElement('article');
+    card.className = 'faq-item';
+    card.id = it.slug || `faq-${it.id}`;
+
+    const h3 = document.createElement('h3');
+    h3.textContent = it.question;
+    const anchor = document.createElement('a');
+    anchor.href = `#${card.id}`;
+    anchor.className = 'anchor';
+    anchor.textContent = 'Link';
+    h3.appendChild(anchor);
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    const cat = it.category ? `<span class="badge">${it.category}</span>` : '';
+    const aud = (it.audience || []).map((a) => `<span class="badge">${a}</span>`).join(' ');
+    const tags = (it.tags || []).slice(0, 4).map((t) => `<span class="badge">#${t}</span>`).join(' ');
+    meta.innerHTML = [cat, aud, tags].filter(Boolean).join(' ');
+
+    const ans = document.createElement('div');
+    ans.className = 'answer';
+    ans.innerHTML = it.answer;
+
+    card.appendChild(h3);
+    card.appendChild(meta);
+    card.appendChild(ans);
+    frag.appendChild(card);
+  });
+  list.appendChild(frag);
+}
+
+function bindEvents() {
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      state.q = e.target.value || '';
+      render(filterAndSearch());
+    });
+  } else {
+    console.warn('searchInput not found');
+  }
+
+  // Submit question form handling
+  const submitBtn = document.getElementById('submitQuestionBtn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const form = document.getElementById('submitQuestionForm');
+      if (form) {
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        if (form.style.display === 'block') {
+          const questionText = document.getElementById('questionText');
+          if (questionText) questionText.focus();
+          form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    });
+  } else {
+    console.warn('submitQuestionBtn not found');
+  }
+
+  const cancelBtn = document.getElementById('cancelQuestionBtn');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', () => {
+      const form = document.getElementById('submitQuestionForm');
+      const questionForm = document.getElementById('questionForm');
+      if (form) form.style.display = 'none';
+      if (questionForm) questionForm.reset();
+    });
+  }
+
+  const questionForm = document.getElementById('questionForm');
+  if (questionForm) {
+    questionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const question = formData.get('question');
+      const category = formData.get('category') || 'Not specified';
+      const contact = formData.get('contact') || 'Not provided';
+      
+      const adminEmail = getAdminEmail();
+      const subject = encodeURIComponent('New FAQ Question Submission');
+      const body = encodeURIComponent(
+        `A new question has been submitted through the FAQ page:\n\n` +
+        `Question: ${question}\n\n` +
+        `Category: ${category}\n\n` +
+        `Contact: ${contact}\n\n` +
+        `Submitted on: ${new Date().toLocaleString()}`
+      );
+      
+      // Open mailto link to send email
+      window.location.href = `mailto:${adminEmail}?subject=${subject}&body=${body}`;
+      
+      // Show confirmation
+      alert('Thank you! Your email client should open. If it doesn\'t, please email us directly at ' + adminEmail);
+      questionForm.reset();
+      const form = document.getElementById('submitQuestionForm');
+      if (form) form.style.display = 'none';
+    });
+  }
+
+  // Add FAQ form handling (admin only)
+  $('#addFaqBtn').addEventListener('click', () => {
+    const form = $('#addFaqForm');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    if (form.style.display === 'block') {
+      $('#faqQuestion').focus();
+    }
+  });
+
+  $('#cancelFormBtn').addEventListener('click', () => {
+    $('#addFaqForm').style.display = 'none';
+    $('#faqForm').reset();
+    $('#jsonOutput').style.display = 'none';
+  });
+
+  $('#faqForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    
+    // Get next ID
+    const nextId = state.allFaqs.length > 0 
+      ? Math.max(...state.allFaqs.map(it => it.id)) + 1 
+      : 1;
+    
+    // Parse tags (comma-separated)
+    const tagsStr = formData.get('tags') || '';
+    const tags = tagsStr.split(',').map(t => t.trim()).filter(Boolean);
+    
+    // Build FAQ object
+    const newFaq = {
+      id: nextId,
+      question: formData.get('question'),
+      answer: formData.get('answer'),
+      category: formData.get('category') || null,
+      tags: tags.length > 0 ? tags : null
+    };
+    
+    // Add slug if provided
+    const slug = formData.get('slug')?.trim();
+    if (slug) newFaq.slug = slug;
+    
+    // Remove null fields
+    Object.keys(newFaq).forEach(key => {
+      if (newFaq[key] === null || newFaq[key] === '') {
+        delete newFaq[key];
+      }
+    });
+    
+    // Generate JSON snippet
+    const jsonSnippet = JSON.stringify(newFaq, null, 2);
+    
+    // Show JSON output
+    $('#jsonContent').textContent = jsonSnippet;
+    $('#jsonOutput').style.display = 'block';
+    $('#jsonOutput').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Optional: Add to current list for preview
+    state.allFaqs.push(newFaq);
+    buildFuse();
+    renderCategoryChips();
+    render(filterAndSearch());
+  });
+function renderCategoryChips() {
+  const wrap = document.getElementById('categoryChips');
+  if (!wrap) {
+    console.warn('categoryChips element not found');
+    return;
+  }
+  
+  wrap.innerHTML = '';
+  const counts = new Map();
+  state.allFaqs.forEach((it) => {
+    const key = it.category || '一般问题';
+    counts.set(key, (counts.get(key) || 0) + 1);
+  });
+  
+  // "All" chip - 确保有 chip 类
+  const allChip = document.createElement('button');
+  allChip.className = `chip${state.category ? '' : ' active'}`; // 确保有 chip 类
+  allChip.type = 'button';
+  allChip.textContent = `All (${state.allFaqs.length})`;
+  allChip.addEventListener('click', () => { 
+    state.category = ''; 
+    render(filterAndSearch()); 
+    renderCategoryChips(); 
+  });
+  wrap.appendChild(allChip);
+  
+  // 其他 chip 代码保持不变...
+}
+  $('#copyJsonBtn').addEventListener('click', async () => {
+    const text = $('#jsonContent').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      const btn = $('#copyJsonBtn');
+      const originalText = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.style.background = '#10b981';
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      alert('Failed to copy. Please manually select and copy the JSON.');
+    }
+  });
+}
+
+async function main() {
+  try {
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve));
+    }
+    
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+    
+    await loadData();
+    console.log('Loaded FAQs:', state.allFaqs.length);
+    
+    if (state.allFaqs.length === 0) {
+      console.warn('No FAQ items loaded!');
+      const list = document.getElementById('faqList');
+      if (list) {
+        list.innerHTML = '<div class="faq-item"><div class="answer">No FAQ items available. Please check the data file.</div></div>';
+      }
+      return;
+    }
+    
+    buildFuse();
+    bindEvents();
+    renderCategoryChips();
+
+    // Admin mode: show add button/form if ?admin=1
+    const isAdmin = new URL(window.location.href).searchParams.get('admin') === '1';
+    if (isAdmin) {
+      const btn = document.getElementById('addFaqBtn');
+      if (btn) btn.style.display = 'inline-block';
+    }
+
+    render(filterAndSearch());
+    
+    // Ensure category chips are visible after render
+    setTimeout(() => {
+      renderCategoryChips();
+    }, 100);
+  } catch (err) {
+    console.error('Main function error:', err);
+    const list = document.getElementById('faqList');
+    if (list) {
+      list.innerHTML = '<div class="faq-item"><div class="answer">Load failed: ' + err.message + '. Please refresh and try again.</div></div>';
+    }
+  }
+}
+
+// Start when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => main());
+} else {
+  main();
+}
+
+
