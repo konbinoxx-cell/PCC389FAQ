@@ -1,0 +1,12 @@
+{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "Welcome! How do I get started?",
+      "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+      "category": "General Questions",
+      "date": "2024-01-15",
+      "status": "answered"
+    }
+  ]
+}
