@@ -169,40 +169,65 @@
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        // FAQ Data (标签已改为 class="notranslate" 防止 F&F 变成 "朋友与家人")
-        const faqs = [
-            { q: "How do I book the party room?", a: "Contact management 3 days in advance. Deposit: $200.", cat: "C&R" },
-            { q: "When is the maintenance fee due?", a: "Due on the 1st. Late fee applies after the 5th.", cat: "F&F" },
-            { q: "Gym AC is broken.", a: "Known issue (Ticket #404). Repair scheduled for Tuesday.", cat: "A&F" },
-            { q: "Lost my key fob.", a: "Report to security ASAP. Replacement cost is $50.", cat: "S&E" },
-            { q: "Visitor parking rules?", a: "Max 24h. Register plate at security kiosk.", cat: "C&R" },
-            { q: "No hot water.", a: "Check if building maintenance is scheduled. Call 905-555-0199 if urgent.", cat: "A&F" }
-        ];
-
+        // 修改：使用 faqs236.json 数据
         const REPO = "konbinoxx-cell/issues";
+        const FAQS_JSON_URL = "faqs236.json"; // 修改为您的 JSON 文件路径
+        
         const container = document.getElementById('faqContainer');
         const searchInput = document.getElementById('searchInput');
         const catFilter = document.getElementById('catFilter');
         const showMoreBtn = document.getElementById('showMoreBtn');
+        
+        let faqs = []; // 初始为空数组，从 JSON 加载
         let isExpanded = false;
         let isPC = window.innerWidth > 768;
 
+        // 修改：从 JSON 文件加载数据
+        async function loadFAQs() {
+            try {
+                const response = await fetch(FAQS_JSON_URL);
+                if (!response.ok) {
+                    throw new Error(`Failed to load FAQs: ${response.status}`);
+                }
+                faqs = await response.json();
+                render();
+            } catch (error) {
+                console.error('Error loading FAQs:', error);
+                container.innerHTML = '<div style="text-align: center; color: var(--text-sec); padding: 20px;">Failed to load FAQ data</div>';
+            }
+        }
+
         function render() {
             container.innerHTML = '';
+            
+            // 如果没有数据，显示加载中
+            if (faqs.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: var(--text-sec); padding: 20px;">Loading FAQs...</div>';
+                return;
+            }
+            
             const term = searchInput.value.toLowerCase();
             const cat = catFilter.value;
             
             let list = faqs.filter(i => (cat==='all'||i.cat===cat) && (i.q.toLowerCase().includes(term)||i.a.toLowerCase().includes(term)));
             const shouldLimit = isPC && !isExpanded && list.length > 3 && term === '' && cat === 'all';
             
-            if(shouldLimit) { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show All ↓'; list = list.slice(0,3); }
-            else if(isPC && term==='' && cat==='all') { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show Less ↑'; }
-            else { showMoreBtn.style.display='none'; }
+            if(shouldLimit) { 
+                showMoreBtn.style.display='block'; 
+                showMoreBtn.innerText='Show All ↓'; 
+                list = list.slice(0,3); 
+            }
+            else if(isPC && term==='' && cat==='all') { 
+                showMoreBtn.style.display='block'; 
+                showMoreBtn.innerText='Show Less ↑'; 
+            }
+            else { 
+                showMoreBtn.style.display='none'; 
+            }
 
             list.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'faq-item';
-                // 修复：给 span class="tag" 加上 notranslate，防止代码被翻译
                 div.innerHTML = `<div class="faq-header">
                     <span class="question">${item.q}</span>
                     <span class="tag notranslate" data-cat="${item.cat}">${item.cat}</span>
@@ -235,7 +260,8 @@
         }
         function adminAccess() { if(prompt("Pass:")==="admin389") window.location.href=`https://github.com/${REPO}`; }
 
-        render();
+        // 修改：加载 JSON 数据
+        loadFAQs();
     </script>
 </body>
 </html>
