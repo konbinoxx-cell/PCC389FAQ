@@ -1,0 +1,1094 @@
+{
+  "faqs": [
+    {
+      "q": "What are the Property Management office hours of operation?",
+      "a": "The Property Management office is typically open Monday to Friday, from 9:00 AM to 5:00 PM. Please note that hours may vary on public holidays. For after-hours emergencies, please contact Security.",
+      "cat": "General"
+    },
+    {
+      "q": "How can I contact the Property Manager directly?",
+      "a": "You can contact the Property Manager by email at manager@building.com or by calling the main office line during business hours. Please allow up to 48 hours for a non-urgent response.",
+      "cat": "General"
+    },
+    {
+      "q": "Where can I find a complete copy of the building's Bylaws and Declaration?",
+      "a": "A digital copy of the Governing Documents (Bylaws, Declaration, and Rules) is available on the official Resident Portal. Hard copies can be requested from the Management office for a small printing fee.",
+      "cat": "General"
+    },
+    {
+      "q": "What is the procedure for submitting a general complaint?",
+      "a": "All complaints must be submitted in writing using the official Complaint Form, which is available on the Resident Portal or at the Management office. Verbal complaints cannot be officially processed.",
+      "cat": "General"
+    },
+    {
+      "q": "How do I update my personal contact information for building records?",
+      "a": "You must notify the Management office immediately of any changes to your phone number or email address by completing a Contact Information Update form. This ensures you receive emergency alerts and official notices.",
+      "cat": "General"
+    },
+    {
+      "q": "What is the designated recycling schedule and location?",
+      "a": "The designated waste and recycling room is located on the ground floor next to the loading dock. General recycling is collected twice weekly, typically on Mondays and Thursdays.",
+      "cat": "General"
+    },
+    {
+      "q": "Are there specific rules regarding noise levels after 10 PM?",
+      "a": "Yes, quiet hours are strictly enforced between 10:00 PM and 7:00 AM daily. Residents are expected to minimize noise that may disturb neighbors, including loud music, construction, and excessive pedestrian noise.",
+      "cat": "General"
+    },
+    {
+      "q": "What is the maximum number of pets allowed per unit?",
+      "a": "The maximum is typically two (2) household pets per unit (e.g., dogs, cats). All pets must be registered with the Management office, and aggressive breeds may be restricted per the Bylaws.",
+      "cat": "General"
+    },
+    {
+      "q": "How do I report damage to common area property?",
+      "a": "Report any observed damage to common areas (hallways, lobby, gym, etc.) immediately to the Management office or Security. Please provide photos and details of the location and incident, if possible.",
+      "cat": "General"
+    },
+    {
+      "q": "Is the building responsible for maintaining the interior of my balcony?",
+      "a": "No, the cleaning and general upkeep of the balcony surface and interior space is the responsibility of the unit owner/resident. The building maintains the exterior structure and railings.",
+      "cat": "General"
+    },
+    {
+      "q": "What is the policy for disposing of large cardboard boxes?",
+      "a": "Large moving boxes must be broken down flat and bundled before placing them in the designated recycling area. Do not leave uncollapsed boxes in the chute room or general recycling bins.",
+      "cat": "General"
+    },
+    {
+      "q": "Can I install a window air conditioning unit?",
+      "a": "No, window air conditioning units are generally prohibited due to aesthetic and structural concerns. The building utilizes a central HVAC system, and owners should only use approved portable interior units.",
+      "cat": "General"
+    },
+    {
+      "q": "What are the rules regarding smoking on balconies or patios?",
+      "a": "Smoking (including cannabis and e-cigarettes/vaping) is strictly prohibited in all common areas, inside units, and on balconies/patios to prevent smoke migration and comply with fire regulations.",
+      "cat": "General"
+    },
+    {
+      "q": "How can I register my tenant(s) with the building management?",
+      "a": "Unit owners must complete and submit a mandatory Landlord/Tenant Registration Form, along with a copy of the lease agreement, before the tenant moves in. A registration fee may apply.",
+      "cat": "General"
+    },
+    {
+      "q": "Is unit owners' insurance mandatory, and what coverage is required?",
+      "a": "Yes, all unit owners must maintain an active HO-6 (or equivalent) insurance policy covering contents, improvements, and liability (minimum $2 million liability is often required).",
+      "cat": "General"
+    },
+    {
+      "q": "Where is the designated mail and package collection area?",
+      "a": "Mailboxes are located in the main lobby. Packages are typically signed for by Security or placed in a secure locker system, and you will receive an automatic notification for pickup.",
+      "cat": "General"
+    },
+    {
+      "q": "What is the procedure for reporting a pest control issue inside my unit?",
+      "a": "Report the issue immediately to Management. The building will arrange for an inspection and initial treatment of common area access points, but interior unit treatment costs may be the owner's responsibility.",
+      "cat": "General"
+    },
+    {
+      "q": "What are the official colors approved for balcony furniture and railings?",
+      "a": "All exterior balcony furniture and accessories must be neutral in color (e.g., white, black, brown, grey) to maintain the building's uniform aesthetic. Painting of railings is prohibited.",
+      "cat": "General"
+    },
+    {
+      "q": "How often is the Annual General Meeting (AGM) held?",
+      "a": "The Annual General Meeting (AGM) for owners is held once per year, usually within four to six months of the fiscal year-end.",
+      "cat": "General"
+    },
+    {
+      "q": "Can I use an electric or gas grill on my balcony?",
+      "a": "Due to fire code restrictions, gas grills are strictly prohibited. Small electric grills may be permitted, but open-flame cooking devices are not allowed. Please check the specific Rules document.",
+      "cat": "General"
+    },
+    {
+      "q": "What are the limitations on the duration of guest stays?",
+      "a": "Guests are generally limited to a stay of no more than 14 consecutive days or 30 total days per year. Extended stays must be formally approved by Management.",
+      "cat": "General"
+    },
+    {
+      "q": "How do I submit a request for interior unit renovation approval?",
+      "a": "You must complete a Renovation/Alteration Request package, including plans and contractor insurance details, and submit it to the Board of Directors via Management for approval before any work begins.",
+      "cat": "General"
+    },
+    {
+      "q": "What is the policy on hanging clothes or laundry on the balcony?",
+      "a": "Hanging laundry, clothes, towels, or rugs over balcony railings or in public view is strictly prohibited to maintain the building's exterior appearance.",
+      "cat": "General"
+    },
+    {
+      "q": "Who is responsible for replacement of common element light bulbs?",
+      "a": "Management is responsible for the replacement of all light bulbs in common elements, including hallways, elevators, and utility rooms.",
+      "cat": "General"
+    },
+    {
+      "q": "How do I submit a maintenance request for my unit?",
+      "a": "For maintenance requests related to common elements or building systems, please submit a detailed request through the Resident Portal. For unit interior issues, please contact your landlord or a private contractor.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is the average response time for emergency repairs?",
+      "a": "For genuine emergencies (e.g., active water leaks, fire system failure), a staff member or contractor will typically respond within one (1) hour of notification, 24/7.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Who is responsible for fixing a leaky faucet inside my apartment?",
+      "a": "Repairs to plumbing fixtures located entirely within the unit, such as faucets, toilets, and garburators, are the sole responsibility of the unit owner/resident.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Is the building responsible for air filter replacement in my HVAC unit?",
+      "a": "The building may handle the replacement of common/central HVAC filters, but filters for individual unit fan coil units are usually the responsibility of the unit owner/resident.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How often are the exterior windows cleaned?",
+      "a": "Exterior window cleaning is typically scheduled on an annual basis, usually in the spring or summer. Notice will be provided at least one week in advance of the scheduled cleaning.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is considered a building maintenance emergency?",
+      "a": "Emergencies include severe water leaks, fire alarm malfunctions, elevator entrapment, and loss of heat during cold months. Non-critical issues should be reported during office hours.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How do I report a power outage or electrical fault in a common area?",
+      "a": "Immediately contact Security or the Management office to report the issue. Do not attempt to reset common area breakers yourself.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Can I hire an outside contractor for repairs to my unit's flooring?",
+      "a": "Yes, but you must first submit a Renovation Request for approval. The contractor must also provide proof of liability insurance and WCB coverage to Management.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is the procedure if a pipe bursts in my wall or ceiling?",
+      "a": "1. Immediately shut off the water supply to your unit, if possible. 2. Contact Security/Management immediately. 3. Contact your insurance provider. The building will address the common element pipe; you address the damage to your unit.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How is preventive maintenance scheduled for common mechanical systems?",
+      "a": "Preventive maintenance is scheduled year-round by Management and professional contractors based on manufacturer recommendations and equipment age (e.g., quarterly HVAC checks, monthly fire panel tests).",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Do I need to be present for scheduled unit maintenance appointments?",
+      "a": "If the repair is a common element issue requiring access to your unit, Management requires access. You may provide Management/Security with an authorized key or arrange for someone to be present.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Who pays for repairs if damage is caused by a neighboring unit?",
+      "a": "The cost of repairing your unit's damage is typically covered by your unit's insurance (HO-6), which then pursues recovery from the party or unit responsible for the damage.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How do I request access to the building's maintenance logs?",
+      "a": "Owners can formally request access to review maintenance records by submitting a written request to the Board of Directors via Management, detailing the specific records desired.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is the schedule for annual fire extinguisher checks?",
+      "a": "Portable fire extinguishers in common areas are inspected monthly, and full annual servicing is performed by a certified contractor every year, as mandated by fire code.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How can I report a persistent elevator issue or breakdown?",
+      "a": "Report all elevator issues, including excessive noise or slow operation, to Security or the Management office immediately. The elevator company is typically dispatched within the hour for outages.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Who is responsible for snow removal on exterior walkways and driveways?",
+      "a": "The building management hires an external landscaping contractor who is responsible for clearing snow and applying salt/ice-melt to all common area walkways and driveways.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is the process for repairing common area lighting that is not working?",
+      "a": "Report the non-working light fixture to Management. A maintenance technician will typically replace the bulb or repair the fixture within 48 business hours.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Are there specific guidelines for water heater maintenance within units?",
+      "a": "If your unit has an individual water heater, the maintenance (including flushing and checks) is the unit owner's responsibility. Regular servicing is recommended to prevent leaks.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How do I report a blocked drain in a common laundry room or utility area?",
+      "a": "Notify the Management office or Security immediately. Do not attempt to use chemical drain cleaners, as this may damage the common plumbing system.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is the policy for management entering a unit for urgent repairs?",
+      "a": "In the event of an emergency (e.g., active water leak), Management or authorized personnel may enter the unit without notice to prevent further damage. Non-emergency access requires 24 hours' written notice.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Who is responsible for maintaining and repairing individual unit doors?",
+      "a": "The unit owner is generally responsible for the repair and maintenance of the interior of the unit door, while the building is responsible for the exterior appearance and the hardware/lockset.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "How do I get approval for major renovations like kitchen or bathroom remodels?",
+      "a": "A detailed renovation package, including engineered drawings, permits, and a $500 refundable deposit, must be submitted and approved by the Board before work commences. Work is only allowed during approved hours.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "What is the procedure for dealing with minor mold or mildew in my unit?",
+      "a": "Minor surface mold/mildew due to humidity is the resident's responsibility to clean. If it is extensive or suspected to be from a building envelope leak, report it to Management for investigation.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "Does the management provide assistance with minor appliance repairs?",
+      "a": "No, the building management does not provide repair services for appliances within individual units. Residents must contact their own qualified repair technicians.",
+      "cat": "Maintenance & Repairs"
+    },
+    {
+      "q": "When are monthly maintenance fees due?",
+      "a": "Monthly maintenance fees (condo/strata fees) are due on the first (1st) day of each calendar month. Payments must be received by this date to avoid late charges.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What methods of payment are accepted for fees?",
+      "a": "Accepted payment methods typically include pre-authorized debit (PAD), post-dated checks, or bank bill payment (EFT) via your financial institution. Cash payments are generally not accepted.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What happens if a payment is late?",
+      "a": "Late payments are subject to an immediate late fee (e.g., $50) and may accrue interest (e.g., 1.5% per month) on the outstanding balance until paid in full.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How are special assessments determined and calculated?",
+      "a": "Special assessments are determined by the Board of Directors for large, unbudgeted capital expenditures. They are calculated based on the unit's percentage of ownership (pro-rata share) of the common elements.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "Where can I view the annual budget report?",
+      "a": "The annual budget report and the most recent audited financial statements are included in the Annual General Meeting package, distributed to all owners prior to the meeting.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is included in the monthly maintenance fee?",
+      "a": "Fees typically cover common area utilities, building insurance, repair and maintenance of common elements, contributions to the Reserve Fund, security services, and management fees.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How do I request a copy of my account ledger?",
+      "a": "Owners can request a copy of their unit's financial ledger by submitting a written request to the Management office. A small administrative fee may apply for this service.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "Are there any fees for utilizing the common amenities (e.g., gym, party room)?",
+      "a": "The gym is usually free to use. The Party Room and Guest Suite typically require a booking fee and a separate, refundable security deposit.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is the cost for reserving the guest suite?",
+      "a": "The cost for the Guest Suite is typically a nightly rental fee (e.g., $75/night) plus a refundable security deposit (e.g., $250) against potential damages.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How are reserve funds used, and what is their current status?",
+      "a": "Reserve funds are legally mandated funds used for major repairs and replacement of common elements (e.g., roof replacement, elevator modernization). The status is detailed in the Reserve Fund Study, available to owners.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is the fee for an Estoppel Certificate or Status Certificate?",
+      "a": "The fee for a Status Certificate (or Estoppel Certificate) is legally set and must be paid by the requestor (usually the buyer's lawyer) to the Management company.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How often can the Board increase the maintenance fees?",
+      "a": "Fees are reviewed and adjusted annually as part of the budget process, requiring Board approval. Significant increases (over 20%) may require a vote by the ownership.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is the fee for replacing a lost access fob or key?",
+      "a": "There is a non-refundable replacement fee (e.g., $50 to $100) per fob or key to cover administrative and programming costs.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "Can I pay my fees annually instead of monthly?",
+      "a": "Most associations require monthly payments. Annual payment options may be available upon special written request and Board approval, but are uncommon.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is the penalty for a bounced check or failed pre-authorized payment?",
+      "a": "A penalty fee (e.g., $35) is charged for all NSF (Non-Sufficient Funds) items or failed PAD withdrawals, in addition to any late fees incurred.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How do I set up pre-authorized debit (PAD) for my fees?",
+      "a": "To enroll in PAD, you must complete and sign a PAD Authorization form and attach a voided check or bank information, then submit it to the Management office.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "Are there separate utility bills, or are they included in the fees?",
+      "a": "Some utilities (e.g., water, heat) may be included in the maintenance fee. Electricity is often individually metered and billed directly to the unit owner/resident.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is the required deposit amount for the party room rental?",
+      "a": "A refundable security deposit (e.g., $500) is required when booking the party room. This deposit will be returned after the event, provided there is no damage or excessive cleaning required.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How is the property's financial audit conducted and shared?",
+      "a": "An independent, qualified accounting firm conducts a full audit annually. The results are presented to the owners at the Annual General Meeting (AGM).",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What are the current legal fees charged back to unit owners for violations?",
+      "a": "Legal fees incurred by the Corporation to enforce Bylaws due to an owner's violation (e.g., noise complaints, unapproved renovations) are fully charged back to the violating unit owner's account.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How do I dispute a charge or fee on my account?",
+      "a": "You must submit a formal written request to the Management office detailing the charge and providing supporting documentation within 30 days of the charge appearing on your statement.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "What is the fee associated with moving in or moving out?",
+      "a": "A non-refundable administration fee (e.g., $150) and a refundable damage deposit (e.g., $300) are typically required for all moves.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "Can I receive electronic statements for my maintenance fees?",
+      "a": "Yes, you can opt-in to receive electronic (email) statements by completing the E-Statement Consent Form provided by the Management office.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "Is there a fee for obtaining the contact information of the Board of Directors?",
+      "a": "No, you can typically obtain the non-private contact information (usually an email address) for the Board via the Management office upon request and per the governing legislation.",
+      "cat": "Financial & Fees"
+    },
+    {
+      "q": "How do I register a new access fob or proximity card?",
+      "a": "To register a new access fob, fill out a Key/Fob Request Form at the Management office. A form of ID is required, and a fee for the new fob will be charged to your account.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What should I do if my key fob is lost or stolen?",
+      "a": "Report the lost or stolen fob immediately to Security or the Management office, 24/7. It will be deactivated instantly to prevent unauthorized access. A replacement fee will apply.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What is the procedure for granting temporary access to contractors or visitors?",
+      "a": "You must pre-authorize access by calling the Security desk or using the Resident Portal, providing the visitor's name and expected arrival/departure time.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "Is there 24-hour security personnel on site?",
+      "a": "Yes, the building maintains 24-hour, 7-day-a-week security coverage. The Security desk is located in the main lobby.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How do I report a suspicious person or activity in the building?",
+      "a": "Immediately call the Security desk. Do not approach the individual. In the event of an imminent threat, call 911 first, then notify Security.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What are the rules regarding keeping the main lobby door propped open?",
+      "a": "For security reasons, propping open any main entrance or common area door is strictly prohibited and can result in fines. Use the designated loading dock door for moving.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "Can I view surveillance footage if something happens near my unit?",
+      "a": "Security footage is highly restricted and can only be reviewed by Management or Law Enforcement in response to an official police report or documented incident.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What is the process for replacing a damaged intercom system in my unit?",
+      "a": "Report the damage to Management. The cost of repair or replacement for the unit's internal intercom handset is typically the unit owner's responsibility.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How do I change the security code for my parking spot access?",
+      "a": "Parking spot access is usually tied to your permanent building fob. If a dedicated gate code is used, contact Management with your ID to request a change.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "Is the building responsible for security inside the units?",
+      "a": "No, the building is responsible for common area security only. Residents are responsible for securing their own units and personal property, and for purchasing unit insurance.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What is the emergency contact number for security after hours?",
+      "a": "The 24/7 Security desk number is typically posted in the lobby and elevators. You can call them directly for non-life-threatening security or maintenance emergencies.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How can I request a second key/fob for a new occupant?",
+      "a": "The unit owner must submit a request form with the new occupant's details and proof of residency. Only a maximum number of fobs are permitted per unit, and a fee applies.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What are the regulations for bicycle storage and access in the parking garage?",
+      "a": "Bicycles must be stored in the designated bike storage room and registered with Management. Bicycles are prohibited from being stored in parking spaces or on balconies.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How is access managed for delivery services (e.g., mail, food)?",
+      "a": "Delivery personnel can use the main intercom to contact the resident directly. They are generally not given building access and must be buzzed in by the resident.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "Can I install an additional security camera facing the hallway?",
+      "a": "No, installing cameras that record common elements (hallways, lobbies) is strictly prohibited to protect the privacy of other residents. Internal unit cameras are permitted.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What is the procedure for a fire drill or evacuation?",
+      "a": "Upon hearing the fire alarm, follow the evacuation route signs to the nearest stairwell, and proceed to the designated external meeting point. Do not use the elevators.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How often are the exterior and common area locks changed or inspected?",
+      "a": "Common area locks are inspected monthly and the lock cylinders are typically re-keyed or replaced on a regular schedule (e.g., every 5-7 years) or as needed for security.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What is the policy regarding access to the roof or mechanical rooms?",
+      "a": "Access to the roof, mechanical, electrical, and utility rooms is strictly prohibited for residents without written authorization from the Management office and typically requires staff escort.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How do I set up visitor parking authorization?",
+      "a": "Visitor parking authorization is typically done through the Resident Portal or by registering the license plate with the Security desk upon arrival. Time limits are strictly enforced.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "Is there a safe deposit box or secure storage available for residents?",
+      "a": "No, the building does not provide safe deposit boxes or secure storage for personal valuables. Residents should keep all valuables inside their unit.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What are the rules about leaving items in front of my unit door?",
+      "a": "Hallways must be kept clear at all times for fire safety and accessibility. Do not leave shoes, decorations, garbage, or other personal items outside your door.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "How do I register my vehicle license plate with the security system?",
+      "a": "Permanent parking registration is handled during move-in. For visitors, follow the temporary parking authorization procedure via Security or the Resident Portal.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What is the protocol for police or emergency service access to the building?",
+      "a": "Security will cooperate fully with first responders (Police, Fire, Paramedics) and provide immediate access. They will require verification of the emergency call or official ID.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "Can management hold spare keys to my unit for emergency access?",
+      "a": "This is optional; some buildings offer a voluntary key registration program. If you choose to participate, a sealed key is stored securely in the Management office for emergency access only.",
+      "cat": "Security & Access"
+    },
+    {
+      "q": "What are the rules for visitor parking?",
+      "a": "Visitor parking is limited to a maximum of 24 consecutive hours and is strictly reserved for guests, not residents. Vehicles must be registered digitally upon arrival to avoid towing.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "How do I obtain a permit for my vehicle?",
+      "a": "Residents must register their vehicle and receive a permanent parking decal or permit from Management, which must be displayed in the vehicle at all times.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Can I temporarily park a moving truck in the loading zone?",
+      "a": "Yes, moving trucks can park in the designated loading zone, but you must book the loading dock time in advance with the Management office and adhere to the time limit (typically 2-4 hours).",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What is the maximum height clearance for the parking garage?",
+      "a": "The maximum height clearance for the underground parking garage is [e.g., 6 feet 8 inches or 2.03 meters]. All vehicles must adhere to this limit.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "How do I report an unauthorized vehicle in my assigned space?",
+      "a": "Contact the Security desk immediately, provide your unit number and the vehicle's license plate, make, and model. Security will attempt to have the vehicle moved or may arrange for towing.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Are there designated spots for motorcycle or scooter parking?",
+      "a": "Yes, specific areas are often designated for motorcycles/scooters, usually within the parking garage. They must be registered with Management and a separate fee may apply.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What are the rules regarding washing cars in the garage or on the property?",
+      "a": "Car washing is only permitted in the designated car wash bay within the parking garage, if available. Washing vehicles in parking spots or common areas is prohibited.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Can I perform basic maintenance or oil changes on my car in the garage?",
+      "a": "No, performing any vehicle maintenance, including oil changes, fluid disposal, or extensive repairs, is strictly prohibited in the parking garage or on the property.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Is commercial vehicle parking allowed?",
+      "a": "Commercial vehicles that exceed height/length limits or display large commercial signage are generally prohibited from parking in resident or visitor spaces overnight.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What is the procedure for long-term vehicle storage if I travel?",
+      "a": "If leaving your vehicle stored for more than 30 days, you must notify the Management office in writing with your travel dates and emergency contact information.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Are electric vehicle (EV) charging stations available, and how do I use them?",
+      "a": "EV charging stations are located in the designated common area spots. Use requires registration with Management and a payment via the third-party provider's app, charged based on kilowatt-hours used.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Can I use my parking spot for storage (e.g., tires, boxes)?",
+      "a": "No, parking spaces may only be used for parking a registered, functional vehicle. Storage of any other items (tires, furniture, boxes, etc.) is strictly prohibited for fire safety reasons.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "How can I obtain a second parking spot?",
+      "a": "Second parking spots may be available for rent or purchase from other unit owners or from the Corporation, depending on availability. Contact Management for the current list of available spaces.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What is the fine for parking illegally in the fire route?",
+      "a": "Vehicles parked in the fire route or blocking common access will be towed immediately at the owner's expense, and the unit owner will incur a substantial fine (e.g., $500).",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Is there a designated area for short-term drop-off/pick-up?",
+      "a": "Yes, there is a short-term drop-off and pick-up area located directly in front of the main lobby entrance. Vehicles should not be left unattended in this zone.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What should I do if my garage door opener is lost or damaged?",
+      "a": "Report the loss or damage to the Management office immediately. The old opener will be deactivated, and a replacement will be provided for a non-refundable fee.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Are trailers or boats permitted to be stored on the property?",
+      "a": "No, the parking of trailers, campers, recreational vehicles, or boats is strictly prohibited anywhere on the property, including the parking garage and outdoor spaces.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Can my guests leave their car overnight in visitor parking?",
+      "a": "Overnight visitor parking is generally permitted, but the vehicle must be registered for a maximum of 24 hours. Repeat overnight parking by the same vehicle is tracked and prohibited.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Who is responsible for repairs if my car is damaged in the garage?",
+      "a": "The building is not responsible for damage caused by other vehicles or accidental damage in the garage. Residents should rely on their own auto insurance for such claims.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What are the rules regarding speed limits in the parking garage?",
+      "a": "The maximum speed limit in the parking garage is 10 km/h (or 5 mph). Residents are required to drive slowly and safely, paying attention to pedestrians and sharp corners.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Can I rent out my unused parking spot to a non-resident?",
+      "a": "No, parking spots are typically restricted to use by unit owners or residents only, and renting to non-residents is usually prohibited by the building's Declaration.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What happens if my assigned parking spot is currently being maintained (e.g., repainting)?",
+      "a": "Management will provide at least 48 hours' notice and will designate a temporary alternate parking spot during the period of necessary maintenance or repair to your space.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "Are there accessible parking spots, and what are the rules for their use?",
+      "a": "Designated accessible (handicap) parking spots are available. They are strictly reserved for vehicles displaying a valid government-issued accessible parking permit.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "How is vehicle noise enforced in the garage?",
+      "a": "Excessive vehicle noise, including loud mufflers or engine revving, is prohibited, especially during quiet hours. Repeated violations will result in warnings and possible fines.",
+      "cat": "Parking & Vehicles"
+    },
+    {
+      "q": "What are the operating hours for the fitness center/gym?",
+      "a": "The fitness center is generally open 24 hours a day, 7 days a week, but users must adhere to the posted rules and may be required to book specific time slots during peak periods.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "How do I book the Party Room or Lounge for a private event?",
+      "a": "The Party Room can be booked via the Resident Portal or by contacting Management. A signed rental agreement, booking fee, and a refundable security deposit are required.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Are children allowed in the pool/hot tub area?",
+      "a": "Children are permitted in the pool area but must be strictly supervised by an adult at all times. Specific rules regarding age limits for the hot tub are posted and must be followed.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What is the maximum number of guests I can bring to the amenity spaces?",
+      "a": "Generally, residents are limited to bringing a maximum of two (2) to four (4) guests to the common amenity spaces (excluding private rentals like the Party Room).",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What are the rules for using the common area washrooms?",
+      "a": "Common area washrooms must be kept clean, and personal items must not be left behind. Report any cleanliness or maintenance issues to Security immediately.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Is food and drink allowed in the fitness center?",
+      "a": "Only bottled water or sports drinks in non-breakable, sealed containers are permitted in the fitness center. Food and glass containers are strictly prohibited.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "How long is the Guest Suite available for a single booking?",
+      "a": "The Guest Suite is typically limited to a maximum continuous booking of three (3) nights, and no more than seven (7) nights total per unit per year.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Can I reserve the common area terrace or BBQ facilities?",
+      "a": "The BBQ facilities are typically first-come, first-served and cannot be reserved privately. The adjacent terrace/patio area may be reservable as part of a Party Room rental.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What is the process if I lose an item in an amenity space?",
+      "a": "All lost and found items are logged and held by the Security desk for 30 days. Please report lost items to Security with a detailed description.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Are pets allowed in any common amenity rooms?",
+      "a": "Pets (excluding registered service animals) are strictly prohibited in all amenity areas, including the gym, pool area, Party Room, and Guest Suite.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What are the restrictions on playing music in the amenity areas?",
+      "a": "Personal music devices must be used with headphones in the gym and pool areas. Loud or amplified music is only permitted inside the privately rented Party Room.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "How can I suggest a new piece of equipment for the gym?",
+      "a": "Suggestions for new gym equipment should be submitted in writing to the Management office for consideration during the annual budget review process.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What is the protocol for residents using the building's common area Wi-Fi?",
+      "a": "If provided, common area Wi-Fi is intended for light browsing only. Streaming, downloading large files, or illegal activity is prohibited. Speed and access are not guaranteed.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Are there designated times for children to use the amenity areas?",
+      "a": "Some facilities, like pools, may have 'Adult Swim' or designated family hours. Please check the posted schedules at the entrance to the facility.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What is the penalty for not cleaning up after using the common laundry facilities?",
+      "a": "Failure to remove laundry, clean lint filters, or clean up spills can result in a warning followed by a fine charged back to the unit owner's account.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "How do I report a maintenance issue in the gym or pool area?",
+      "a": "Report the issue immediately to Security or Management. Do not attempt to use any equipment that appears damaged or unsafe.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Can non-resident family members use the amenities without the owner present?",
+      "a": "No, guests, including family members who do not reside in the building, must be accompanied by the resident/unit owner at all times while using the amenities.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What is the procedure for closing the Party Room after an event?",
+      "a": "The room must be fully cleaned, all garbage removed, and the final inspection checklist signed by Security at the end of the rental period to ensure the return of the security deposit.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Are there any health-related requirements for using the pool (e.g., showers)?",
+      "a": "All users are required to shower before entering the pool or hot tub to maintain water cleanliness and sanitation standards, as per public health regulations.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Can I store personal belongings in the amenity washrooms or change rooms?",
+      "a": "No, all personal items, including gym bags, towels, and toiletries, must be removed immediately after use. Storage in these areas is prohibited.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "What is the policy regarding private lessons (e.g., yoga, training) in the gym?",
+      "a": "Private commercial activity, including paid personal training or instruction, is prohibited in the common area amenities unless formally contracted and approved by the Board.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "How does the reservation system for the meeting room work?",
+      "a": "The meeting room may be available for short, non-commercial use on a first-come, first-served basis, often requiring a sign-up sheet or online booking via the Resident Portal.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Can I use the common area electricity to charge my personal devices?",
+      "a": "While incidental use (e.g., charging a phone briefly) may be tolerated, excessive or regular use of common area power for charging personal devices is prohibited.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "Is there a time limit for using the equipment in the fitness center during peak hours?",
+      "a": "Yes, during peak hours (typically 5 PM - 8 PM), a 30-minute time limit may be enforced for cardio equipment (treadmills, ellipticals) to ensure equitable access.",
+      "cat": "Amenities & Common Areas"
+    },
+    {
+      "q": "As an owner, do I need to notify Management if I plan to lease my unit?",
+      "a": "Yes, unit owners must notify Management in writing of their intent to lease and provide a fully executed copy of the lease agreement within 15 days of its execution.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What are the rules regarding short-term rentals (e.g., Airbnb)?",
+      "a": "Short-term rentals (less than 6 months, or as defined by the Bylaws) are strictly prohibited in the building. Violations may result in substantial fines and legal action.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What information must I provide to Management about my new tenant?",
+      "a": "You must provide the tenant's full name, contact information, vehicle details (if applicable), and a signed acknowledgment from the tenant agreeing to abide by the building's Rules and Bylaws.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Is there a move-in orientation required for new tenants?",
+      "a": "Yes, new tenants are strongly encouraged (and sometimes mandated) to attend a brief orientation session with Management to review the building's specific rules, emergency procedures, and access protocols.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What is the procedure for a new owner to obtain building access fobs and keys?",
+      "a": "Upon closing, the new owner must visit the Management office with proof of ownership (e.g., Transfer of Title) to register and receive access items.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "How are tenants held responsible for rule violations?",
+      "a": "The unit owner is ultimately responsible for their tenant's compliance. Fines or costs incurred due to tenant violations are charged to the owner's account.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Can a property manager/realtor obtain the Status Certificate for a unit?",
+      "a": "Yes, a Status Certificate (or Estoppel) can be requested by the owner, a mortgage lender, or a lawyer acting on behalf of a buyer, by submitting a formal request and payment to Management.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Are there specific building rules that restrict who I can lease to?",
+      "a": "The building adheres to all fair housing laws. However, the Bylaws may have restrictions on the number of tenants per unit based on bedroom count.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What is the fee for a new tenant registration?",
+      "a": "A one-time, non-refundable administration fee (e.g., $100) per tenancy is often charged to the unit owner to cover the costs of processing paperwork, key registration, and orientation.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "How do real estate agents access the property for showings?",
+      "a": "Agents must coordinate access through the unit owner or listing agent. They must not use or share resident access fobs and should not bypass the Security desk.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Is a damage deposit required from the tenant by the Corporation?",
+      "a": "The Corporation typically does not collect a damage deposit directly from the tenant, but it may require a refundable damage deposit from the owner for the move-in process.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What are the designated hours for moving in or moving out?",
+      "a": "Moves are restricted to specific hours (e.g., 9:00 AM to 4:00 PM, Monday to Friday) and must be booked in advance to reserve the elevator and loading dock.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Can I post a 'For Sale' sign on my unit's balcony or window?",
+      "a": "No, posting 'For Sale' or 'For Lease' signs is prohibited on balconies, windows, or any common element to maintain the building's aesthetic uniformity.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What is the role of the Management office during a unit sale?",
+      "a": "Management provides necessary documentation (Status Certificate, Bylaws), coordinates the move-out/move-in process, and facilitates the transfer of keys/fobs/parking access.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Do I need to inform the Board of Directors if I am selling my unit?",
+      "a": "You must formally notify the Property Management office of your intent to sell, as they manage the documentation and coordination of the sale process.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What happens to the previous owner's outstanding fees after closing?",
+      "a": "Unpaid fees or assessments are typically covered by the Status Certificate's requirements and are cleared by the seller's lawyer upon closing. The new owner takes possession of a financially clear unit.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Are there restrictions on the number of rental units in the building?",
+      "a": "The Bylaws may stipulate a maximum percentage of units that can be rented out at any given time to maintain the building's owner-occupied ratio. Check the Declaration for details.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "How does the building ensure tenants are aware of the Rules?",
+      "a": "Owners are required to provide tenants with a copy of all Rules and Bylaws, and tenants must sign an acknowledgment form confirming they have read and agree to them.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Can a tenant attend the Annual General Meeting (AGM)?",
+      "a": "Tenants generally cannot attend the AGM unless they hold a valid Proxy or written authorization from the unit owner to represent the unit.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "If I am renting, who do I contact for maintenance issues?",
+      "a": "Tenants must contact their unit owner or the owner's designated property manager for all in-unit maintenance and repair issues.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What is the consequence of listing my unit on a short-term rental site?",
+      "a": "The consequence is immediate notification, assessment of a fine (e.g., $1,000 per occurrence), and potential legal injunctions to cease the prohibited commercial activity.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Are there specific rules for real estate photography inside the building?",
+      "a": "Photography is permitted within the unit, but taking photos of common areas, other units, or residents is prohibited without prior written consent from Management.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "How do I transfer my parking spot or locker ownership to a new buyer?",
+      "a": "This transfer is handled by the lawyers during the closing process. You must notify Management of the transfer details once finalized.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "Can a new tenant bring in a pet if the owner already registered one?",
+      "a": "The new tenancy agreement must be compliant with the building's pet rules. All pets must be re-registered by the new tenant/owner, and limits apply.",
+      "cat": "Leasing & Sales"
+    },
+    {
+      "q": "What is the role of the Board of Directors?",
+      "a": "The Board of Directors is responsible for the overall governance of the property, including financial oversight, rule enforcement, approving contracts, and ensuring compliance with the Bylaws.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How can I run for a position on the Board?",
+      "a": "You must meet the eligibility criteria outlined in the Bylaws and submit a nomination form to Management before the deadline for the next Annual General Meeting (AGM).",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How can I submit a formal proposal to the Board?",
+      "a": "All formal proposals or requests must be submitted in writing to the Management office. The Board will review the request at the next scheduled Board meeting.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How often does the Board of Directors meet?",
+      "a": "The Board typically meets monthly or bi-monthly, and sometimes more frequently if necessary. Board meetings are generally closed sessions.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Are residents allowed to attend Board meetings?",
+      "a": "Owners are generally entitled to attend the 'open' portion of Board meetings, but they must provide written notice to Management 48 hours in advance. The Board may adjourn to a closed 'in-camera' session.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How are building rules created and changed?",
+      "a": "New or amended rules are proposed by the Board, circulated to all owners for notice, and become effective after a specified notice period unless owners requisition a vote.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the process for reporting a Bylaw or Rule violation?",
+      "a": "A violation must be reported in writing to the Management office using a formal violation report, detailing the time, date, location, and nature of the offense.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the typical fine structure for common violations?",
+      "a": "Fines vary but typically follow a schedule: 1st offense (warning), 2nd offense (e.g., $100 fine), 3rd offense (e.g., $250 fine). Fines are charged directly to the unit's account.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Can the Board restrict the use of certain amenities?",
+      "a": "Yes, the Board has the authority to temporarily restrict or close amenities for maintenance, repairs, or due to safety or repeated rule violations.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How can I request copies of past Board meeting minutes?",
+      "a": "Owners are generally entitled to review minutes from the open portion of past Board meetings by submitting a written request to Management. Fees for copying may apply.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What happens if a Board member has a conflict of interest?",
+      "a": "The Board member must disclose the conflict, recuse themselves from the discussion, and abstain from voting on any matter where a conflict of interest exists.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How can I communicate directly with the Board of Directors?",
+      "a": "All formal communication to the Board should be addressed to the Board of Directors and submitted via the Property Management office, which acts as the official liaison.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the procedure for an owner to requisition a meeting?",
+      "a": "Owners representing a legally defined percentage of the units (e.g., 15% or 25%) can sign a petition to formally requisition a meeting to discuss a specific matter.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How is the performance of the Property Manager evaluated?",
+      "a": "The Board of Directors conducts regular performance reviews of the Property Manager, typically on an annual basis, and uses resident feedback as part of that assessment.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Can the Board levy fines without a vote from the owners?",
+      "a": "Yes, the Board can levy fines for rule violations based on the authority granted to them in the Declaration and Bylaws, without requiring a vote from the general membership.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the role of the Reserve Fund Study in governance?",
+      "a": "The Reserve Fund Study is a mandatory document that projects future capital expenses, guiding the Board on necessary contributions to the Reserve Fund to ensure financial stability.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How is information about rule changes distributed to residents?",
+      "a": "New rules or amendments are distributed via email, posted on the Resident Portal, and physically posted in prominent common areas (e.g., mailroom) for the required notification period.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the term length for a Board Director?",
+      "a": "The term length for a Director is typically two (2) years, though this can vary. Directors serve staggered terms to ensure continuity on the Board.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Can I challenge a fine issued to my unit?",
+      "a": "Yes, you can challenge a fine by submitting a written appeal to the Board of Directors via Management within 14 days of receiving the notice. Evidence must be provided.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the difference between a Bylaw and a Rule?",
+      "a": "Bylaws govern the operation of the Corporation (e.g., election of directors) and require a vote by owners to change. Rules govern resident conduct (e.g., noise limits) and are changed by the Board.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Where are the official notice boards or communication channels located?",
+      "a": "Official notices are typically posted in the main lobby mailroom and on the Resident Portal. Unofficial or personal flyers are prohibited in common areas.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Who is responsible for the accuracy of owner contact information?",
+      "a": "Each unit owner is solely responsible for ensuring that their current mailing address, email address, and phone number are on file with the Management office.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "How are proxies handled for the Annual General Meeting (AGM)?",
+      "a": "A Proxy form allows an owner to designate another person (owner or non-owner) to vote on their behalf. The completed form must be submitted to Management before the start of the meeting.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "Can the Board deny a unit owner access to their own financial records?",
+      "a": "The Board can only deny access to records if the request is not for a proper purpose or involves personal information of another owner/resident. Otherwise, access is legally required.",
+      "cat": "Governance & Rules Enforcement"
+    },
+    {
+      "q": "What is the primary emergency contact number for the building?",
+      "a": "For life-threatening emergencies (Fire, Medical, Crime), always call 911 first. For building-related emergencies (burst pipe, loss of heat), call the 24/7 Security desk.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Where is the designated emergency assembly point during an evacuation?",
+      "a": "The official external assembly point is [Insert Specific Address/Landmark, e.g., the park across the street]. Follow evacuation signs and proceed quickly to this location.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What steps should I take if the fire alarm sounds?",
+      "a": "1. Immediately close your door. 2. Feel the door for heat. 3. If safe, evacuate via the nearest stairwell. 4. Do NOT use the elevators. 5. Proceed to the assembly point.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "How can I sign up for emergency text message or email alerts?",
+      "a": "Emergency alerts are automatically sent to all contact information provided in your registration file. Ensure your email and phone number are always up-to-date with Management.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What should I do if I smell gas in my unit or a common area?",
+      "a": "Do not turn on or off any lights/appliances. Immediately evacuate the area and call 911, followed by the 24/7 Security desk from a safe location.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Are fire safety inspections conducted regularly?",
+      "a": "Yes, building-wide fire safety system checks (including alarms, sprinklers, and hoses) are conducted monthly, and a full annual inspection by the Fire Department is mandatory.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What is the policy regarding storing items in fire escape routes or stairwells?",
+      "a": "Storing any items (bicycles, furniture, personal belongings) in stairwells or fire escape routes is a serious fire code violation and is strictly prohibited. Items will be immediately removed and disposed of.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What is the procedure for an elevator entrapment?",
+      "a": "Use the emergency call button inside the elevator car. You will be connected directly to Security or an emergency monitoring service. Do not attempt to force the doors open.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Is there an AED (Automated External Defibrillator) in the building, and where is it located?",
+      "a": "Yes, an AED is typically located near the Security desk in the main lobby or in the fitness center. Security personnel are trained in its use.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What should I do in the event of a severe weather warning (e.g., tornado)?",
+      "a": "Seek immediate shelter in the lowest level of the building, away from windows and glass. The safest areas are internal hallways, stairwells, or designated basement rooms.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Are residents permitted to have external security bars or locks on their unit doors?",
+      "a": "External modifications like security bars are generally prohibited. Approved secondary internal deadbolts or chain locks may be permitted; consult the Rules document first.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "How do I report a flood or major water leak?",
+      "a": "Call the 24/7 Security line immediately. Clearly state your location and the source/severity of the leak. Security will dispatch the appropriate personnel.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What measures are in place for carbon monoxide detection?",
+      "a": "The building has centralized carbon monoxide detection in key common areas (e.g., parking garage, mechanical rooms). Units with gas appliances must have their own internal CO detectors.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What is the protocol if there is a medical emergency in my unit?",
+      "a": "Call 911 immediately. Once paramedics are dispatched, call Security to inform them so they can ensure immediate access to your unit when first responders arrive.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Where can I find a map of the floor plan and fire exits?",
+      "a": "Floor plans showing your unit, nearest fire extinguishers, and exit routes are posted prominently on every residential floor, typically near the elevator lobby.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Is there a safe area for pets during a building evacuation?",
+      "a": "Pets must be taken with their owners during an evacuation. Owners are responsible for their pets at the external assembly point, as pets are not permitted inside the lobby during an emergency.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What is the building's plan for a long-term utility outage (e.g., 48 hours without power)?",
+      "a": "The building has a contingency plan (e.g., limited generator power for life safety systems, emergency lighting). Residents should prepare personal emergency kits (water, non-perishables, first aid).",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "How often are the fire alarm systems tested and what is the process?",
+      "a": "The full fire alarm system is tested annually, requiring access to units for smoke detector checks. Residents will be given at least one week's notice of the testing date.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Can I keep a small space heater in my unit during the winter?",
+      "a": "Only electric space heaters with automatic shut-off and tip-over safety features are permitted. Using them unattended or with extension cords is strongly discouraged due to fire risk.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What should I do if I am locked out of my unit after hours?",
+      "a": "Contact the 24/7 Security desk. A security officer may be able to provide access, but a lock-out fee may apply, and valid photo ID confirming residency is mandatory.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Are there specific procedures for handling hazardous materials/waste?",
+      "a": "Hazardous materials (e.g., paint, chemicals, batteries) must never be placed in building garbage/recycling. Residents are responsible for taking them to an official city hazardous waste drop-off site.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What is the rule regarding the use of candles or open flames?",
+      "a": "The use of open-flame candles is strictly discouraged due to fire risk. If used, they must be kept away from all flammable materials and never left unattended.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "How does the building handle a biohazard cleanup (e.g., blood, bodily fluids)?",
+      "a": "Any biohazard on common property must be immediately reported to Security. Professional, specialized contractors will be dispatched for cleanup at the Corporation's expense (or charged back if the resident is responsible).",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What is the protocol if a resident needs assistance due to a disability during an evacuation?",
+      "a": "Residents with mobility issues should register with Management for the Emergency Assistance List. Security will prioritize checking on these units during an alarm and will assist in the evacuation process.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "Is the building equipped with emergency lighting in the stairwells?",
+      "a": "Yes, all stairwells are equipped with battery-backed emergency lighting that will activate automatically during a power outage to facilitate safe evacuation.",
+      "cat": "Emergencies & Safety"
+    },
+    {
+      "q": "What should I do if a neighbor is experiencing domestic violence?",
+      "a": "If there is any immediate danger, call 911 immediately. If you suspect an issue that is not an immediate emergency, report your concerns to Security and Management discreetly.",
+      "cat": "Emergencies & Safety"
+    }
+  ]
+}

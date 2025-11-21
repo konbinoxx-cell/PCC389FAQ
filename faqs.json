@@ -1,45 +1,68 @@
-  // 静态FAQ数据 - 所有人都看到相同的内容
-   {     
-    faqs: [
-            {
-                id: 1,
-                question: "Welcome! How do I get started?",
-                answer: "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
-                category: "General Questions",
-                date: "2024-01-15",
-                status: "answered"
-            },
-            {
-                id: 2,
-                question: "What should I do if there's a plumbing emergency?",
-                answer: "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
-                category: "Plumbing",
-                date: "2024-01-10",
-                status: "answered"
-            },
-            {
-                id: 3,
-                question: "How do I access the fitness center?",
-                answer: "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
-                category: "Fitness Center",
-                date: "2024-01-08",
-                status: "answered"
-            },
-            {
-                id: 4,
-                question: "Bathrooms no power",
-                answer: "The bathroom has a GFCI socket that has tripped due to overload or short circuit protection. To reset it, simply press the reset button on the socket. This socket is located on the left-hand side upon entering the small bathroom.",
-                category: "Electricity",
-                date: "2024-01-15",
-                status: "answered"
-            },
-            {
-                id: 5,
-                question: "How to setup my Thermostat?",
-                answer: "The thermostat setting method: A standard mechanical thermostat is typically used indoors. A small round box is placed on a short wall near the floor-to-ceiling window in the living room. On the left side of the box is a 'cool-off-heat' switch; this switch cools in summer and heats in winter. On the right side of the box is the fan switch, set to automatic. In the center of the box is a disc with semi-circular graduations at the top and bottom. The top graduation shows the set temperature, and the bottom graduation shows the current temperature. Behind the wall is another switch to set the fan speed.",
-                category: "Heating & Cooling",
-                date: "2024-01-15",
-                status: "answered"
-            }
-        ];
-   }
+{
+  "faqs": [
+    {
+      "id": 1,
+      "question": "Welcome! How do I get started?",
+      "answer": "Welcome to PCC389! For any questions about building services, please check this FAQ first. If you can't find what you're looking for, feel free to submit a new question using the form below.",
+      "category": "General",
+      "date": "2024-01-15",
+      "status": "answered"
+    },
+    {
+      "id": 2,
+      "question": "What should I do if there's a plumbing emergency?",
+      "answer": "For urgent plumbing issues (flooding, major leaks), please contact building maintenance immediately at 905-566-1269. For non-urgent issues, you can submit a maintenance request through the office.",
+      "category": "Plumbing",
+      "date": "2024-01-10",
+      "status": "answered"
+    },
+    {
+      "id": 3,
+      "question": "How do I access the fitness center?",
+      "answer": "The fitness center is accessible 24/7 using your resident keycard. Please remember to clean equipment after use and follow all posted safety guidelines.",
+      "category": "Amenities",
+      "date": "2024-01-08",
+      "status": "answered"
+    },
+    {
+      "id": 4,
+      "question": "Bathrooms have no power. What should I check?",
+      "answer": "The bathroom may be served by a GFCI outlet that has tripped. Locate the GFCI outlet near the sink or on the wall and press the reset button. If power is still out, contact building maintenance.",
+      "category": "Electrical",
+      "date": "2024-01-15",
+      "status": "answered"
+    },
+    {
+      "id": 5,
+      "question": "How do I set up the thermostat?",
+      "answer": "Most units use a simple mechanical thermostat. Set the mode switch to heat or cool as appropriate, set the fan to Auto, and rotate the dial to your desired temperature. If you are unsure, contact maintenance for a walkthrough.",
+      "category": "Move-in / Move-out",
+      "date": "2024-01-15",
+      "status": "answered"
+    },
+    {
+      "id": 6,
+      "question": "Where can I park and do I need a permit?",
+      "answer": "Resident parking is available in the underground garage. A resident parking permit is required and can be obtained from the management office. Visitor parking is limited; please register visitors in advance where possible.",
+      "category": "Parking Lot",
+      "date": "2024-02-01",
+      "status": "answered"
+    },
+    {
+      "id": 7,
+      "question": "I lost my keycard — how do I get a replacement?",
+      "answer": "If you lose your keycard, report it to building management immediately so the lost card can be deactivated. Replacement cards can be issued by the office; a small fee may apply.",
+      "category": "Door Lock / Access Control",
+      "date": "2024-02-05",
+      "status": "answered"
+    },
+    {
+      "id": 8,
+      "question": "How do I pay my rent and what are late fees?",
+      "answer": "Rent can be paid via the online resident portal or by cheque delivered to the management office. Late fees are applied according to your lease agreement; contact management if you expect a delay to discuss arrangements.",
+      "category": "Billing & Payments",
+      "date": "2024-02-10",
+      "status": "answered"
+    }
+  ]
+}

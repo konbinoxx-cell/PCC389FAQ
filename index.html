@@ -1,1 +1,241 @@
-﻿上面整段 HTML 粘在这里
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCC389FAQ</title>
+    <style>
+        :root {
+            --bg: #f7f7f7; --card: #ffffff; --text: #1d1d1f; --text-sec: #86868b;
+            --border: #d2d2d7; --accent: #0071e3; --radius: 12px;
+            /* Category Colors */
+            --tag-af: #eaf4ff; --text-af: #0071e3;
+            --tag-ff: #e6ffea; --text-ff: #1da735;
+            --tag-cr: #fff6e5; --text-cr: #f5a623;
+            --tag-se: #ffebeb; --text-se: #ff3b30;
+        }
+        [data-theme="dark"] {
+            --bg: #1c1c1e; --card: #2c2c2e; --text: #f5f5f7; --text-sec: #a1a1a6;
+            --border: #48484a; --accent: #409cff;
+            --tag-af: rgba(64, 156, 255, 0.2); --text-af: #64b0ff;
+            --tag-ff: rgba(50, 215, 75, 0.2);  --text-ff: #5ce571;
+            --tag-cr: rgba(255, 159, 10, 0.2); --text-cr: #ffb340;
+            --tag-se: rgba(255, 69, 58, 0.2);  --text-se: #ff6961;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); padding: 30px 20px; max-width: 800px; margin: 0 auto; transition: background 0.3s; }
+        
+        /* --- 核心修复：Header 布局 --- */
+        header { 
+            display: flex; 
+            flex-wrap: wrap; /* 允许换行 */
+            justify-content: space-between; /* 两端对齐 */
+            align-items: center; 
+            gap: 15px; 
+            margin-bottom: 25px; 
+        }
+        
+        h1 { 
+            font-weight: 700; 
+            font-size: 1.8rem; 
+            margin: 0; 
+            line-height: 1.2;
+            /* 标题可以缩小，但不能挤没按钮 */
+            flex: 1 1 200px; 
+        }
+
+        /* 把按钮和翻译组件锁在一个容器里，永远不分离 */
+        .controls-row { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            flex-shrink: 0; /* 禁止被压缩 */
+        }
+
+        .theme-btn { 
+            background: var(--card); 
+            border: 1px solid var(--border); 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            padding: 6px 10px; 
+            border-radius: 8px; 
+            height: 40px; /* 固定高度对齐 */
+            display: flex; align-items: center; justify-content: center;
+        }
+        
+        /* Google Translate 样式强制修正 */
+        #google_translate_element { 
+            min-height: 40px; 
+            display: flex; align-items: center;
+        }
+        .goog-te-gadget-simple { 
+            background-color: var(--card) !important; 
+            border: 1px solid var(--border) !important; 
+            padding: 8px !important; 
+            border-radius: 8px !important; 
+            height: 40px !important;
+            display: flex !important; align-items: center !important;
+            box-sizing: border-box !important;
+        }
+        .goog-te-gadget-simple span { color: var(--text) !important; font-weight: 600 !important; }
+        .goog-te-gadget-simple img { display: none !important; } /* 隐藏 Google 图标更整洁 */
+        
+        /* Search & FAQ */
+        .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .search-bar { flex: 1; min-width: 200px; }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 1rem; outline: none; }
+        
+        .faq-list { display: flex; flex-direction: column; gap: 15px; }
+        .faq-item { background: var(--card); border-radius: var(--radius); padding: 20px; border: 1px solid transparent; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .faq-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .faq-header { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; }
+        .question { font-weight: 600; flex: 1; line-height: 1.4; }
+        
+        .tag { 
+            font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; 
+            white-space: nowrap; font-weight: bold; height: fit-content; 
+            flex-shrink: 0; /* 标签不许被挤压 */
+        }
+        .tag[data-cat="A&F"] { background: var(--tag-af); color: var(--text-af); }
+        .tag[data-cat="F&F"] { background: var(--tag-ff); color: var(--text-ff); }
+        .tag[data-cat="C&R"] { background: var(--tag-cr); color: var(--text-cr); }
+        .tag[data-cat="S&E"] { background: var(--tag-se); color: var(--text-se); }
+        
+        .answer { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--text-sec); display: none; line-height: 1.6; }
+        .faq-item.active .answer { display: block; }
+        
+        /* Form */
+        .submit-area { margin-top: 40px; background: var(--card); padding: 24px; border-radius: var(--radius); border: 1px dashed var(--border); }
+        .btn-primary { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; }
+        .btn-ghost { background: none; border: 1px solid var(--border); padding: 8px 20px; border-radius: 20px; cursor: pointer; color: var(--text-sec); margin: 20px auto; display: block; }
+
+        /* Mobile optimization */
+        @media (max-width: 600px) {
+            header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .controls-row { width: 100%; justify-content: space-between; }
+            #google_translate_element { flex: 1; }
+            .goog-te-gadget-simple { width: 100% !important; justify-content: space-between !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="notranslate">PCC389 FAQ</h1>
+        
+        <div class="controls-row">
+            <div id="google_translate_element"></div>
+            <button class="theme-btn" id="themeToggle">🌙</button>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search / Rechercher / 搜索...">
+        <select id="catFilter" style="width: auto;">
+            <option value="all">All</option>
+            <option value="A&F">A&F</option>
+            <option value="F&F">F&F</option>
+            <option value="C&R">C&R</option>
+            <option value="S&E">S&E</option>
+        </select>
+    </div>
+
+    <div id="faqContainer" class="faq-list"></div>
+    <button id="showMoreBtn" class="btn-ghost" style="display: none;">Show All</button>
+
+    <div class="submit-area">
+        <h3 style="margin-bottom:10px">Submit New Issue</h3>
+        <select id="newIssueCat" style="margin-bottom:10px; width: 100%;">
+            <option value="A&F">A&F (Assets & Facilities)</option>
+            <option value="F&F">F&F (Finance & Fees)</option>
+            <option value="C&R">C&R (Community & Rules)</option>
+            <option value="S&E">S&E (Security & Emergency)</option>
+        </select>
+        <textarea id="newIssueText" rows="4" placeholder="Describe your issue..."></textarea>
+        <button class="btn-primary" onclick="submitToGithub()">Submit to Management</button>
+        <div style="text-align:right; margin-top:5px;"><a href="#" onclick="adminAccess()" style="font-size:0.8rem; color:var(--text-sec);">Admin</a></div>
+    </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,fr,zh-CN,zh-TW,pa,es,ar,tl,it,de,pt,ur,hi,ru,vi',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        // FAQ Data (标签已改为 class="notranslate" 防止 F&F 变成 "朋友与家人")
+        const faqs = [
+            { q: "How do I book the party room?", a: "Contact management 3 days in advance. Deposit: $200.", cat: "C&R" },
+            { q: "When is the maintenance fee due?", a: "Due on the 1st. Late fee applies after the 5th.", cat: "F&F" },
+            { q: "Gym AC is broken.", a: "Known issue (Ticket #404). Repair scheduled for Tuesday.", cat: "A&F" },
+            { q: "Lost my key fob.", a: "Report to security ASAP. Replacement cost is $50.", cat: "S&E" },
+            { q: "Visitor parking rules?", a: "Max 24h. Register plate at security kiosk.", cat: "C&R" },
+            { q: "No hot water.", a: "Check if building maintenance is scheduled. Call 905-555-0199 if urgent.", cat: "A&F" }
+        ];
+
+        const REPO = "konbinoxx-cell/issues";
+        const container = document.getElementById('faqContainer');
+        const searchInput = document.getElementById('searchInput');
+        const catFilter = document.getElementById('catFilter');
+        const showMoreBtn = document.getElementById('showMoreBtn');
+        let isExpanded = false;
+        let isPC = window.innerWidth > 768;
+
+        function render() {
+            container.innerHTML = '';
+            const term = searchInput.value.toLowerCase();
+            const cat = catFilter.value;
+            
+            let list = faqs.filter(i => (cat==='all'||i.cat===cat) && (i.q.toLowerCase().includes(term)||i.a.toLowerCase().includes(term)));
+            const shouldLimit = isPC && !isExpanded && list.length > 3 && term === '' && cat === 'all';
+            
+            if(shouldLimit) { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show All ↓'; list = list.slice(0,3); }
+            else if(isPC && term==='' && cat==='all') { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show Less ↑'; }
+            else { showMoreBtn.style.display='none'; }
+
+            list.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'faq-item';
+                // 修复：给 span class="tag" 加上 notranslate，防止代码被翻译
+                div.innerHTML = `<div class="faq-header">
+                    <span class="question">${item.q}</span>
+                    <span class="tag notranslate" data-cat="${item.cat}">${item.cat}</span>
+                </div>
+                <div class="answer">${item.a}</div>`;
+                div.onclick = () => div.classList.toggle('active');
+                container.appendChild(div);
+            });
+        }
+
+        // Logic
+        searchInput.oninput = render;
+        catFilter.onchange = render;
+        showMoreBtn.onclick = () => { isExpanded = !isExpanded; render(); };
+        window.onresize = () => { isPC = window.innerWidth > 768; render(); };
+
+        document.getElementById('themeToggle').onclick = () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            localStorage.setItem('pcc389-theme', isDark ? 'light' : 'dark');
+        };
+        if(localStorage.getItem('pcc389-theme')==='dark') document.documentElement.setAttribute('data-theme', 'dark');
+
+        function submitToGithub() {
+            const t = document.getElementById('newIssueText').value;
+            const c = document.getElementById('newIssueCat').value;
+            if(t.length<5) return alert("Please describe detail.");
+            const url = `https://github.com/${REPO}/new?title=${encodeURIComponent(`[${c}] ${t.substring(0,30)}...`)}&body=${encodeURIComponent(`**Cat:** ${c}\n\n${t}`)}&labels=${c}`;
+            if(confirm("Go to GitHub?")) window.open(url, '_blank');
+        }
+        function adminAccess() { if(prompt("Pass:")==="admin389") window.location.href=`https://github.com/${REPO}`; }
+
+        render();
+    </script>
+</body>
+</html>

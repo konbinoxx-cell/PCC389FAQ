@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Launching PCC389 FAQ...</title>
+    <meta http-equiv="refresh" content="0;url=https://konbinoxx-cell.github.io/pcc389faq/"> 
+    <style>
+        body {
+            margin: 0; padding: 0; height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            background-color: #f2f2f7; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            text-align: center;
+        }
+        /* 隐藏掉顶部的手动链接，但它是重要的备用方案 */
+        #manual-link { 
+            position: absolute; top: 0; left: 0; padding: 10px; font-size: 0.8em; 
+            color: #0071e3; text-decoration: none; display: none; 
+        }
+
+        .icon {
+            width: 80px; height: 80px; 
+            background-color: #0071e3;
+            border-radius: 18px; 
+            box-shadow: 0 4px 15px rgba(0,113,227,0.3);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 40px; font-weight: bold; margin-bottom: 20px;
+        }
+        .loader {
+            width: 24px; height: 24px;
+            border: 3px solid #d1d1d1; border-top-color: #0071e3;
+            border-radius: 50%; animation: spin 1s linear infinite;
+        }
+        .loading-text { color: #86868b; font-size: 14px; margin-top: 15px; }
+        .instruction-box {
+            margin-top: 40px; padding: 20px; max-width: 300px; background: white;
+            border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 1rem; line-height: 1.6; color: #1d1d1f; display: none; 
+        }
+        .instruction-box h4 { margin-top: 0; color: #0071e3; }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <a id="manual-link" href="https://konbinoxx-cell.github.io/pcc389faq/">
+        如果卡住，请点击这里立即打开 App
+    </a>
+
+    <div class="icon">P</div>
+    <div class="loader"></div>
+    <div class="loading-text">Launching PCC389 FAQ...</div>
+
+    <div id="instructionBox" class="instruction-box">
+        <h4>一键安装到桌面 (App 模式)</h4>
+        <ol style="list-style-position: inside; padding: 0; margin: 10px 0 0 0;">
+            <li>点击浏览器底部的 **[分享]** 或 **[菜单]** 图标。</li>
+            <li>选择 **[添加到主屏幕]** (Add to Home Screen)。</li>
+            <li>下次点击桌面图标即可秒速启动！</li>
+        </ol>
+        <button onclick="window.location.href='https://konbinoxx-cell.github.io/pcc389faq/'" style="background:#0071e3;color:white;padding:10px 20px;border:none;border-radius:8px;margin-top:15px;cursor:pointer;">
+            手动打开应用
+        </button>
+    </div>
+
+    <script>
+        const TARGET_URL = "https://konbinoxx-cell.github.io/pcc389faq/"; 
+        
+        // 核心跳转逻辑（设为10毫秒，尝试最快跳转）
+        setTimeout(function() {
+            window.location.href = TARGET_URL;
+        }, 10); 
+
+        // 3秒后如果还没跳转，显示指导和手动按钮
+        setTimeout(function() {
+            document.querySelector('.loader').style.display = 'none';
+            document.querySelector('.loading-text').textContent = '自动跳转失败。请使用下方指南：';
+            
+            // 显示手动链接和指导
+            document.getElementById('manual-link').style.display = 'block'; 
+            document.getElementById('instructionBox').style.display = 'block';
+
+        }, 3000); // 3 秒后显示手动链接，如果 0.01 秒自动跳转失败
+    </script>
+</body>
+</html>

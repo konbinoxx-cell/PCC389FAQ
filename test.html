@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>PCC389FAQ</title>
+  <style>
+    :root{--bg:#0b1220;--card:#0f172a;--muted:#9ca3af;--accent:#60a5fa;--text:#e2e8f0}
+    html{font-size:18px}
+    @media(max-width:600px){html{font-size:20px}}
+    body{font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+         background:var(--bg); color:var(--text); margin:0; padding:1rem; -webkit-font-smoothing:antialiased}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+    h1{margin:0;color:var(--accent);font-size:1.25rem}
+    button{background:var(--accent);color:var(--bg);border:0;padding:.45rem .8rem;border-radius:6px;cursor:pointer}
+    main{max-width:900px;margin:0 auto}
+    .faq{background:var(--card);border:1px solid #111827;padding:0.9rem;border-radius:8px;margin-bottom:0.8rem}
+    .q{font-weight:600;margin-bottom:.5rem}
+    textarea.answer{width:100%;min-height:72px;border-radius:6px;border:1px solid #1f2937;
+                   background:transparent;color:var(--text);padding:0.6rem;resize:vertical}
+    .controls{display:flex;gap:.5rem;align-items:center}
+    .newq{width:100%;min-height:70px;border-radius:6px;border:1px solid #1f2937;background:transparent;color:var(--text);padding:.6rem}
+    footer{margin-top:1rem;display:flex;gap:.5rem;align-items:flex-start;flex-wrap:wrap}
+    .hint{color:var(--muted);font-size:.95rem}
+    .error{color:#f87171}
+    /* PC only show first 3 faqs */
+    @media(min-width:800px){
+      .faq:nth-of-type(n+4){display:none}
+    }
+    /* mobile: show all (default) */
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>PCC389FAQ</h1>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <span class="hint">Lightweight · GitHub Issues</span>
+        <button id="adminBtn" title="管理员入口">管理</button>
+      </div>
+    </header>
+
+    <div id="faqs">加载中…</div>
+
+    <div style="margin-top:1rem">
+      <label class="hint" for="newQ">Have a question? Submit it and it will create a GitHub Issue.</label><br/>
+      <textarea id="newQ" class="newq" placeholder="Enter your question here..." required></textarea>
+      <footer>
+        <div class="controls">
+          <button id="submitBtn">Submit Question</button>
+        </div>
+        <div style="flex:1">
+          <div id="msg" class="hint"></div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    // ---------- config ----------
+    const REPO_API_ISSUES = 'https://api.github.com/repos/konbinoxx-cell/pcc389faq/issues';
+    const ADMIN_FORWARD = 'https://github.com/konbinoxx-cell/issues';
+    // 默认管理员密码（可改）。警告：前端密码不是安全机制，仅作简单门槛。
+    const ADMIN_PASS = 'pcc389-admin-2025'; // <-- 如果想改，直接修改这里或改为 prompt 存储
+    // ---------- end config ----------
+
+    const elFaqs = document.getElementById('faqs');
+    const elMsg = document.getElementById('msg');
+    const elNewQ = document.getElementById('newQ');
+    const elSubmit = document.getElementById('submitBtn');
+    const elAdmin = document.getElementById('adminBtn');
+
+    // fetch static faqs.json (same folder)
+    async function loadFaqs(){
+      try {
+        const r = await fetch('./faqs.json?t=' + Date.now());
+        if (!r.ok) throw new Error('Cannot load faqs.json');
+        const j = await r.json();
+        renderFaqs(j.faqs || []);
+      } catch (e) {
+        elFaqs.innerHTML = '<div class="error">无法加载 faq.json（请确保文件存在且与 index.html 同目录）。</div>';
+      }
+    }
+
+    function renderFaqs(list){
+      if (!Array.isArray(list) || list.length === 0) {
+        elFaqs.innerHTML = '<div class="hint">目前没有 FAQ。</div>';
+        return;
+      }
+      elFaqs.innerHTML = list.map(f => `
+        <section class="faq" data-id="${f.id}">
+          <div class="q">[${f.category}] ${escapeHtml(f.question)}</div>
+          <textarea class="answer" readonly>${escapeHtml(f.answer || '')}</textarea>
+        </section>
+      `).join('');
+    }
+
+    // Minimal HTML escape
+    function escapeHtml(s){
+      if (!s && s !== 0) return '';
+      return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+
+    // ---------- GitHub Issue submit ----------
+    // Store PAT in localStorage under key pcc389_pat (user supplies)
+    function getPat(){
+      let p = localStorage.getItem('pcc389_pat');
+      if (!p) {
+        p = prompt('GitHub Personal Access Token (needed to create an issue). Read-only "repo" scope recommended. Paste it here (stored locally).');
+        if (p) localStorage.setItem('pcc389_pat', p.trim());
+      }
+      return p;
+    }
+
+    async function submitIssue(questionText){
+      const pat = getPat();
+      if (!pat) { showMsg('操作取消：未提供 PAT。', true); return; }
+      try {
+        const body = {
+          title: `[FAQ] ${questionText.slice(0,80)}`,
+          body: `Question:\n${questionText}\n\nSubmitted via PCC389FAQ`,
+          labels: ['faq']
+        };
+        const r = await fetch(REPO_API_ISSUES, {
+          method: 'POST',
+          headers: {
+            'Accept':'application/vnd.github+json',
+            'Authorization':'Bearer ' + pat,
+            'Content-Type':'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+        if (r.status === 201) {
+          showMsg('已提交 Issue（GitHub）。谢谢！', false);
+          elNewQ.value = '';
+        } else {
+          const err = await r.json().catch(()=>({message: r.statusText}));
+          showMsg('提交失败: ' + (err.message || JSON.stringify(err)), true);
+          // if 401/403, prompt to clear token
+          if (r.status === 401 || r.status === 403) {
+            if (confirm('认证失败（401/403）。是否清除本地存储的 PAT 并重试？')) {
+              localStorage.removeItem('pcc389_pat');
+            }
+          }
+        }
+      } catch (e) {
+        showMsg('网络或跨域错误：' + e.message, true);
+      }
+    }
+
+    elSubmit.addEventListener('click', () => {
+      const q = elNewQ.value.trim();
+      if (!q) { showMsg('请填写问题后再提交。', true); elNewQ.focus(); return; }
+      showMsg('正在提交…（可能需授权）', false);
+      submitIssue(q);
+    });
+
+    function showMsg(s, isError){
+      elMsg.textContent = s;
+      elMsg.className = isError ? 'error' : 'hint';
+    }
+
+    // ---------- admin button ----------
+    elAdmin.addEventListener('click', () => {
+      const p = prompt('管理员密码：');
+      if (p === null) return;
+      if (p === ADMIN_PASS) {
+        // go directly to GitHub issues page
+        window.location.href = ADMIN_FORWARD;
+      } else {
+        alert('密码错误。');
+      }
+    });
+
+    // initial load
+    loadFaqs();
+  </script>
+</body>
+</html>

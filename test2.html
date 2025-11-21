@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PCC389FAQ</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 800px; margin: auto; }
+    .faq-item { margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 15px; }
+    .question { font-weight: bold; margin-bottom: 6px; }
+    #lang { margin-bottom: 20px; padding: 6px; }
+  </style>
+</head>
+<body>
+  <h2>PCC389 FAQ</h2>
+
+  <!-- Language Selector -->
+  <select id="lang">
+    <option value="en">English</option>
+    <option value="fr">French</option>
+    <option value="zh">Chinese (Mandarin)</option>
+    <option value="es">Spanish</option>
+    <option value="pa">Punjabi</option>
+    <option value="tl">Tagalog / Filipino</option>
+    <option value="ar">Arabic</option>
+    <option value="ur">Urdu</option>
+    <option value="hi">Hindi</option>
+    <option value="fa">Persian / Farsi</option>
+    <option value="ko">Korean</option>
+    <option value="vi">Vietnamese</option>
+    <option value="pt">Portuguese</option>
+    <option value="ru">Russian</option>
+  </select>
+
+  <!-- Category Selector -->
+  <select id="category" style="margin-bottom:20px; padding:6px;">
+    <option value="all">All Categories</option>
+    <option value="general">General</option>
+    <option value="electrical">Electrical</option>
+    <option value="door">Door / Access</option>
+    <option value="parking">Parking</option>
+    <option value="plumbing">Plumbing</option>
+    <option value="amenities">Amenities</option>
+    <option value="move">Move-in / Move-out</option>
+    <option value="billing">Billing & Payments</option>
+  </select>
+
+  <div id="faq-container"><!-- FAQ items will be injected here --></div>
+
+  <!-- New Question Input -->
+  <div style="margin-top:20px;">
+    <textarea id="new-question" style="width:100%;height:80px;padding:10px;" placeholder="Enter your question..."></textarea>
+    <button id="submit-question" style="margin-top:10px;padding:10px 20px;">New Question</button>
+  </div>
+
+  <script>
+    const API_URL = "https://libretranslate.de/translate";
+    const cache = new Map();
+    let targetLang = "en";
+
+    async function translateText(text) {
+      if (!text.trim()) return text;
+      const key = text + "::" + targetLang;
+      if (cache.has(key)) return cache.get(key);
+
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ q: text, source: "en", target: targetLang })
+      });
+      const data = await res.json();
+      cache.set(key, data.translatedText);
+      return data.translatedText;
+    }
+
+    async function loadFAQ(selectedCategory = "all") {
+      const container = document.getElementById("faq-container");
+      const resp = await fetch("faqs.json");
+      const data = await resp.json();
+      container.innerHTML = "";
+
+      let count = 0;
+      for (const item of data.faqs) {
+        if (selectedCategory !== "all" && item.category !== selectedCategory) continue;
+        if (count >= 4) break;
+        count++;
+
+        const q = await translateText(item.question);
+        const a = await translateText(item.answer);
+
+        const block = document.createElement("div");
+        block.className = "faq-item";
+        block.innerHTML = `
+          <div class="question">${q}</div>
+          <div class="answer">${a}</div>
+        `;
+        container.appendChild(block);
+      }
+    }
+
+    document.getElementById("lang").addEventListener("change", e => {
+      targetLang = e.target.value;
+      loadFAQ(document.getElementById("category").value);
+    });
+
+    document.getElementById("category").addEventListener("change", e => {
+      loadFAQ(e.target.value);
+    });
+
+    loadFAQ();
+  </script>
+</body>
+</html>

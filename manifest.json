@@ -1,0 +1,21 @@
+{
+    "name": "PCC389 Resident FAQ",
+    "short_name": "PCC389 FAQ",
+    "description": "Quickly access answers and community information for PCC389 residents.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#0071e3",
+    "icons": [
+        {
+            "src": "ep_icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "ep_icon_512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
