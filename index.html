@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PCC389 FAQ</title>
+    <meta name="description" content="PCC389 Resident FAQ - Assets, Finance, Community & Security">
 
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="/pcc389faq/manifest.json">
     
     <meta name="apple-mobile-web-app-title" content="PCC389 FAQ">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <link rel="apple-touch-icon" href="ep_icon.png"> 
+    <link rel="apple-touch-icon" href="/pcc389faq/ep_icon.png"> 
     
     <style>
         :root {
@@ -21,6 +22,11 @@
             --tag-ff: #e6ffea; --text-ff: #1da735;
             --tag-cr: #fff6e5; --text-cr: #f5a623;
             --tag-se: #ffebeb; --text-se: #ff3b30;
+            --tag-gen: #f0f0f0; --text-gen: #666;
+            --tag-lease: #e8f5e9; --text-lease: #2e7d32;
+            --tag-maint: #fff3e0; --text-maint: #ef6c00;
+            --tag-park: #e3f2fd; --text-park: #1565c0;
+            --tag-pets: #f3e5f5; --text-pets: #7b1fa2;
         }
         [data-theme="dark"] {
             --bg: #1c1c1e; --card: #2c2c2e; --text: #f5f5f7; --text-sec: #a1a1a6;
@@ -28,7 +34,12 @@
             --tag-af: rgba(64, 156, 255, 0.2); --text-af: #64b0ff;
             --tag-ff: rgba(50, 215, 75, 0.2);  --text-ff: #5ce571;
             --tag-cr: rgba(255, 159, 10, 0.2); --text-cr: #ffb340;
-            --tag-se: rgba(255, 69, 58, 0.2);  --text-cr: #ff6961;
+            --tag-se: rgba(255, 69, 58, 0.2);  --text-se: #ff6961;
+            --tag-gen: rgba(100, 100, 100, 0.2); --text-gen: #ccc;
+            --tag-lease: rgba(46, 125, 50, 0.2); --text-lease: #70e080;
+            --tag-maint: rgba(239, 108, 0, 0.2); --text-maint: #ff9e5b;
+            --tag-park: rgba(21, 101, 192, 0.2); --text-park: #7ab0ff;
+            --tag-pets: rgba(123, 31, 162, 0.2); --text-pets: #b788e0;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
         body { background-color: var(--bg); color: var(--text); padding: 30px 20px; max-width: 800px; margin: 0 auto; transition: background 0.3s; }
@@ -38,10 +49,37 @@
         h1 { font-weight: 700; font-size: 1.8rem; margin: 0; line-height: 1.2; flex: 1 1 200px; }
         .controls-row { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-        /* Theme Button & Translate Fixes */
-        .theme-btn { background: var(--card); border: 1px solid var(--border); font-size: 1.2rem; cursor: pointer; padding: 0 10px; border-radius: 8px; height: 40px; display: flex; align-items: center; justify-content: center; }
+        /* Theme Button */
+        .theme-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0 12px;
+            border-radius: 8px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            color: var(--text); /* ✅ 关键：继承主题颜色 */
+        }
+        .theme-btn:hover {
+            background: var(--border);
+            transform: scale(1.02);
+        }
         #google_translate_element { min-height: 40px; display: flex; align-items: center; }
-        .goog-te-gadget-simple { background-color: var(--card) !important; border: 1px solid var(--border) !important; padding: 8px !important; border-radius: 8px !important; height: 40px !important; display: flex !important; align-items: center !important; box-sizing: border-box !important; }
+        .goog-te-gadget-simple {
+            background-color: var(--card) !important;
+            border: 1px solid var(--border) !important;
+            padding: 8px !important;
+            border-radius: 8px !important;
+            height: 40px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+        }
         .goog-te-gadget-simple span { color: var(--text) !important; font-weight: 600 !important; }
         .goog-te-gadget-simple img { display: none !important; }
         
@@ -78,78 +116,130 @@
         }
         
         /* Search & List */
-        .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        input, select, textarea { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 1rem; outline: none; }
+        .toolbar { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+            flex-wrap: wrap; 
+            align-items: center;
+        }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: var(--radius); 
+            border: 1px solid var(--border); 
+            background: var(--card); 
+            color: var(--text); 
+            font-size: 1rem; 
+            outline: none; 
+        }
         .search-bar { flex: 1; min-width: 200px; }
         
         .faq-list { display: flex; flex-direction: column; gap: 15px; }
-        .faq-item { background: var(--card); border-radius: var(--radius); padding: 20px; border: 1px solid transparent; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-        .faq-item:hover { border-color: var(--accent); transform: translateY(-2px); }
-        .faq-header { display: flex; justify-content: space-between; gap: 15px; align-items: flex-start; }
-        .question { font-weight: 600; flex: 1; line-height: 1.4; }
-        .tag { font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; white-space: nowrap; font-weight: bold; height: fit-content; flex-shrink: 0; }
+        .faq-item { 
+            background: var(--card); 
+            border-radius: var(--radius); 
+            padding: 20px; 
+            border: 1px solid transparent; 
+            cursor: pointer; 
+            transition: 0.2s; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05); 
+        }
+        .faq-item:hover { 
+            border-color: var(--accent); 
+            transform: translateY(-2px); 
+        }
+        .faq-header { 
+            display: flex; 
+            justify-content: space-between; 
+            gap: 15px; 
+            align-items: flex-start; 
+        }
+        .question { 
+            font-weight: 600; 
+            flex: 1; 
+            line-height: 1.4; 
+        }
+        .tag { 
+            font-size: 0.75rem; 
+            padding: 4px 10px; 
+            border-radius: 20px; 
+            white-space: nowrap; 
+            font-weight: bold; 
+            height: fit-content; 
+            flex-shrink: 0; 
+        }
         .tag[data-cat="A&F"] { background: var(--tag-af); color: var(--text-af); }
         .tag[data-cat="F&F"] { background: var(--tag-ff); color: var(--text-ff); }
         .tag[data-cat="C&R"] { background: var(--tag-cr); color: var(--text-cr); }
         .tag[data-cat="S&E"] { background: var(--tag-se); color: var(--text-se); }
-        .answer { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--text-sec); display: none; line-height: 1.6; }
+        .tag[data-cat="General"] { background: var(--tag-gen); color: var(--text-gen); }
+        .tag[data-cat="Lease"] { background: var(--tag-lease); color: var(--text-lease); }
+        .tag[data-cat="Maintenance"] { background: var(--tag-maint); color: var(--text-maint); }
+        .tag[data-cat="Parking"] { background: var(--tag-park); color: var(--text-park); }
+        .tag[data-cat="Pets"] { background: var(--tag-pets); color: var(--text-pets); }
+        .answer { 
+            margin-top: 12px; 
+            padding-top: 12px; 
+            border-top: 1px solid var(--border); 
+            color: var(--text-sec); 
+            display: none; 
+            line-height: 1.6; 
+        }
         .faq-item.active .answer { display: block; }
         
-        /* Submission Area */
-        .submit-area { margin-top: 40px; background: var(--card); padding: 24px; border-radius: var(--radius); border: 1px dashed var(--border); }
-        .btn-primary { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px; transition: opacity 0.2s; }
-        .btn-primary:hover { opacity: 0.9; }
-        .btn-ghost { background: none; border: 1px solid var(--border); padding: 8px 20px; border-radius: 20px; cursor: pointer; color: var(--text-sec); margin: 20px auto; display: block; }
-        
+        /* Contact Area */
+        .contact-area { 
+            margin-top: 40px; 
+            text-align: center; 
+            padding: 24px; 
+            background: var(--card); 
+            border-radius: var(--radius); 
+            border: 1px dashed var(--border); 
+        }
+        .contact-header { margin-bottom: 10px; color: var(--text); font-weight: 600; }
+        .contact-desc { font-size: 0.9rem; color: var(--text-sec); margin-bottom: 20px; }
+        .contact-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .contact-btn:hover { opacity: 0.9; }
+
+        /* Admin Link */
+        .admin-link {
+            font-size: 0.8rem;
+            color: var(--text-sec);
+            text-decoration: none;
+            margin-top: 12px;
+            display: inline-block;
+        }
+        .admin-link:hover { text-decoration: underline; }
+
+        /* Responsive */
         @media (max-width: 600px) {
             header { flex-direction: column; align-items: flex-start; gap: 15px; }
             .controls-row { width: 100%; justify-content: space-between; }
             #google_translate_element { flex: 1; }
             .goog-te-gadget-simple { width: 100% !important; justify-content: space-between !important; }
             .install-app-btn { width: 100%; justify-content: center; }
+            .toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-bar { min-width: 120px; }
+            .show-all-btn { order: 3; width: 100%; }
+            .contact-btn { width: 100%; justify-content: center; }
         }
-        /* 修改工具栏布局，容纳 Show All 按钮 */
-            .toolbar { 
-                display: flex; 
-                gap: 10px; 
-                margin-bottom: 20px; 
-                flex-wrap: wrap; 
-                align-items: center;
-            }
-            
-            /* Show All 按钮新样式 */
-            .show-all-btn {
-                background: none;
-                border: 1px solid var(--border);
-                padding: 8px 16px;
-                border-radius: 20px;
-                cursor: pointer;
-                color: var(--text-sec);
-                font-size: 0.9rem;
-                white-space: nowrap;
-                transition: all 0.2s ease;
-            }
-            
-            .show-all-btn:hover {
-                border-color: var(--accent);
-                color: var(--accent);
-            }
-            
-            /* 移动端适配 */
-            @media (max-width: 600px) {
-                .toolbar {
-                    flex-direction: row;
-                    align-items: stretch;
-                }
-                .search-bar {
-                    min-width: 120px;
-                }
-                .show-all-btn {
-                    padding: 12px 16px;
-                    width: 100%;
-                    order: 3; /* 在移动端放到最后一行 */
-                }
-            }
     </style>
 </head>
 <body>
@@ -158,7 +248,7 @@
         <h1 class="notranslate">PCC389 FAQ</h1>
         <div class="controls-row">
             <div id="google_translate_element"></div>
-            <button class="theme-btn" id="themeToggle">🌙</button>
+            <button class="theme-btn" id="themeToggle">☀️ Light</button>
         </div>
     </header>
 
@@ -175,36 +265,29 @@
         <input type="text" id="searchInput" class="search-bar" placeholder="Search / Rechercher / 搜索...">
         <select id="catFilter" style="width: auto;">
             <option value="all">All</option>
-            <option value="A&F">A&F</option>
-            <option value="F&F">F&F</option>
-            <option value="C&R">C&R</option>
-            <option value="S&E">S&E</option>
+            <option value="General">General</option>
+            <option value="A&F">A&F (Assets & Facilities)</option>
+            <option value="F&F">F&F (Finance & Fees)</option>
+            <option value="C&R">C&R (Community & Rules)</option>
+            <option value="S&E">S&E (Security & Emergency)</option>
+            <option value="Lease">Lease</option>
+            <option value="Maintenance">Maintenance</option>
+            <option value="Parking">Parking</option>
+            <option value="Pets">Pets</option>
         </select>
-             <button id="showMoreBtn" class="btn-ghost" style="display: none;">Show All</button>
-
+        <button id="showMoreBtn" class="show-all-btn" style="display: none;"></button>
     </div>
 
     <div id="faqContainer" class="faq-list"></div>
    
-    <div class="submit-area">
-        <h3 style="margin-bottom:10px">Submit New Issue</h3>
-        <p style="font-size:0.9rem; color:var(--text-sec); margin-bottom:15px;">
-            Cannot find your answer? Send an email request to the management office.
-        </p>
-        
-        <select id="newIssueCat" style="margin-bottom:10px; width: 100%;">
-            <option value="A&F">Category: A&F (Assets & Facilities)</option>
-            <option value="F&F">Category: F&F (Finance & Fees)</option>
-            <option value="C&R">Category: C&R (Community & Rules)</option>
-            <option value="S&E">Category: S&E (Security & Emergency)</option>
-        </select>
-        <textarea id="newIssueText" rows="4" placeholder="Please describe your issue or question in detail..."></textarea>
-        
-        <button class="btn-primary" onclick="submitViaEmail()">Draft Email to Management</button>
-        
-        <div style="text-align:right; margin-top:8px;">
-            <a href="#" onclick="adminAccess()" style="font-size:0.8rem; color:var(--text-sec); text-decoration:none;">Admin Login (GitHub)</a>
-        </div>
+    <!-- 一键联系管理处 -->
+    <div class="contact-area">
+        <h3 class="contact-header">Need Help? Contact Management</h3>
+        <p class="contact-desc">If your question isn't answered above, send us an email directly.</p>
+        <button class="contact-btn" onclick="sendEmailToManagement()">
+            📧 Contact Management
+        </button>
+        <a href="https://github.com/konbinoxx-cell/pcc389faq/issues" target="_blank" class="admin-link">Admin Login (GitHub)</a>
     </div>
 
     <script type="text/javascript">
@@ -220,110 +303,149 @@
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
-        // ⚠️ CONFIG: GitHub Repo (for Admin Login only)
-        const REPO = "konbinoxx-cell/issues"; 
-        
-        // ⚠️ CONFIG: Management Email (接收住户问题的邮箱)
-        const ADMIN_EMAIL = "manager@pcc389.com"; // <-- 请修改这里！
+        // ⚠️ CONFIG: Management Email
+        const ADMIN_EMAIL = "konbinox@mail.com";
 
-        // FAQ Data
-        const faqs = [
-            { q: "How do I book the party room?", a: "Please contact the management office 3 days in advance. A deposit of $200 is required via cheque.", cat: "C&R" },
-            { q: "When is the maintenance fee due?", a: "Fees are due on the 1st of every month. Late payments incur a 5% penalty after the 5th.", cat: "F&F" },
-            { q: "The gym AC is not working.", a: "This is a known issue (Ticket #404). Parts have been ordered and repair is scheduled for next Tuesday.", cat: "A&F" },
-            { q: "I lost my fob, what do I do?", a: "Report to security immediately to deactivate the old fob. Replacement cost is $50 payable at the office.", cat: "S&E" },
-            { q: "Visitor parking rules?", a: "Visitors can park for up to 24 hours. Register their plate number at the security desk kiosk.", cat: "C&R" },
-            { q: "Where is the water shut-off valve?", a: "In most units, the main water shut-off is located in the laundry closet behind the panel.", cat: "A&F" }
-        ];
+        // 📁 数据源路径（适配您的 GitHub Pages 子路径）
+        const FAQ_JSON_PATH = "/pcc389faq/faq236.json";
 
-        const container = document.getElementById('faqContainer');
-        const searchInput = document.getElementById('searchInput');
-        const catFilter = document.getElementById('catFilter');
-        const showMoreBtn = document.getElementById('showMoreBtn');
+        let faqs = []; // 全局存储 FAQ 数据
         let isExpanded = false;
-        let isPC = window.innerWidth > 768;
+        let lastClickedQuestion = ""; // 记录用户点击的问题
 
-        // Render Logic
+        // 加载 JSON 数据
+        async function loadFAQs() {
+            const container = document.getElementById('faqContainer');
+            try {
+                const response = await fetch(FAQ_JSON_PATH + '?' + new Date().getTime());
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                faqs = Array.isArray(data.faqs) ? data.faqs : [];
+                render();
+            } catch (err) {
+                container.innerHTML = `
+                    <div style="text-align:center; color:#999; padding:20px; border:1px solid var(--border); border-radius:12px;">
+                        <strong>⚠️ Failed to load FAQs</strong><br>
+                        Please check your network or contact admin.<br>
+                        <small>${err.message}</small>
+                    </div>
+                `;
+                console.error("Failed to load faq236.json:", err);
+            }
+        }
+
+        // 渲染 FAQ 列表
         function render() {
+            const container = document.getElementById('faqContainer');
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const cat = document.getElementById('catFilter').value;
+            
+            let list = faqs.filter(i => 
+                (cat === 'all' || i.cat === cat) && 
+                (i.q.toLowerCase().includes(term) || i.a.toLowerCase().includes(term))
+            );
+
+            const showAllBtn = document.getElementById('showMoreBtn');
+            if (term === '' && cat === 'all' && list.length > 3) {
+                showAllBtn.style.display = 'block';
+                showAllBtn.innerText = isExpanded ? 'Show Less ↑' : 'Show All ↓';
+                if (!isExpanded) list = list.slice(0, 3);
+            } else {
+                showAllBtn.style.display = 'none';
+            }
+
+            if (list.length === 0) {
+                container.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">No results found.</div>';
+                return;
+            }
+
             container.innerHTML = '';
-            const term = searchInput.value.toLowerCase();
-            const cat = catFilter.value;
-            
-            let list = faqs.filter(i => (cat==='all'||i.cat===cat) && (i.q.toLowerCase().includes(term)||i.a.toLowerCase().includes(term)));
-            const shouldLimit = isExpanded && list.length > 3 && term === '' && cat === 'all';
-            
-            if(shouldLimit) { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show All ↓'; list = list.slice(0,3); }
-            else if( term==='' && cat==='all') { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show Less ↑'; }
-            else { showMoreBtn.style.display='none'; }
-
-            if(list.length === 0) container.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">No results found.</div>';
-
             list.forEach(item => {
                 const div = document.createElement('div');
                 div.className = 'faq-item';
-                div.innerHTML = `<div class="faq-header">
-                    <span class="question">${item.q}</span>
-                    <span class="tag notranslate" data-cat="${item.cat}">${item.cat}</span>
-                </div>
-                <div class="answer">${item.a}</div>`;
-                div.onclick = () => div.classList.toggle('active');
+                div.innerHTML = `
+                    <div class="faq-header">
+                        <span class="question">${item.q}</span>
+                        <span class="tag notranslate" data-cat="${item.cat}">${item.cat}</span>
+                    </div>
+                    <div class="answer">${item.a}</div>`;
+                
+                // ✅ 记录用户点击的问题
+                div.onclick = () => {
+                    div.classList.toggle('active');
+                    lastClickedQuestion = item.q;
+                };
+
                 container.appendChild(div);
             });
         }
 
-        searchInput.oninput = render;
-        catFilter.onchange = render;
-        showMoreBtn.onclick = () => { isExpanded = !isExpanded; render(); };
-        window.onresize = () => { isPC = window.innerWidth > 768; render(); };
+        // 一键发送邮件
+        function sendEmailToManagement() {
+            const subject = encodeURIComponent(`[PCC389] 未找到答案：${lastClickedQuestion || "新问题"}`);
+            const body = encodeURIComponent(`您好，我在 PCC389 FAQ 中查找问题，但未找到答案。\n\n我遇到的问题是：\n${lastClickedQuestion || "请描述您的问题"}\n\n---\n来自 PCC389 FAQ 网站`);
 
-        document.getElementById('themeToggle').onclick = () => {
-            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-            localStorage.setItem('pcc389-theme', isDark ? 'light' : 'dark');
-        };
-        if(localStorage.getItem('pcc389-theme')==='dark') document.documentElement.setAttribute('data-theme', 'dark');
-
-        // 邮件提交逻辑
-        function submitViaEmail() {
-            const text = document.getElementById('newIssueText').value.trim();
-            const cat = document.getElementById('newIssueCat').value;
-            
-            if(text.length < 5) {
-                alert("Please describe your issue in more detail.");
-                return;
-            }
-
-            const subject = encodeURIComponent(`[PCC389 Request] ${cat}: Resident Inquiry`);
-            const body = encodeURIComponent(`Hello Management,\n\nI have a question/issue regarding ${cat}.\n\nDetails:\n${text}\n\n---\nSent from PCC389 FAQ Web App`);
-            
             const mailtoUrl = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
             
+            // 提示用户
+            alert("正在打开邮件客户端...\n请确认收件人和内容后发送。");
             window.location.href = mailtoUrl;
         }
 
-        function adminAccess() { 
-            const p = prompt("Admin Password:");
-            if(p==="PCC389Admin") window.location.href=`https://github.com/${REPO}/issues`; 
-            else if(p) alert("Access Denied");
-        }
+        // 主题切换
+        document.getElementById('themeToggle').onclick = () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('pcc389-theme', newTheme);
+            
+            document.getElementById('themeToggle').innerHTML = 
+                newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+        };
 
-        // ==================== PWA安装功能 ====================
+        // 初始化主题
+        window.addEventListener('load', () => {
+            const savedTheme = localStorage.getItem('pcc389-theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '🌙 Dark';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.getElementById('themeToggle').innerHTML = '☀️ Light';
+            }
+
+            // 自动匹配系统偏好
+            if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.getElementById('themeToggle').innerHTML = '🌙 Dark';
+            }
+
+            // 加载 FAQ
+            loadFAQs();
+        });
+
+        // 搜索与筛选
+        document.getElementById('searchInput').oninput = render;
+        document.getElementById('catFilter').onchange = render;
+        document.getElementById('showMoreBtn').onclick = () => {
+            isExpanded = !isExpanded;
+            render();
+        };
+
+        // PWA 安装
         const installBtn = document.getElementById('installAppBtn');
         let deferredPrompt;
 
-        // 监听安装提示
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
         });
 
-        // 点击安装按钮
         installBtn.addEventListener('click', async () => {
             if (deferredPrompt) {
-                // 如果浏览器支持直接安装
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                
                 if (outcome === 'accepted') {
                     installBtn.innerHTML = '<span>✅</span><span>App Installed</span>';
                     installBtn.classList.add('installed');
@@ -331,32 +453,24 @@
                 }
                 deferredPrompt = null;
             } else {
-                // 如果不支持自动安装，显示手动指导
-                alert(`To install PCC389 App:\n\n📱 iPhone: Sorry Cann't install now.\n📱 Android: Tap Menu → Add to Home Screen\n\nOr look for "Install" or "Add to Home Screen" in your browser menu.`);
+                alert(`To install PCC389 App:\n\n📱 iPhone: Tap Share → Add to Home Screen\n📱 Android: Tap Menu → Add to Home Screen or Install\n\n(Use Safari on iOS or Chrome on Android)`);
             }
         });
 
-        // 检测是否已安装
         window.addEventListener('appinstalled', () => {
             installBtn.innerHTML = '<span>✅</span><span>App Installed</span>';
             installBtn.classList.add('installed');
             installBtn.disabled = true;
         });
 
-        // Service Worker 注册
+        // Service Worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/pcc389faq/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registered:', registration.scope);
-                    })
-                    .catch(err => {
-                        console.log('ServiceWorker registration failed:', err);
-                    });
+                    .then(reg => console.log('SW registered:', reg.scope))
+                    .catch(err => console.error('SW failed:', err));
             });
         }
-
-        render();
     </script>
 </body>
 </html>
