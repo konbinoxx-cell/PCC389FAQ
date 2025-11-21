@@ -250,10 +250,10 @@
             const cat = catFilter.value;
             
             let list = faqs.filter(i => (cat==='all'||i.cat===cat) && (i.q.toLowerCase().includes(term)||i.a.toLowerCase().includes(term)));
-            const shouldLimit = isPC && !isExpanded && list.length > 3 && term === '' && cat === 'all';
+            const shouldLimit = && !isExpanded && list.length > 3 && term === '' && cat === 'all';
             
             if(shouldLimit) { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show All ↓'; list = list.slice(0,3); }
-            else if(isPC && term==='' && cat==='all') { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show Less ↑'; }
+            else if(&& term==='' && cat==='all') { showMoreBtn.style.display='block'; showMoreBtn.innerText='Show Less ↑'; }
             else { showMoreBtn.style.display='none'; }
 
             if(list.length === 0) container.innerHTML = '<div style="text-align:center;color:#999;padding:20px;">No results found.</div>';
