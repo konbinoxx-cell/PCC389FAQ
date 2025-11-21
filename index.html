@@ -13,7 +13,6 @@
     <link rel="apple-touch-icon" href="ep_icon.png"> 
     
     <style>
-        /* ... (CSS 样式代码保持不变) ... */
         :root {
             --bg: #f7f7f7; --card: #ffffff; --text: #1d1d1f; --text-sec: #86868b;
             --border: #d2d2d7; --accent: #0071e3; --radius: 12px;
@@ -46,6 +45,38 @@
         .goog-te-gadget-simple span { color: var(--text) !important; font-weight: 600 !important; }
         .goog-te-gadget-simple img { display: none !important; }
         
+        /* Install Button */
+        .install-btn-container { text-align: center; margin: 15px 0 20px 0; }
+        .install-app-btn {
+            background: var(--card);
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .install-app-btn:hover {
+            border-color: var(--accent);
+            background: rgba(0, 113, 227, 0.05);
+        }
+        .install-app-btn.installed {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border-color: #28a745;
+        }
+        .install-hint {
+            font-size: 0.75rem;
+            color: var(--text-sec);
+            margin-top: 6px;
+            line-height: 1.3;
+        }
+        
         /* Search & List */
         .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
         input, select, textarea { width: 100%; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--card); color: var(--text); font-size: 1rem; outline: none; }
@@ -70,19 +101,12 @@
         .btn-primary:hover { opacity: 0.9; }
         .btn-ghost { background: none; border: 1px solid var(--border); padding: 8px 20px; border-radius: 20px; cursor: pointer; color: var(--text-sec); margin: 20px auto; display: block; }
         
-        /* PWA安装按钮样式 */
-        .install-btn-container { text-align: center; margin: 20px 0; }
-        #installAppBtn { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px; transition: all 0.3s; display: inline-flex; align-items: center; gap: 8px; }
-        #installAppBtn:hover { opacity: 0.9; transform: translateY(-2px); }
-        #installAppBtn.installed { background: #28a745; }
-        .install-hint { font-size: 0.8rem; color: var(--text-sec); margin-top: 8px; }
-        
         @media (max-width: 600px) {
             header { flex-direction: column; align-items: flex-start; gap: 15px; }
             .controls-row { width: 100%; justify-content: space-between; }
             #google_translate_element { flex: 1; }
             .goog-te-gadget-simple { width: 100% !important; justify-content: space-between !important; }
-            #installAppBtn { width: 100%; justify-content: center; }
+            .install-app-btn { width: 100%; justify-content: center; }
         }
     </style>
 </head>
@@ -96,13 +120,13 @@
         </div>
     </header>
 
-    <!-- 添加PWA安装按钮 -->
+    <!-- 安装按钮 -->
     <div class="install-btn-container">
-        <button id="installAppBtn" style="display: none;">
+        <button id="installAppBtn" class="install-app-btn">
             <span>📱</span>
-            <span>Install PCC389 App</span>
+            <span>Install App</span>
         </button>
-        <div class="install-hint">One-click install to your home screen</div>
+        <div class="install-hint">Tap to install for quick access</div>
     </div>
 
     <div class="toolbar">
@@ -157,7 +181,7 @@
         const REPO = "konbinoxx-cell/issues"; 
         
         // ⚠️ CONFIG: Management Email (接收住户问题的邮箱)
-        const ADMIN_EMAIL = "johnetli@mail.com"; // <-- 请修改这里！
+        const ADMIN_EMAIL = "manager@pcc389.com"; // <-- 请修改这里！
 
         // FAQ Data
         const faqs = [
@@ -241,30 +265,32 @@
         }
 
         // ==================== PWA安装功能 ====================
-        let deferredPrompt;
         const installBtn = document.getElementById('installAppBtn');
+        let deferredPrompt;
 
         // 监听安装提示
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            installBtn.style.display = 'inline-flex';
         });
 
         // 点击安装按钮
         installBtn.addEventListener('click', async () => {
-            if (!deferredPrompt) return;
-            
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            
-            if (outcome === 'accepted') {
-                installBtn.innerHTML = '<span>✅</span><span>App Installed</span>';
-                installBtn.classList.add('installed');
-                installBtn.disabled = true;
+            if (deferredPrompt) {
+                // 如果浏览器支持直接安装
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                
+                if (outcome === 'accepted') {
+                    installBtn.innerHTML = '<span>✅</span><span>App Installed</span>';
+                    installBtn.classList.add('installed');
+                    installBtn.disabled = true;
+                }
+                deferredPrompt = null;
+            } else {
+                // 如果不支持自动安装，显示手动指导
+                alert(`To install PCC389 App:\n\n📱 iPhone: Sorry Cann't install now.\n📱 Android: Tap Menu → Add to Home Screen\n\nOr look for "Install" or "Add to Home Screen" in your browser menu.`);
             }
-            
-            deferredPrompt = null;
         });
 
         // 检测是否已安装
@@ -272,10 +298,9 @@
             installBtn.innerHTML = '<span>✅</span><span>App Installed</span>';
             installBtn.classList.add('installed');
             installBtn.disabled = true;
-            installBtn.style.display = 'inline-flex';
         });
 
-        // Service Worker 注册 (用于PWA/离线功能)
+        // Service Worker 注册
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/pcc389faq/sw.js')
