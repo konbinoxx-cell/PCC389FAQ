@@ -108,6 +108,48 @@
             .goog-te-gadget-simple { width: 100% !important; justify-content: space-between !important; }
             .install-app-btn { width: 100%; justify-content: center; }
         }
+        /* 修改工具栏布局，容纳 Show All 按钮 */
+            .toolbar { 
+                display: flex; 
+                gap: 10px; 
+                margin-bottom: 20px; 
+                flex-wrap: wrap; 
+                align-items: center;
+            }
+            
+            /* Show All 按钮新样式 */
+            .show-all-btn {
+                background: none;
+                border: 1px solid var(--border);
+                padding: 8px 16px;
+                border-radius: 20px;
+                cursor: pointer;
+                color: var(--text-sec);
+                font-size: 0.9rem;
+                white-space: nowrap;
+                transition: all 0.2s ease;
+            }
+            
+            .show-all-btn:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+            }
+            
+            /* 移动端适配 */
+            @media (max-width: 600px) {
+                .toolbar {
+                    flex-direction: row;
+                    align-items: stretch;
+                }
+                .search-bar {
+                    min-width: 120px;
+                }
+                .show-all-btn {
+                    padding: 12px 16px;
+                    width: 100%;
+                    order: 3; /* 在移动端放到最后一行 */
+                }
+            }
     </style>
 </head>
 <body>
