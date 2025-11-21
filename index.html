@@ -401,7 +401,7 @@
             localStorage.setItem('pcc389-theme', newTheme);
             
             document.getElementById('themeToggle').innerHTML = 
-                newTheme === 'dark' ? '🌙 Dark' : '☀️ Light';
+                newTheme === 'dark' ? 'Light' : 'Dark';
         };
 
         // 初始化主题
@@ -409,16 +409,16 @@
             const savedTheme = localStorage.getItem('pcc389-theme');
             if (savedTheme === 'dark') {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                document.getElementById('themeToggle').innerHTML = '🌙 Dark';
+                document.getElementById('themeToggle').innerHTML = 'Light';
             } else {
                 document.documentElement.setAttribute('data-theme', 'light');
-                document.getElementById('themeToggle').innerHTML = '☀️ Light';
+                document.getElementById('themeToggle').innerHTML = 'Dark';
             }
 
             // 自动匹配系统偏好
             if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.setAttribute('data-theme', 'dark');
-                document.getElementById('themeToggle').innerHTML = '🌙 Dark';
+                document.getElementById('themeToggle').innerHTML = 'Light';
             }
 
             // 加载 FAQ
